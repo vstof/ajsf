@@ -138,6 +138,7 @@ export class JsonSchemaFormService {
       validationMessages: {}, // set by setLanguage()
     },
   };
+  showSelectPopup: boolean;
 
   constructor() {
     this.setLanguage(this.language);
@@ -771,5 +772,8 @@ export class JsonSchemaFormService {
     // Remove layoutNode from layout
     JsonPointer.remove(this.layout, this.getLayoutPointer(ctx));
     return true;
+  }
+  selectPopup(event: { context: string; code: string; id: any }, source: any) {
+    throw new Error();
   }
 }

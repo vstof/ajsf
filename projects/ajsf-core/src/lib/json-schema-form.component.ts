@@ -167,6 +167,10 @@ export class JsonSchemaFormComponent implements ControlValueAccessor, OnChanges,
   @Output() formDataChange = new EventEmitter<any>();
   @Output() ngModelChange = new EventEmitter<any>();
 
+  @Input() showSelectPopup = false;
+
+  @Output() selectPopupAction = new EventEmitter<any>();
+
   onChange: Function;
   onTouched: Function;
 
@@ -774,6 +778,11 @@ export class JsonSchemaFormComponent implements ControlValueAccessor, OnChanges,
       this.jsf.validationErrorChanges
         .pipe(takeUntil(this.unsubscribeOnActivateForm$))
         .subscribe((err) => this.validationErrors.emit(err));
+
+      this.jsf.showSelectPopup = this.showSelectPopup;
+      this.jsf.selectPopup = (event: { context: string; code: string; id: any }, source: any) => {
+        this.selectPopupAction.emit({ event, source });
+      };
 
       // Output final schema, final layout, and initial data
       this.formSchema.emit(this.jsf.schema);
