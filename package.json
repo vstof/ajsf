@@ -1,10 +1,11 @@
 {
   "name": "demo",
-  "version": "14.0.0",
+  "version": "15.0.0",
   "author": "https://github.com/hamzahamidi/Angular6-json-schema-form/graphs/contributors",
   "description": "Angular JSON Schema Form builder Demo",
   "engines": {
-    "node": ">=16"
+    "node": "^16.13.2",
+    "npm": "^8.1.2"
   },
   "keywords": [
     "Angular",
@@ -33,6 +34,9 @@
     "Angular13",
     "Angular 13",
     "ng13",
+    "Angular14",
+    "Angular 14",
+    "ng14",
     "JSON Schema",
     "form",
     "forms",
@@ -105,12 +109,22 @@
     "@angular/cli": "^17.1.2",
     "@angular/compiler-cli": "^17.1.2",
     "@angular/language-service": "^17.1.2",
+    "@types/jasmine": "~4.0.0",
+    "@types/lodash": "^4.14.182",
     "@types/node": "^12.11.1",
     "codecov": "^3.8.3",
     "codelyzer": "^6.0.0",
     "ng-packagr": "^17.1.2",
+    "jasmine-core": "~4.3.0",
+    "karma-chrome-launcher": "~3.1.0",
+    "karma": "~6.4.0",
+    "karma-coverage": "~2.2.0",
+    "karma-jasmine": "~5.1.0",
+    "karma-jasmine-html-reporter": "~2.0.0",
+
     "protractor": "~7.0.0",
     "ts-node": "~8.6.2",
+    "tsickle": "^0.46.3",
     "tslib": "^2.3.1",
     "tslint": "~6.1.0",
     "typescript": "~5.3.3",
