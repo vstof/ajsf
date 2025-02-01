@@ -28,16 +28,16 @@ import {JsonSchemaFormService, TitleMapItem} from '../json-schema-form.service';
           [name]="checkboxItem?.name"
           [value]="checkboxItem.value"
           (change)="updateValue($event)"
-          />
+        />
         <label
           [attr.for]="'control' + layoutNode?._id + '/' + checkboxItem.value"
           [class]="options?.itemLabelHtmlClass || ''"
           [innerHTML]="checkboxItem.name"
-          >
+        >
         </label>
       </div>
     }
-    `,
+  `,
   standalone: false,
 })
 export class CheckboxesComponent implements OnInit {

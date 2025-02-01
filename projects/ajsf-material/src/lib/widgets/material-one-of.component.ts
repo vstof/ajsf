@@ -8,7 +8,6 @@ import {JsonSchemaFormService} from '@ajsf/core';
   // tslint:disable-next-line:component-selector
   selector: 'material-one-of-widget',
   template: ``,
-  standalone: false,
 })
 export class MaterialOneOfComponent implements OnInit {
   formControl: AbstractControl;

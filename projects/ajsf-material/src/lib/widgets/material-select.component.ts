@@ -7,107 +7,92 @@ import {MAT_LEGACY_FORM_FIELD_DEFAULT_OPTIONS as MAT_FORM_FIELD_DEFAULT_OPTIONS}
   // tslint:disable-next-line:component-selector
   selector: 'material-select-widget',
   template: `<mat-form-field
-        [appearance]="options?.appearance || matFormFieldDefaultOptions?.appearance || 'standard'"
-        [class]="options?.htmlClass || ''"
+      [appearance]="options?.appearance || matFormFieldDefaultOptions?.appearance || 'standard'"
+      [class]="options?.htmlClass || ''"
       [floatLabel]="
         options?.floatLabel || matFormFieldDefaultOptions?.floatLabel || (options?.notitle ? 'never' : 'auto')
       "
-        [hideRequiredMarker]="options?.hideRequired ? 'true' : 'false'"
-        [style.width]="'100%'"
+      [hideRequiredMarker]="options?.hideRequired ? 'true' : 'false'"
+      [style.width]="'100%'"
+    >
+      @if (!options?.notitle) {
+        <mat-label>{{ options?.title }}</mat-label>
+      }
+      @if (options?.prefix || options?.fieldAddonLeft) {
+        <span matPrefix [innerHTML]="options?.prefix || options?.fieldAddonLeft"></span>
+      }
+      @if (boundControl) {
+        <mat-select
+          [formControl]="formControl"
+          [attr.aria-describedby]="'control' + layoutNode?._id + 'Status'"
+          [attr.name]="controlName"
+          [id]="'control' + layoutNode?._id"
+          [multiple]="options?.multiple"
+          [placeholder]="options?.notitle ? options?.placeholder : options?.title"
+          [required]="options?.required"
+          [style.width]="'100%'"
+          (blur)="options.showErrors = true"
         >
-        @if (!options?.notitle) {
-          <mat-label>{{ options?.title }}</mat-label>
-        }
-        @if (options?.prefix || options?.fieldAddonLeft) {
-          <span
-            matPrefix
-            [innerHTML]="options?.prefix || options?.fieldAddonLeft"
-          ></span>
-        }
-        @if (boundControl) {
-          <mat-select
-            [formControl]="formControl"
-            [attr.aria-describedby]="'control' + layoutNode?._id + 'Status'"
-            [attr.name]="controlName"
-            [id]="'control' + layoutNode?._id"
-            [multiple]="options?.multiple"
-            [placeholder]="options?.notitle ? options?.placeholder : options?.title"
-            [required]="options?.required"
-            [style.width]="'100%'"
-            (blur)="options.showErrors = true"
-            >
-            @for (selectItem of selectList; track selectItem) {
-              @if (!isArray(selectItem?.items)) {
-                <mat-option [value]="selectItem?.value">
-                  <span [innerHTML]="selectItem?.name"></span>
-                </mat-option>
-              }
-              @if (isArray(selectItem?.items)) {
-                <mat-optgroup [label]="selectItem?.group">
-                  @for (subItem of selectItem.items; track subItem) {
-                    <mat-option [value]="subItem?.value">
-                      <span [innerHTML]="subItem?.name"></span>
-                    </mat-option>
-                  }
-                </mat-optgroup>
-              }
+          @for (selectItem of selectList; track selectItem) {
+            @if (!isArray(selectItem?.items)) {
+              <mat-option [value]="selectItem?.value">
+                <span [innerHTML]="selectItem?.name"></span>
+              </mat-option>
             }
-          </mat-select>
-        }
-        @if (!boundControl) {
-          <mat-select
-            [attr.aria-describedby]="'control' + layoutNode?._id + 'Status'"
-            [attr.name]="controlName"
-            [disabled]="controlDisabled || options?.readonly"
-            [id]="'control' + layoutNode?._id"
-            [multiple]="options?.multiple"
-            [placeholder]="options?.notitle ? options?.placeholder : options?.title"
-            [required]="options?.required"
-            [style.width]="'100%'"
-            [value]="controlValue"
-            (blur)="options.showErrors = true"
-            (change)="updateValue($event)"
-            >
-            @for (selectItem of selectList; track selectItem) {
-              @if (!isArray(selectItem?.items)) {
-                <mat-option
-                  [attr.selected]="selectItem?.value === controlValue"
-                  [value]="selectItem?.value"
-                  >
-                  <span [innerHTML]="selectItem?.name"></span>
-                </mat-option>
-              }
-              @if (isArray(selectItem?.items)) {
-                <mat-optgroup [label]="selectItem?.group">
-                  @for (subItem of selectItem.items; track subItem) {
-                    <mat-option
-                      [attr.selected]="subItem?.value === controlValue"
-                      [value]="subItem?.value"
-                      >
-                      <span [innerHTML]="subItem?.name"></span>
-                    </mat-option>
-                  }
-                </mat-optgroup>
-              }
+            @if (isArray(selectItem?.items)) {
+              <mat-optgroup [label]="selectItem?.group">
+                @for (subItem of selectItem.items; track subItem) {
+                  <mat-option [value]="subItem?.value">
+                    <span [innerHTML]="subItem?.name"></span>
+                  </mat-option>
+                }
+              </mat-optgroup>
             }
-          </mat-select>
-        }
-        @if (options?.suffix || options?.fieldAddonRight) {
-          <span
-            matSuffix
-            [innerHTML]="options?.suffix || options?.fieldAddonRight"
-          ></span>
-        }
-        @if (options?.description && (!options?.showErrors || !options?.errorMessage)) {
-          <mat-hint
-            align="end"
-            [innerHTML]="options?.description"
-          ></mat-hint>
-        }
-      </mat-form-field>
-      @if (options?.showErrors && options?.errorMessage) {
-        <mat-error [innerHTML]="options?.errorMessage"></mat-error>
-      }`,
+          }
+        </mat-select>
+      }
+      @if (!boundControl) {
+        <mat-select
+          [attr.aria-describedby]="'control' + layoutNode?._id + 'Status'"
+          [attr.name]="controlName"
+          [disabled]="controlDisabled || options?.readonly"
+          [id]="'control' + layoutNode?._id"
+          [multiple]="options?.multiple"
+          [placeholder]="options?.notitle ? options?.placeholder : options?.title"
+          [required]="options?.required"
+          [style.width]="'100%'"
+          [value]="controlValue"
+          (blur)="options.showErrors = true"
+          (change)="updateValue($event)"
+        >
+          @for (selectItem of selectList; track selectItem) {
+            @if (!isArray(selectItem?.items)) {
+              <mat-option [attr.selected]="selectItem?.value === controlValue" [value]="selectItem?.value">
+                <span [innerHTML]="selectItem?.name"></span>
+              </mat-option>
+            }
+            @if (isArray(selectItem?.items)) {
+              <mat-optgroup [label]="selectItem?.group">
+                @for (subItem of selectItem.items; track subItem) {
+                  <mat-option [attr.selected]="subItem?.value === controlValue" [value]="subItem?.value">
+                    <span [innerHTML]="subItem?.name"></span>
+                  </mat-option>
+                }
+              </mat-optgroup>
+            }
+          }
+        </mat-select>
+      }
+      @if (options?.suffix || options?.fieldAddonRight) {
+        <span matSuffix [innerHTML]="options?.suffix || options?.fieldAddonRight"></span>
+      }
+      @if (options?.description && (!options?.showErrors || !options?.errorMessage)) {
+        <mat-hint align="end" [innerHTML]="options?.description"></mat-hint>
+      }
+    </mat-form-field>
+    @if (options?.showErrors && options?.errorMessage) {
+      <mat-error [innerHTML]="options?.errorMessage"></mat-error>
+    }`,
   styles: [
     `
       mat-error {
@@ -120,7 +105,6 @@ import {MAT_LEGACY_FORM_FIELD_DEFAULT_OPTIONS as MAT_FORM_FIELD_DEFAULT_OPTIONS}
       }
     `,
   ],
-  standalone: false,
 })
 export class MaterialSelectComponent implements OnInit {
   formControl: AbstractControl;

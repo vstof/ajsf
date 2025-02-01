@@ -137,8 +137,7 @@ Setting `loadExternalAssets="true"` will automatically load any additional asset
 Angular JSON Schema Form can also create a form entirely from a JSON object—with no schema—like so:
 
 ```html
-<json-schema-form loadExternalAssets="true" [(ngModel)]="exampleJsonObject">
-</json-schema-form>
+<json-schema-form loadExternalAssets="true" [(ngModel)]="exampleJsonObject"> </json-schema-form>
 ```
 
 ```javascript
@@ -244,11 +243,7 @@ const yourCompoundInputObject = {
 ```
 
 ```html
-<json-schema-form
-  [form]="yourCompoundInputObject"
-  (onSubmit)="yourOnSubmitFn($event)"
->
-</json-schema-form>
+<json-schema-form [form]="yourCompoundInputObject" (onSubmit)="yourOnSubmitFn($event)"> </json-schema-form>
 ```
 
 You can also mix these two styles depending on your needs. In the example playground, all examples use the combined `form` input for `schema`, `layout`, and `data`, which enables each example to control those three inputs, but the playground uses separate inputs for `language` and `framework`, enabling it to change those settings independent of the example.
@@ -262,22 +257,14 @@ If you have previously used another JSON form creation library—Angular Schema 
 Angular Schema Form (AngularJS) compatibility:
 
 ```html
-<json-schema-form
-  [schema]="yourJsonSchema"
-  [form]="yourAngularSchemaFormLayout"
-  [(model)]="yourData"
->
+<json-schema-form [schema]="yourJsonSchema" [form]="yourAngularSchemaFormLayout" [(model)]="yourData">
 </json-schema-form>
 ```
 
 React JSON Schema Form compatibility:
 
 ```html
-<json-schema-form
-  [schema]="yourJsonSchema"
-  [UISchema]="yourReactJsonSchemaFormUISchema"
-  [(formData)]="yourData"
->
+<json-schema-form [schema]="yourJsonSchema" [UISchema]="yourReactJsonSchemaFormUISchema" [(formData)]="yourData">
 </json-schema-form>
 ```
 
@@ -441,8 +428,7 @@ const yourNewWidgets = {
 ...and...
 
 ```html
-<json-schema-form [schema]="yourJsonSchema" [widgets]="yourNewWidgets">
-</json-schema-form>
+<json-schema-form [schema]="yourJsonSchema" [widgets]="yourNewWidgets"> </json-schema-form>
 ```
 
 ...or...
@@ -479,8 +465,7 @@ const yourCustomFramework = {
 ...and...
 
 ```html
-<json-schema-form [schema]="yourJsonSchema" [framework]="yourCustomFramework">
-</json-schema-form>
+<json-schema-form [schema]="yourJsonSchema" [framework]="yourCustomFramework"> </json-schema-form>
 ```
 
 ...or...

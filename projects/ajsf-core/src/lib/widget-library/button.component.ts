@@ -6,21 +6,21 @@ import {JsonSchemaFormService} from '../json-schema-form.service';
   // tslint:disable-next-line:component-selector
   selector: 'button-widget',
   template: `<div [class]="options?.htmlClass || ''">
-      <button
-        [attr.readonly]="options?.readonly ? 'readonly' : null"
-        [attr.aria-describedby]="'control' + layoutNode?._id + 'Status'"
-        [class]="options?.fieldHtmlClass || ''"
-        [disabled]="controlDisabled || options?.readonly"
-        [name]="controlName"
-        [type]="layoutNode?.type"
-        [value]="controlValue"
-        (click)="updateValue($event)"
-        >
-        @if (options?.icon || options?.title) {
-          <span [class]="options?.icon" [innerHTML]="options?.title"></span>
-        }
-      </button>
-    </div>`,
+    <button
+      [attr.readonly]="options?.readonly ? 'readonly' : null"
+      [attr.aria-describedby]="'control' + layoutNode?._id + 'Status'"
+      [class]="options?.fieldHtmlClass || ''"
+      [disabled]="controlDisabled || options?.readonly"
+      [name]="controlName"
+      [type]="layoutNode?.type"
+      [value]="controlValue"
+      (click)="updateValue($event)"
+    >
+      @if (options?.icon || options?.title) {
+        <span [class]="options?.icon" [innerHTML]="options?.title"></span>
+      }
+    </button>
+  </div>`,
   standalone: false,
 })
 export class ButtonComponent implements OnInit {

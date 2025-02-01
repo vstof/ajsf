@@ -5,8 +5,7 @@ import {JsonSchemaFormService} from '@ajsf/core';
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'material-checkbox-widget',
-  template: `
-    @if (boundControl && !showSlideToggle) {
+  template: ` @if (boundControl && !showSlideToggle) {
       <mat-checkbox
         [formControl]="formControl"
         align="left"
@@ -14,12 +13,14 @@ import {JsonSchemaFormService} from '@ajsf/core';
         [id]="'control' + layoutNode?._id"
         labelPosition="after"
         [name]="controlName"
-        (blur)="options.showErrors = true">
+        (blur)="options.showErrors = true"
+      >
         @if (options?.title) {
           <span
             class="checkbox-name"
             [style.display]="options?.notitle ? 'none' : ''"
-          [innerHTML]="options?.title"></span>
+            [innerHTML]="options?.title"
+          ></span>
         }
       </mat-checkbox>
     }
@@ -33,12 +34,14 @@ import {JsonSchemaFormService} from '@ajsf/core';
         [name]="controlName"
         [checked]="isChecked"
         (blur)="options.showErrors = true"
-        (change)="updateValue($event)">
+        (change)="updateValue($event)"
+      >
         @if (options?.title) {
           <span
             class="checkbox-name"
             [style.display]="options?.notitle ? 'none' : ''"
-          [innerHTML]="options?.title"></span>
+            [innerHTML]="options?.title"
+          ></span>
         }
       </mat-checkbox>
     }
@@ -50,12 +53,14 @@ import {JsonSchemaFormService} from '@ajsf/core';
         [id]="'control' + layoutNode?._id"
         labelPosition="after"
         [name]="controlName"
-        (blur)="options.showErrors = true">
+        (blur)="options.showErrors = true"
+      >
         @if (options?.title) {
           <span
             class="checkbox-name"
             [style.display]="options?.notitle ? 'none' : ''"
-          [innerHTML]="options?.title"></span>
+            [innerHTML]="options?.title"
+          ></span>
         }
       </mat-slide-toggle>
     }
@@ -69,26 +74,30 @@ import {JsonSchemaFormService} from '@ajsf/core';
         [name]="controlName"
         [checked]="isChecked"
         (blur)="options.showErrors = true"
-        (change)="updateValue($event)">
+        (change)="updateValue($event)"
+      >
         @if (options?.title) {
           <span
             class="checkbox-name"
             [style.display]="options?.notitle ? 'none' : ''"
-          [innerHTML]="options?.title"></span>
+            [innerHTML]="options?.title"
+          ></span>
         }
       </mat-slide-toggle>
     }
     @if (options?.showErrors && options?.errorMessage) {
-      <mat-error
-      [innerHTML]="options?.errorMessage"></mat-error>
+      <mat-error [innerHTML]="options?.errorMessage"></mat-error>
     }`,
   styles: [
     `
-    .checkbox-name { white-space: nowrap; }
-    mat-error { font-size: 75%; }
-  `,
+      .checkbox-name {
+        white-space: nowrap;
+      }
+      mat-error {
+        font-size: 75%;
+      }
+    `,
   ],
-  standalone: false,
 })
 export class MaterialCheckboxComponent implements OnInit {
   formControl: AbstractControl;

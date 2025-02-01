@@ -4,35 +4,40 @@ import {JsonSchemaFormService} from '@ajsf/core';
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'material-tabs-widget',
-  template: `
-    <nav mat-tab-nav-bar
-      [attr.aria-label]="options?.label || options?.title || ''"
-      [style.width]="'100%'">
+  template: ` <nav mat-tab-nav-bar [attr.aria-label]="options?.label || options?.title || ''" [style.width]="'100%'">
       @for (item of layoutNode?.items; track item; let i = $index) {
-        <a mat-tab-link
-          [active]="selectedItem === i"
-          (click)="select(i)">
-          @if (showAddTab || item.type !== '$ref') {
-            <span
-            [innerHTML]="setTabTitle(item, i)"></span>
+        <a mat-tab-link [active]="selectedItem === i" (click)="select(i)">
+          @if (showAddTab || item.type !== "$ref") {
+            <span [innerHTML]="setTabTitle(item, i)"></span>
           }
         </a>
       }
     </nav>
     @for (layoutItem of layoutNode?.items; track layoutItem; let i = $index) {
-      <div
-        [class]="options?.htmlClass || ''">
+      <div [class]="options?.htmlClass || ''">
         @if (selectedItem === i) {
           <select-framework-widget
-            [class]="(options?.fieldHtmlClass || '') + ' ' + (options?.activeClass || '') + ' ' + (options?.style?.selected || '')"
+            [class]="
+              (options?.fieldHtmlClass || '') +
+              ' ' +
+              (options?.activeClass || '') +
+              ' ' +
+              (options?.style?.selected || '')
+            "
             [dataIndex]="layoutNode?.dataType === 'array' ? (dataIndex || []).concat(i) : dataIndex"
             [layoutIndex]="(layoutIndex || []).concat(i)"
-          [layoutNode]="layoutItem"></select-framework-widget>
+            [layoutNode]="layoutItem"
+          ></select-framework-widget>
         }
       </div>
     }`,
-  styles: [` a { cursor: pointer; } `],
-  standalone: false,
+  styles: [
+    `
+      a {
+        cursor: pointer;
+      }
+    `,
+  ],
 })
 export class MaterialTabsComponent implements OnInit {
   options: any;

@@ -6,22 +6,17 @@ import {JsonSchemaFormService} from '../json-schema-form.service';
   // tslint:disable-next-line:component-selector
   selector: 'hidden-widget',
   template: `@if (boundControl) {
-  <input
-    [formControl]="formControl"
-    [id]="'control' + layoutNode?._id"
-    [name]="controlName"
-    type="hidden"
-    />
-}
-@if (!boundControl) {
-  <input
-    [disabled]="controlDisabled"
-    [name]="controlName"
-    [id]="'control' + layoutNode?._id"
-    type="hidden"
-    [value]="controlValue"
-    />
-}`,
+      <input [formControl]="formControl" [id]="'control' + layoutNode?._id" [name]="controlName" type="hidden" />
+    }
+    @if (!boundControl) {
+      <input
+        [disabled]="controlDisabled"
+        [name]="controlName"
+        [id]="'control' + layoutNode?._id"
+        type="hidden"
+        [value]="controlValue"
+      />
+    }`,
   standalone: false,
 })
 export class HiddenComponent implements OnInit {

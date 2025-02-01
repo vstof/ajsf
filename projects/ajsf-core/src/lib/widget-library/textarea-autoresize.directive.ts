@@ -113,7 +113,7 @@ export class TextareaAutoresizeDirective implements OnDestroy, OnChanges, AfterC
   }
 
   _addWindowResizeHandler() {
-    let _this = this;
+    const _this = this;
     // this._windowResizeHandler = Debounce(() => {
     //   this._zone.run(() => {
     //     _this.adjust();
@@ -155,7 +155,7 @@ export class TextareaAutoresizeDirective implements OnDestroy, OnChanges, AfterC
       let height = clone.scrollHeight;
 
       // add into height top and bottom borders' width
-      let computedStyle = this._window.nativeWindow.getComputedStyle(clone, null);
+      const computedStyle = this._window.nativeWindow.getComputedStyle(clone, null);
       height += parseInt(computedStyle.getPropertyValue('border-top-width'));
       height += parseInt(computedStyle.getPropertyValue('border-bottom-width'));
 

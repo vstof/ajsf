@@ -4,18 +4,19 @@ import {JsonSchemaFormService} from '../json-schema-form.service';
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'section-widget',
-  template: `
-    @if (containerType === 'div') {
+  template: ` @if (containerType === "div") {
       <div
         [class]="options?.htmlClass || ''"
         [class.expandable]="options?.expandable && !expanded"
-        [class.expanded]="options?.expandable && expanded">
+        [class.expanded]="options?.expandable && expanded"
+      >
         @if (sectionTitle) {
           <label
             class="legend"
             [class]="options?.labelHtmlClass || ''"
             [innerHTML]="sectionTitle"
-          (click)="toggleExpanded()"></label>
+            (click)="toggleExpanded()"
+          ></label>
         }
         @if (expanded) {
           <root-widget
@@ -31,30 +32,30 @@ import {JsonSchemaFormService} from '../json-schema-form.service';
             [style.display]="getFlexAttribute('display')"
             [style.flex-direction]="getFlexAttribute('flex-direction')"
             [style.flex-wrap]="getFlexAttribute('flex-wrap')"
-          [style.justify-content]="getFlexAttribute('justify-content')"></root-widget>
+            [style.justify-content]="getFlexAttribute('justify-content')"
+          ></root-widget>
         }
       </div>
     }
-    @if (containerType === 'fieldset') {
+    @if (containerType === "fieldset") {
       <fieldset
         [class]="options?.htmlClass || ''"
         [class.expandable]="options?.expandable && !expanded"
         [class.expanded]="options?.expandable && expanded"
-        [disabled]="options?.readonly">
+        [disabled]="options?.readonly"
+      >
         @if (sectionTitle) {
           <legend
             class="legend"
             [class]="options?.labelHtmlClass || ''"
             [innerHTML]="sectionTitle"
-          (click)="toggleExpanded()"></legend>
+            (click)="toggleExpanded()"
+          ></legend>
         }
-        @if (options?.messageLocation !== 'bottom') {
+        @if (options?.messageLocation !== "bottom") {
           <div>
             @if (options?.description) {
-              <p
-                class="help-block"
-                [class]="options?.labelHelpBlockClass || ''"
-              [innerHTML]="options?.description"></p>
+              <p class="help-block" [class]="options?.labelHelpBlockClass || ''" [innerHTML]="options?.description"></p>
             }
           </div>
         }
@@ -72,15 +73,13 @@ import {JsonSchemaFormService} from '../json-schema-form.service';
             [style.display]="getFlexAttribute('display')"
             [style.flex-direction]="getFlexAttribute('flex-direction')"
             [style.flex-wrap]="getFlexAttribute('flex-wrap')"
-          [style.justify-content]="getFlexAttribute('justify-content')"></root-widget>
+            [style.justify-content]="getFlexAttribute('justify-content')"
+          ></root-widget>
         }
-        @if (options?.messageLocation === 'bottom') {
+        @if (options?.messageLocation === "bottom") {
           <div>
             @if (options?.description) {
-              <p
-                class="help-block"
-                [class]="options?.labelHelpBlockClass || ''"
-              [innerHTML]="options?.description"></p>
+              <p class="help-block" [class]="options?.labelHelpBlockClass || ''" [innerHTML]="options?.description"></p>
             }
           </div>
         }
@@ -88,10 +87,20 @@ import {JsonSchemaFormService} from '../json-schema-form.service';
     }`,
   styles: [
     `
-    .legend { font-weight: bold; }
-    .expandable > legend:before, .expandable > label:before  { content: '▶'; padding-right: .3em; }
-    .expanded > legend:before, .expanded > label:before  { content: '▼'; padding-right: .2em; }
-  `,
+      .legend {
+        font-weight: bold;
+      }
+      .expandable > legend:before,
+      .expandable > label:before {
+        content: "▶";
+        padding-right: 0.3em;
+      }
+      .expanded > legend:before,
+      .expanded > label:before {
+        content: "▼";
+        padding-right: 0.2em;
+      }
+    `,
   ],
   standalone: false,
 })

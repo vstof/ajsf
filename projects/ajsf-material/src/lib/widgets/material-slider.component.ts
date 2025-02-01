@@ -5,9 +5,9 @@ import {JsonSchemaFormService} from '@ajsf/core';
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'material-slider-widget',
-  template: `
-    @if (boundControl) {
-      <mat-slider thumbLabel
+  template: ` @if (boundControl) {
+      <mat-slider
+        thumbLabel
         [formControl]="formControl"
         [attr.aria-describedby]="'control' + layoutNode?._id + 'Status'"
         [id]="'control' + layoutNode?._id"
@@ -15,10 +15,12 @@ import {JsonSchemaFormService} from '@ajsf/core';
         [min]="options?.minimum"
         [step]="options?.multipleOf || options?.step || 'any'"
         [style.width]="'100%'"
-      (blur)="options.showErrors = true"></mat-slider>
+        (blur)="options.showErrors = true"
+      ></mat-slider>
     }
     @if (!boundControl) {
-      <mat-slider thumbLabel
+      <mat-slider
+        thumbLabel
         [attr.aria-describedby]="'control' + layoutNode?._id + 'Status'"
         [disabled]="controlDisabled || options?.readonly"
         [id]="'control' + layoutNode?._id"
@@ -28,14 +30,19 @@ import {JsonSchemaFormService} from '@ajsf/core';
         [style.width]="'100%'"
         [value]="controlValue"
         (blur)="options.showErrors = true"
-      (change)="updateValue($event)"></mat-slider>
+        (change)="updateValue($event)"
+      ></mat-slider>
     }
     @if (options?.showErrors && options?.errorMessage) {
-      <mat-error
-      [innerHTML]="options?.errorMessage"></mat-error>
+      <mat-error [innerHTML]="options?.errorMessage"></mat-error>
     }`,
-  styles: [` mat-error { font-size: 75%; } `],
-  standalone: false,
+  styles: [
+    `
+      mat-error {
+        font-size: 75%;
+      }
+    `,
+  ],
 })
 export class MaterialSliderComponent implements OnInit {
   formControl: AbstractControl;

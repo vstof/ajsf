@@ -15,22 +15,20 @@ yarn add @ajsf/material@latest
 Then import `MaterialDesignFrameworkModule` in your main application module if you want to use `material-angular` UI, like this:
 
 ```javascript
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { BrowserModule } from "@angular/platform-browser";
+import { NgModule } from "@angular/core";
 
-import { MaterialDesignFrameworkModule } from '@ajsf/material';
+import { MaterialDesignFrameworkModule } from "@ajsf/material";
 
-import { AppComponent } from './app.component';
+import { AppComponent } from "./app.component";
 
 @NgModule({
-  declarations: [ AppComponent ],
-  imports: [
-    MaterialDesignFrameworkModule
-  ],
+  declarations: [AppComponent],
+  imports: [MaterialDesignFrameworkModule],
   providers: [],
-  bootstrap: [ AppComponent ]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
 ```
 
 For basic use, after loading JsonSchemaFormModule as described above, to display a form in your Angular component, simply add the following to your component's template:
@@ -40,7 +38,8 @@ For basic use, after loading JsonSchemaFormModule as described above, to display
   loadExternalAssets="true"
   [schema]="yourJsonSchema"
   framework="material-design"
-  (onSubmit)="yourOnSubmitFn($event)">
+  (onSubmit)="yourOnSubmitFn($event)"
+>
 </json-schema-form>
 ```
 

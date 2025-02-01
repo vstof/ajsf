@@ -1,8 +1,9 @@
-import {ChangeDetectorRef, Component, Input, OnChanges, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, ElementRef, Input, OnChanges, OnInit} from '@angular/core';
 
 import cloneDeep from 'lodash-es/cloneDeep';
 import map from 'lodash-es/map';
 import {JsonSchemaFormService, addClasses, inArray} from '@ajsf/core';
+import {NoFrameworkComponent} from '@ajsf/core/framework-library/no-framework.component';
 
 /**
  * Bootstrap 5 framework for Angular JSON Schema Form.
@@ -15,45 +16,10 @@ import {JsonSchemaFormService, addClasses, inArray} from '@ajsf/core';
   styleUrls: ['./bootstrap5-framework.component.scss'],
   standalone: false,
 })
-export class Bootstrap5FrameworkComponent implements OnInit, OnChanges {
-  frameworkInitialized = false;
-  widgetOptions: any; // Options passed to child widget
-  widgetLayoutNode: any; // layoutNode passed to child widget
-  options: any; // Options used in this framework
-  formControl: any = null;
-  debugOutput: any = '';
-  debug: any = '';
-  parentArray: any = null;
-  isOrderable = false;
-  @Input() layoutNode: any;
-  @Input() layoutIndex: number[];
-  @Input() dataIndex: number[];
-
-  constructor(
-    public changeDetector: ChangeDetectorRef,
-    public jsf: JsonSchemaFormService,
-  ) {}
-
-  get showRemoveButton(): boolean {
-    if (!this.options?.removable || this.options?.readonly || this.layoutNode.type === '$ref') {
-      return false;
-    }
-    if (this.layoutNode.recursiveReference) {
-      return true;
-    }
-    if (!this.layoutNode.arrayItem || !this.parentArray) {
-      return false;
-    }
-    // If array length <= minItems, don't allow removing any items
-    return this.parentArray.items.length - 1 <= this.parentArray.options.minItems
-      ? false
-      : // For removable list items, allow removing any item
-        this.layoutNode.arrayItemType === 'list'
-        ? true
-        : // For removable tuple items, only allow removing last item in list
-          this.layoutIndex[this.layoutIndex.length - 1] === this.parentArray.items.length - 2;
-  }
-
+export class Bootstrap5FrameworkComponent
+  extends NoFrameworkComponent
+  implements OnInit, OnChanges
+{
   ngOnInit() {
     this.initializeFramework();
     if (this.layoutNode.arrayItem && this.layoutNode.type !== '$ref') {
@@ -129,23 +95,13 @@ export class Bootstrap5FrameworkComponent implements OnInit, OnChanges {
           ? addClasses(this.options.htmlClass, 'list-group')
           : this.layoutNode.arrayItem && this.layoutNode.type !== '$ref'
             ? addClasses(this.options.htmlClass, 'list-group-item')
-            : addClasses(this.options.htmlClass, '');
+            : addClasses(this.options.htmlClass, 'form-group');
+
       this.widgetOptions.htmlClass = '';
       this.options.labelHtmlClass = addClasses(this.options.labelHtmlClass, 'form-label');
       this.widgetOptions.activeClass = addClasses(this.widgetOptions.activeClass, 'active');
       this.options.fieldAddonLeft = this.options.fieldAddonLeft || this.options.prepend;
       this.options.fieldAddonRight = this.options.fieldAddonRight || this.options.append;
-
-      // Add asterisk to titles if required
-      if (
-        this.options.title &&
-        this.layoutNode.type !== 'tab' &&
-        !this.options.notitle &&
-        this.options.required &&
-        !this.options.title.includes('*')
-      ) {
-        this.options.title += ' <strong class="text-danger">*</strong>';
-      }
 
       // Set miscelaneous styles and settings for each control type
       switch (this.layoutNode.type) {

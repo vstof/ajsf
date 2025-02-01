@@ -4,42 +4,59 @@ import {JsonSchemaFormService} from '../json-schema-form.service';
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'tabs-widget',
-  template: `
-    <ul
-      [class]="options?.labelHtmlClass || ''">
+  template: ` <ul [class]="options?.labelHtmlClass || ''">
       @for (item of layoutNode?.items; track item; let i = $index) {
         <li
-        [class]="(options?.itemLabelHtmlClass || '') + (selectedItem === i ?
-          (' ' + (options?.activeClass || '') + ' ' + (options?.style?.selected || '')) :
-          (' ' + options?.style?.unselected))"
+          [class]="
+            (options?.itemLabelHtmlClass || '') +
+            (selectedItem === i
+              ? ' ' + (options?.activeClass || '') + ' ' + (options?.style?.selected || '')
+              : ' ' + options?.style?.unselected)
+          "
           role="presentation"
-          data-tabs>
-          @if (showAddTab || item.type !== '$ref') {
+          data-tabs
+        >
+          @if (showAddTab || item.type !== "$ref") {
             <a
-           [class]="'nav-link' + (selectedItem === i ? (' ' + options?.activeClass + ' ' + options?.style?.selected) :
-            (' ' + options?.style?.unselected))"
+              [class]="
+                'nav-link' +
+                (selectedItem === i
+                  ? ' ' + options?.activeClass + ' ' + options?.style?.selected
+                  : ' ' + options?.style?.unselected)
+              "
               [innerHTML]="setTabTitle(item, i)"
-            (click)="select(i)"></a>
+              (click)="select(i)"
+            ></a>
           }
         </li>
       }
     </ul>
-    
+
     @for (layoutItem of layoutNode?.items; track layoutItem; let i = $index) {
-      <div
-        [class]="options?.htmlClass || ''">
+      <div [class]="options?.htmlClass || ''">
         @if (selectedItem === i) {
           <select-framework-widget
-        [class]="(options?.fieldHtmlClass || '') +
-          ' ' + (options?.activeClass || '') +
-          ' ' + (options?.style?.selected || '')"
+            [class]="
+              (options?.fieldHtmlClass || '') +
+              ' ' +
+              (options?.activeClass || '') +
+              ' ' +
+              (options?.style?.selected || '')
+            "
             [dataIndex]="layoutNode?.dataType === 'array' ? (dataIndex || []).concat(i) : dataIndex"
             [layoutIndex]="(layoutIndex || []).concat(i)"
-          [layoutNode]="layoutItem"></select-framework-widget>
+            [layoutNode]="layoutItem"
+          ></select-framework-widget>
         }
       </div>
     }`,
-  styles: [` a { cursor: pointer; } `],
+  styles: [
+    `
+      a {
+        cursor: pointer;
+      }
+    `,
+  ],
   standalone: false,
 })
 export class TabsComponent implements OnInit {

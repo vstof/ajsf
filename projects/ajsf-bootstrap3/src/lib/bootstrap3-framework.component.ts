@@ -2,6 +2,7 @@ import {ChangeDetectorRef, Component, Input, OnChanges, OnInit} from '@angular/c
 import cloneDeep from 'lodash-es/cloneDeep';
 import map from 'lodash-es/map';
 import {JsonSchemaFormService, addClasses, inArray} from '@ajsf/core';
+import {NoFrameworkComponent} from '@ajsf/core/framework-library/no-framework.component';
 
 /**
  * Bootstrap 3 framework for Angular JSON Schema Form.
@@ -11,47 +12,11 @@ import {JsonSchemaFormService, addClasses, inArray} from '@ajsf/core';
   selector: 'bootstrap-3-framework',
   templateUrl: './bootstrap3-framework.component.html',
   styleUrls: ['./bootstrap3-framework.component.scss'],
-  standalone: false,
 })
-export class Bootstrap3FrameworkComponent implements OnInit, OnChanges {
-  frameworkInitialized = false;
-  widgetOptions: any; // Options passed to child widget
-  widgetLayoutNode: any; // layoutNode passed to child widget
-  options: any; // Options used in this framework
-  formControl: any = null;
-  debugOutput: any = '';
-  debug: any = '';
-  parentArray: any = null;
-  isOrderable = false;
-  @Input() layoutNode: any;
-  @Input() layoutIndex: number[];
-  @Input() dataIndex: number[];
-
-  constructor(
-    public changeDetector: ChangeDetectorRef,
-    public jsf: JsonSchemaFormService,
-  ) {}
-
-  get showRemoveButton(): boolean {
-    if (!this.options.removable || this.options.readonly || this.layoutNode.type === '$ref') {
-      return false;
-    }
-    if (this.layoutNode.recursiveReference) {
-      return true;
-    }
-    if (!this.layoutNode.arrayItem || !this.parentArray) {
-      return false;
-    }
-    // If array length <= minItems, don't allow removing any items
-    return this.parentArray.items.length - 1 <= this.parentArray.options.minItems
-      ? false
-      : // For removable list items, allow removing any item
-        this.layoutNode.arrayItemType === 'list'
-        ? true
-        : // For removable tuple items, only allow removing last item in list
-          this.layoutIndex[this.layoutIndex.length - 1] === this.parentArray.items.length - 2;
-  }
-
+export class Bootstrap3FrameworkComponent
+  extends NoFrameworkComponent
+  implements OnInit, OnChanges
+{
   ngOnInit() {
     this.initializeFramework();
     if (this.layoutNode.arrayItem && this.layoutNode.type !== '$ref') {

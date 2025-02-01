@@ -4,24 +4,24 @@ import {JsonSchemaFormService} from '@ajsf/core';
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'material-add-reference-widget',
-  template: `
-    <section [class]="options?.htmlClass || ''" align="end">
-      @if (showAddButton) {
-        <button mat-raised-button
-          [color]="options?.color || 'accent'"
-          [disabled]="options?.readonly"
-          (click)="addItem($event)">
-          @if (options?.icon) {
-            <span [class]="options?.icon"></span>
-          }
-          @if (options?.title) {
-            <span [innerHTML]="buttonText"></span>
-          }
-        </button>
-      }
-    </section>`,
+  template: ` <section [class]="options?.htmlClass || ''" align="end">
+    @if (showAddButton) {
+      <button
+        mat-raised-button
+        [color]="options?.color || 'accent'"
+        [disabled]="options?.readonly"
+        (click)="addItem($event)"
+      >
+        @if (options?.icon) {
+          <span [class]="options?.icon"></span>
+        }
+        @if (options?.title) {
+          <span [innerHTML]="buttonText"></span>
+        }
+      </button>
+    }
+  </section>`,
   changeDetection: ChangeDetectionStrategy.Default,
-  standalone: false,
 })
 export class MaterialAddReferenceComponent implements OnInit {
   options: any;

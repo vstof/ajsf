@@ -5,26 +5,25 @@ import {JsonSchemaFormService} from '@ajsf/core';
   // tslint:disable-next-line:component-selector
   selector: 'flex-layout-root-widget',
   template: ` @for (layoutNode of layout; track layoutNode; let i = $index) {
-  <div
-    [class.form-flex-item]="isFlexItem"
-    [style.flex-grow]="getFlexAttribute(layoutNode, 'flex-grow')"
-    [style.flex-shrink]="getFlexAttribute(layoutNode, 'flex-shrink')"
-    [style.flex-basis]="getFlexAttribute(layoutNode, 'flex-basis')"
-    [style.align-self]="(layoutNode?.options || {})['align-self']"
-    [style.order]="layoutNode?.options?.order"
+    <div
+      [class.form-flex-item]="isFlexItem"
+      [style.flex-grow]="getFlexAttribute(layoutNode, 'flex-grow')"
+      [style.flex-shrink]="getFlexAttribute(layoutNode, 'flex-shrink')"
+      [style.flex-basis]="getFlexAttribute(layoutNode, 'flex-basis')"
+      [style.align-self]="(layoutNode?.options || {})['align-self']"
+      [style.order]="layoutNode?.options?.order"
     >
-    @if (showWidget(layoutNode)) {
-      <select-framework-widget
-        [dataIndex]="layoutNode?.arrayItem ? (dataIndex || []).concat(i) : dataIndex || []"
-        [layoutIndex]="(layoutIndex || []).concat(i)"
-        [layoutNode]="layoutNode"
-      ></select-framework-widget>
-    }
-    <div></div>
-  </div>
-}`,
+      @if (showWidget(layoutNode)) {
+        <select-framework-widget
+          [dataIndex]="layoutNode?.arrayItem ? (dataIndex || []).concat(i) : dataIndex || []"
+          [layoutIndex]="(layoutIndex || []).concat(i)"
+          [layoutNode]="layoutNode"
+        ></select-framework-widget>
+      }
+      <div></div>
+    </div>
+  }`,
   changeDetection: ChangeDetectionStrategy.Default,
-  standalone: false,
 })
 export class FlexLayoutRootComponent {
   @Input() dataIndex: number[];

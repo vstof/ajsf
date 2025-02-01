@@ -9,7 +9,7 @@
 >
   <select-framework-widget
     *ngIf="showWidget(layoutNode)"
-    [dataIndex]="layoutNode?.arrayItem ? (dataIndex || []).concat(i) : (dataIndex || [])"
+    [dataIndex]="layoutNode?.arrayItem ? (dataIndex || []).concat(i) : dataIndex || []"
     [layoutIndex]="(layoutIndex || []).concat(i)"
     [layoutNode]="layoutNode"
   ></select-framework-widget>

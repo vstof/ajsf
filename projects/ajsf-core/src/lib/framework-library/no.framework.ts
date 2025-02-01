@@ -8,8 +8,4 @@ export class NoFramework extends Framework {
   name = 'no-framework';
 
   framework = NoFrameworkComponent;
-
-  stylesheets = [];
-
-  scripts = [];
 }

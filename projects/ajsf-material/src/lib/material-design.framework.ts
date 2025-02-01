@@ -32,12 +32,7 @@ export class MaterialDesignFramework extends Framework {
 
   framework = MaterialDesignFrameworkComponent;
 
-  stylesheets = [
-    '//fonts.googleapis.com/icon?family=Material+Icons',
-    '//fonts.googleapis.com/css?family=Roboto:300,400,500,700',
-  ];
-
-  override widgets = {
+  widgets = {
     root: FlexLayoutRootComponent,
     section: FlexLayoutSectionComponent,
     $ref: MaterialAddReferenceComponent,
@@ -71,5 +66,4 @@ export class MaterialDesignFramework extends Framework {
     tagsinput: 'chip-list',
     wizard: 'stepper',
   };
-  scripts = [];
 }

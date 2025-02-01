@@ -1,57 +1,19 @@
 import {ChangeDetectorRef, Component, Input, OnChanges, OnInit} from '@angular/core';
 import {isDefined, JsonSchemaFormService} from '@ajsf/core';
 import cloneDeep from 'lodash-es/cloneDeep';
+import {NoFrameworkComponent} from '@ajsf/core/framework-library/no-framework.component';
 
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'material-design-framework',
   templateUrl: './material-design-framework.component.html',
   styleUrls: ['./material-design-framework.component.scss'],
-  standalone: false,
 })
-export class MaterialDesignFrameworkComponent implements OnInit, OnChanges {
-  frameworkInitialized = false;
-  inputType: string;
-  options: any; // Options used in this framework
-  widgetLayoutNode: any; // layoutNode passed to child widget
-  widgetOptions: any; // Options passed to child widget
-  formControl: any = null;
-  parentArray: any = null;
-  isOrderable = false;
-  dynamicTitle: string = null;
-  @Input() layoutNode: any;
-  @Input() layoutIndex: number[];
-  @Input() dataIndex: number[];
-
-  constructor(
-    private changeDetector: ChangeDetectorRef,
-    private jsf: JsonSchemaFormService,
-  ) {}
-
-  get showRemoveButton(): boolean {
-    if (
-      !this.layoutNode ||
-      !this.widgetOptions.removable ||
-      this.widgetOptions.readonly ||
-      this.layoutNode.type === '$ref'
-    ) {
-      return false;
-    }
-    if (this.layoutNode.recursiveReference) {
-      return true;
-    }
-    if (!this.layoutNode.arrayItem || !this.parentArray) {
-      return false;
-    }
-    // If array length <= minItems, don't allow removing any items
-    return this.parentArray.items.length - 1 <= this.parentArray.options.minItems
-      ? false
-      : // For removable list items, allow removing any item
-        this.layoutNode.arrayItemType === 'list'
-        ? true
-        : // For removable tuple items, only allow removing last item in list
-          this.layoutIndex[this.layoutIndex.length - 1] === this.parentArray.items.length - 2;
-  }
+export class MaterialDesignFrameworkComponent
+  extends NoFrameworkComponent
+  implements OnInit, OnChanges
+{
+  dynamicTitle: any;
 
   ngOnInit() {
     this.initializeFramework();

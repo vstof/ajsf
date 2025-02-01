@@ -15,22 +15,20 @@ yarn add @ajsf/bootstrap5@latest
 Then import `Bootstrap5FrameworkModule` in your main application module if you want to use `bootstrap5` UI, like this:
 
 ```javascript
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { BrowserModule } from "@angular/platform-browser";
+import { NgModule } from "@angular/core";
 
-import { Bootstrap5FrameworkModule } from '@ajsf/bootstrap5';
+import { Bootstrap5FrameworkModule } from "@ajsf/bootstrap5";
 
-import { AppComponent } from './app.component';
+import { AppComponent } from "./app.component";
 
 @NgModule({
-  declarations: [ AppComponent ],
-  imports: [
-    Bootstrap5FrameworkModule
-  ],
+  declarations: [AppComponent],
+  imports: [Bootstrap5FrameworkModule],
   providers: [],
-  bootstrap: [ AppComponent ]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
 ```
 
 For basic use, after loading JsonSchemaFormModule as described above, to display a form in your Angular component, simply add the following to your component's template:
@@ -40,7 +38,8 @@ For basic use, after loading JsonSchemaFormModule as described above, to display
   loadExternalAssets="true"
   [schema]="yourJsonSchema"
   framework="bootstrap-5"
-  (onSubmit)="yourOnSubmitFn($event)">
+  (onSubmit)="yourOnSubmitFn($event)"
+>
 </json-schema-form>
 ```
 

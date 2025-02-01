@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule} from '@angular/forms';
-import {provideHttpClient, withInterceptorsFromDi} from '@angular/common/http';
+import {HttpClientModule} from '@angular/common/http';
 import {RouterModule} from '@angular/router';
 import {MatLegacyButtonModule as MatButtonModule} from '@angular/material/legacy-button';
 import {MatLegacyCardModule as MatCardModule} from '@angular/material/legacy-card';
@@ -23,11 +23,11 @@ import {MaterialDesignFrameworkModule} from '@ajsf/material';
 
 @NgModule({
   declarations: [AceEditorDirective, DemoComponent, DemoRootComponent],
-  bootstrap: [DemoRootComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
+    HttpClientModule,
     MatButtonModule,
     MatCardModule,
     MatCheckboxModule,
@@ -42,6 +42,6 @@ import {MaterialDesignFrameworkModule} from '@ajsf/material';
     MaterialDesignFrameworkModule,
     JsonSchemaFormModule,
   ],
-  providers: [provideHttpClient(withInterceptorsFromDi())],
+  bootstrap: [DemoRootComponent],
 })
 export class DemoModule {}

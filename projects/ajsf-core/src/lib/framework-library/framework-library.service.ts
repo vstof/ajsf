@@ -16,9 +16,6 @@ import {WidgetLibraryService} from '../widget-library/widget-library.service';
 })
 export class FrameworkLibraryService {
   activeFramework: Framework = null;
-  stylesheets: (HTMLStyleElement | HTMLLinkElement)[];
-  scripts: HTMLScriptElement[];
-  loadExternalAssets = false;
   defaultFramework: string;
   frameworkLibrary: {[name: string]: Framework} = {};
 
@@ -31,14 +28,7 @@ export class FrameworkLibraryService {
     this.setFramework(this.defaultFramework);
   }
 
-  public setLoadExternalAssets(loadExternalAssets = true): void {
-    this.loadExternalAssets = !!loadExternalAssets;
-  }
-
-  public setFramework(
-    framework: string | Framework = this.defaultFramework,
-    loadExternalAssets = this.loadExternalAssets,
-  ): boolean {
+  public setFramework(framework: string | Framework = this.defaultFramework): boolean {
     this.activeFramework =
       typeof framework === 'string' && this.hasFramework(framework)
         ? this.frameworkLibrary[framework]
@@ -58,22 +48,14 @@ export class FrameworkLibraryService {
     return hasOwn(this.frameworkLibrary, type);
   }
 
-  public getFramework(): any {
+  public getFramework(): Framework {
     if (!this.activeFramework) {
-      this.setFramework('default', true);
+      this.setFramework('default');
     }
     return this.activeFramework.framework;
   }
 
   public getFrameworkWidgets(): any {
     return this.activeFramework.widgets || {};
-  }
-
-  public getFrameworkStylesheets(load: boolean = this.loadExternalAssets): string[] {
-    return (load && this.activeFramework.stylesheets) || [];
-  }
-
-  public getFrameworkScripts(load: boolean = this.loadExternalAssets): string[] {
-    return (load && this.activeFramework.scripts) || [];
   }
 }

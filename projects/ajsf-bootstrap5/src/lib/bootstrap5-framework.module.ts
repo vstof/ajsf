@@ -10,12 +10,11 @@ import {
 } from '@ajsf/core';
 import {Bootstrap5Framework} from './bootstrap5.framework';
 import {Bootstrap5FrameworkComponent} from './bootstrap5-framework.component';
-import {ExtendedTextareaComponent} from './widgets/extended-textarea.component';
 
 @NgModule({
   imports: [JsonSchemaFormModule, CommonModule, WidgetLibraryModule],
-  declarations: [ExtendedTextareaComponent, Bootstrap5FrameworkComponent],
-  exports: [JsonSchemaFormModule, ExtendedTextareaComponent, Bootstrap5FrameworkComponent],
+  declarations: [Bootstrap5FrameworkComponent],
+  exports: [JsonSchemaFormModule, Bootstrap5FrameworkComponent],
   providers: [
     JsonSchemaFormService,
     FrameworkLibraryService,

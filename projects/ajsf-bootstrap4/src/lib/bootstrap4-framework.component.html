@@ -1,11 +1,14 @@
 <div
   [class]="options?.htmlClass || ''"
-  [class.has-feedback]="options?.feedback && options?.isInputWidget &&
-        (formControl?.dirty || options?.feedbackOnRender)"
-  [class.has-error]="options?.enableErrorState && formControl?.errors &&
-        (formControl?.dirty || options?.feedbackOnRender)"
-  [class.has-success]="options?.enableSuccessState && !formControl?.errors &&
-        (formControl?.dirty || options?.feedbackOnRender)"
+  [class.has-feedback]="
+    options?.feedback && options?.isInputWidget && (formControl?.dirty || options?.feedbackOnRender)
+  "
+  [class.has-error]="
+    options?.enableErrorState && formControl?.errors && (formControl?.dirty || options?.feedbackOnRender)
+  "
+  [class.has-success]="
+    options?.enableSuccessState && !formControl?.errors && (formControl?.dirty || options?.feedbackOnRender)
+  "
 >
   @if (showRemoveButton) {
     <button class="close pull-right" type="button" (click)="removeItem()">
@@ -13,7 +16,7 @@
       <span class="sr-only">Close</span>
     </button>
   }
-  @if (options?.messageLocation === 'top') {
+  @if (options?.messageLocation === "top") {
     <div>
       @if (options?.helpBlock) {
         <p class="help-block" [innerHTML]="options?.helpBlock"></p>
@@ -21,7 +24,7 @@
     </div>
   }
 
-  @if (options?.title && layoutNode?.type !== 'tab') {
+  @if (options?.title && layoutNode?.type !== "tab") {
     <label
       [attr.for]="'control' + layoutNode?._id"
       [class]="options?.labelHtmlClass || ''"
@@ -29,7 +32,7 @@
       [innerHTML]="options?.title"
     ></label>
   }
-  @if (layoutNode?.type === 'submit' && jsf?.formOptions?.fieldsRequired) {
+  @if (layoutNode?.type === "submit" && jsf?.formOptions?.fieldsRequired) {
     <p><strong class="text-danger">*</strong> = required fields</p>
   }
   <div [class.input-group]="options?.fieldAddonLeft || options?.fieldAddonRight">
@@ -49,8 +52,10 @@
   </div>
 
   @if (
-    options?.feedback && options?.isInputWidget &&
-    !options?.fieldAddonRight && !layoutNode.arrayItem &&
+    options?.feedback &&
+    options?.isInputWidget &&
+    !options?.fieldAddonRight &&
+    !layoutNode.arrayItem &&
     (formControl?.dirty || options?.feedbackOnRender)
   ) {
     <span
@@ -60,7 +65,7 @@
       class="form-control-feedback glyphicon"
     ></span>
   }
-  @if (options?.messageLocation !== 'top') {
+  @if (options?.messageLocation !== "top") {
     <div>
       @if (options?.helpBlock) {
         <p class="help-block" [innerHTML]="options?.helpBlock"></p>
@@ -72,6 +77,6 @@
 @if (debug && debugOutput) {
   <div>
     debug:
-    <pre>{{debugOutput}}</pre>
+    <pre>{{ debugOutput }}</pre>
   </div>
 }

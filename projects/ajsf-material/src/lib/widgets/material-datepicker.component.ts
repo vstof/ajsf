@@ -6,21 +6,24 @@ import {MAT_LEGACY_FORM_FIELD_DEFAULT_OPTIONS as MAT_FORM_FIELD_DEFAULT_OPTIONS}
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'material-datepicker-widget',
-  template: `
-    <mat-form-field [appearance]="options?.appearance || matFormFieldDefaultOptions?.appearance || 'standard'"
+  template: ` <mat-form-field
+      [appearance]="options?.appearance || matFormFieldDefaultOptions?.appearance || 'standard'"
       [class]="options?.htmlClass || ''"
-      [floatLabel]="options?.floatLabel || matFormFieldDefaultOptions?.floatLabel || (options?.notitle ? 'never' : 'auto')"
+      [floatLabel]="
+        options?.floatLabel || matFormFieldDefaultOptions?.floatLabel || (options?.notitle ? 'never' : 'auto')
+      "
       [hideRequiredMarker]="options?.hideRequired ? 'true' : 'false'"
-      [style.width]="'100%'">
+      [style.width]="'100%'"
+    >
       @if (!options?.notitle) {
-        <mat-label>{{options?.title}}</mat-label>
+        <mat-label>{{ options?.title }}</mat-label>
       }
       @if (options?.prefix || options?.fieldAddonLeft) {
-        <span matPrefix
-        [innerHTML]="options?.prefix || options?.fieldAddonLeft"></span>
+        <span matPrefix [innerHTML]="options?.prefix || options?.fieldAddonLeft"></span>
       }
       @if (boundControl) {
-        <input matInput
+        <input
+          matInput
           [formControl]="formControl"
           [attr.aria-describedby]="'control' + layoutNode?._id + 'Status'"
           [attr.list]="'control' + layoutNode?._id + 'Autocomplete'"
@@ -35,10 +38,11 @@ import {MAT_LEGACY_FORM_FIELD_DEFAULT_OPTIONS as MAT_FORM_FIELD_DEFAULT_OPTIONS}
           [required]="options?.required"
           [style.width]="'100%'"
           (blur)="options.showErrors = true"
-          >
+        />
       }
       @if (!boundControl) {
-        <input matInput
+        <input
+          matInput
           [attr.aria-describedby]="'control' + layoutNode?._id + 'Status'"
           [attr.list]="'control' + layoutNode?._id + 'Autocomplete'"
           [attr.readonly]="options?.readonly ? 'readonly' : null"
@@ -53,31 +57,32 @@ import {MAT_LEGACY_FORM_FIELD_DEFAULT_OPTIONS as MAT_FORM_FIELD_DEFAULT_OPTIONS}
           [style.width]="'100%'"
           [readonly]="options?.readonly"
           (blur)="options.showErrors = true"
-          >
+        />
       }
       @if (options?.suffix || options?.fieldAddonRight) {
-        <span matSuffix
-        [innerHTML]="options?.suffix || options?.fieldAddonRight"></span>
+        <span matSuffix [innerHTML]="options?.suffix || options?.fieldAddonRight"></span>
       }
       @if (options?.description && (!options?.showErrors || !options?.errorMessage)) {
-        <mat-hint
-        align="end" [innerHTML]="options?.description"></mat-hint>
+        <mat-hint align="end" [innerHTML]="options?.description"></mat-hint>
       }
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     </mat-form-field>
-    <mat-datepicker #picker ></mat-datepicker>
+    <mat-datepicker #picker></mat-datepicker>
     @if (options?.showErrors && options?.errorMessage) {
-      <mat-error
-      [innerHTML]="options?.errorMessage"></mat-error>
+      <mat-error [innerHTML]="options?.errorMessage"></mat-error>
     }`,
   styles: [
     `
-    mat-error { font-size: 75%; margin-top: -1rem; margin-bottom: 0.5rem; }
-    ::ng-deep json-schema-form mat-form-field .mat-form-field-wrapper .mat-form-field-flex
-      .mat-form-field-infix { width: initial; }
-  `,
+      mat-error {
+        font-size: 75%;
+        margin-top: -1rem;
+        margin-bottom: 0.5rem;
+      }
+      ::ng-deep json-schema-form mat-form-field .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-infix {
+        width: initial;
+      }
+    `,
   ],
-  standalone: false,
 })
 export class MaterialDatepickerComponent implements OnInit {
   formControl: AbstractControl;

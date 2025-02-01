@@ -5,41 +5,47 @@ import {JsonSchemaFormService, buildTitleMap} from '@ajsf/core';
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'material-button-group-widget',
-  template: `
-    <div>
-      @if (options?.title) {
-        <div>
-          <label
-            [attr.for]="'control' + layoutNode?._id"
-            [class]="options?.labelHtmlClass || ''"
-            [style.display]="options?.notitle ? 'none' : ''"
-          [innerHTML]="options?.title"></label>
-        </div>
+  template: ` <div>
+    @if (options?.title) {
+      <div>
+        <label
+          [attr.for]="'control' + layoutNode?._id"
+          [class]="options?.labelHtmlClass || ''"
+          [style.display]="options?.notitle ? 'none' : ''"
+          [innerHTML]="options?.title"
+        ></label>
+      </div>
+    }
+    <mat-button-toggle-group
+      [attr.aria-describedby]="'control' + layoutNode?._id + 'Status'"
+      [attr.readonly]="options?.readonly ? 'readonly' : null"
+      [attr.required]="options?.required"
+      [disabled]="controlDisabled || options?.readonly"
+      [name]="controlName"
+      [value]="controlValue"
+      [vertical]="!!options.vertical"
+    >
+      @for (radioItem of radiosList; track radioItem) {
+        <mat-button-toggle
+          [id]="'control' + layoutNode?._id + '/' + radioItem?.name"
+          [value]="radioItem?.value"
+          (click)="updateValue(radioItem?.value)"
+        >
+          <span [innerHTML]="radioItem?.name"></span>
+        </mat-button-toggle>
       }
-      <mat-button-toggle-group
-        [attr.aria-describedby]="'control' + layoutNode?._id + 'Status'"
-        [attr.readonly]="options?.readonly ? 'readonly' : null"
-        [attr.required]="options?.required"
-        [disabled]="controlDisabled || options?.readonly"
-        [name]="controlName"
-        [value]="controlValue"
-        [vertical]="!!options.vertical">
-        @for (radioItem of radiosList; track radioItem) {
-          <mat-button-toggle
-            [id]="'control' + layoutNode?._id + '/' + radioItem?.name"
-            [value]="radioItem?.value"
-            (click)="updateValue(radioItem?.value)">
-            <span [innerHTML]="radioItem?.name"></span>
-          </mat-button-toggle>
-        }
-      </mat-button-toggle-group>
-      @if (options?.showErrors && options?.errorMessage) {
-        <mat-error
-        [innerHTML]="options?.errorMessage"></mat-error>
+    </mat-button-toggle-group>
+    @if (options?.showErrors && options?.errorMessage) {
+      <mat-error [innerHTML]="options?.errorMessage"></mat-error>
+    }
+  </div>`,
+  styles: [
+    `
+      mat-error {
+        font-size: 75%;
       }
-    </div>`,
-  styles: [` mat-error { font-size: 75%; } `],
-  standalone: false,
+    `,
+  ],
 })
 export class MaterialButtonGroupComponent implements OnInit {
   formControl: AbstractControl;

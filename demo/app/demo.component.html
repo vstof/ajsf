@@ -26,7 +26,7 @@
       <mat-icon>menu</mat-icon> {{ selectedSetName }} {{ selectedExampleName }}
     </button>
     <mat-menu #exampleMenu="matMenu" class="example-menu">
-      @for (example of examples['ng-jsf'].schemas; track example) {
+      @for (example of examples["ng-jsf"].schemas; track example) {
         <button
           mat-menu-item
           class="mat-medium"
@@ -43,14 +43,7 @@
           <button
             mat-menu-item
             class="mat-medium"
-            (click)="
-            loadSelectedExample(
-              'asf',
-              'Angular Schema Form:',
-              example.file,
-              example.name
-            )
-          "
+            (click)="loadSelectedExample('asf', 'Angular Schema Form:', example.file, example.name)"
           >
             {{ example.name }}
           </button>
@@ -64,14 +57,7 @@
           <button
             mat-menu-item
             class="mat-medium"
-            (click)="
-            loadSelectedExample(
-              'rjsf',
-              'React JSON Schema Form:',
-              example.file,
-              example.name
-            )
-          "
+            (click)="loadSelectedExample('rjsf', 'React JSON Schema Form:', example.file, example.name)"
           >
             {{ example.name }}
           </button>
@@ -85,9 +71,7 @@
           <button
             mat-menu-item
             class="mat-medium"
-            (click)="
-            loadSelectedExample('jsf', 'JSONForm:', example.file, example.name)
-          "
+            (click)="loadSelectedExample('jsf', 'JSONForm:', example.file, example.name)"
           >
             {{ example.name }}
           </button>
@@ -125,9 +109,7 @@
             placeholder="Language"
           >
             @for (language of languageList; track language) {
-              <mat-option [value]="language">
-                {{ languages[language] }}
-              </mat-option>
+              <mat-option [value]="language"> {{ languages[language] }} </mat-option>
             }
           </mat-select>
         </mat-form-field>
@@ -230,19 +212,18 @@
         <div>
           Live data — from onChanges():
           <pre
-            [class.data-good]="
-            !prettyValidationErrors && prettyLiveFormData !== '{}'
-          "
+            [class.data-good]="!prettyValidationErrors && prettyLiveFormData !== '{}'"
             [class.data-bad]="prettyValidationErrors"
-            >{{ prettyLiveFormData }}</pre
+          >
+              {{ prettyLiveFormData }}</pre
           >
         </div>
         <br />
         <div>
           Submitted data — from onSubmit():
-          <pre [class.data-good]="prettySubmittedFormData !== 'null'">{{
-                  prettySubmittedFormData
-          }}</pre>
+          <pre [class.data-good]="prettySubmittedFormData !== 'null'">
+                {{ prettySubmittedFormData }}</pre
+          >
         </div>
       </div>
     }

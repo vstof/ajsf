@@ -5,67 +5,72 @@ import {JsonSchemaFormService, buildTitleMap} from '@ajsf/core';
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'material-radios-widget',
-  template: `
-    <div>
-      @if (options?.title) {
-        <div>
-          <label
-            [attr.for]="'control' + layoutNode?._id"
-            [class]="options?.labelHtmlClass || ''"
-            [style.display]="options?.notitle ? 'none' : ''"
-          [innerHTML]="options?.title"></label>
-        </div>
-      }
-      @if (boundControl) {
-        <mat-radio-group
-          [formControl]="formControl"
-          [attr.aria-describedby]="'control' + layoutNode?._id + 'Status'"
-          [attr.readonly]="options?.readonly ? 'readonly' : null"
-          [attr.required]="options?.required"
-          [style.flex-direction]="flexDirection"
-          [name]="controlName"
-          (blur)="options.showErrors = true">
-          @for (radioItem of radiosList; track radioItem) {
-            <mat-radio-button
-              [id]="'control' + layoutNode?._id + '/' + radioItem?.name"
-              [value]="radioItem?.value">
-              <span [innerHTML]="radioItem?.name"></span>
-            </mat-radio-button>
-          }
-        </mat-radio-group>
-      }
-      @if (!boundControl) {
-        <mat-radio-group
-          [attr.aria-describedby]="'control' + layoutNode?._id + 'Status'"
-          [attr.readonly]="options?.readonly ? 'readonly' : null"
-          [attr.required]="options?.required"
-          [style.flex-direction]="flexDirection"
-          [disabled]="controlDisabled || options?.readonly"
-          [name]="controlName"
-          [value]="controlValue">
-          @for (radioItem of radiosList; track radioItem) {
-            <mat-radio-button
-              [id]="'control' + layoutNode?._id + '/' + radioItem?.name"
-              [value]="radioItem?.value"
-              (click)="updateValue(radioItem?.value)">
-              <span [innerHTML]="radioItem?.name"></span>
-            </mat-radio-button>
-          }
-        </mat-radio-group>
-      }
-      @if (options?.showErrors && options?.errorMessage) {
-        <mat-error
-        [innerHTML]="options?.errorMessage"></mat-error>
-      }
-    </div>`,
+  template: ` <div>
+    @if (options?.title) {
+      <div>
+        <label
+          [attr.for]="'control' + layoutNode?._id"
+          [class]="options?.labelHtmlClass || ''"
+          [style.display]="options?.notitle ? 'none' : ''"
+          [innerHTML]="options?.title"
+        ></label>
+      </div>
+    }
+    @if (boundControl) {
+      <mat-radio-group
+        [formControl]="formControl"
+        [attr.aria-describedby]="'control' + layoutNode?._id + 'Status'"
+        [attr.readonly]="options?.readonly ? 'readonly' : null"
+        [attr.required]="options?.required"
+        [style.flex-direction]="flexDirection"
+        [name]="controlName"
+        (blur)="options.showErrors = true"
+      >
+        @for (radioItem of radiosList; track radioItem) {
+          <mat-radio-button [id]="'control' + layoutNode?._id + '/' + radioItem?.name" [value]="radioItem?.value">
+            <span [innerHTML]="radioItem?.name"></span>
+          </mat-radio-button>
+        }
+      </mat-radio-group>
+    }
+    @if (!boundControl) {
+      <mat-radio-group
+        [attr.aria-describedby]="'control' + layoutNode?._id + 'Status'"
+        [attr.readonly]="options?.readonly ? 'readonly' : null"
+        [attr.required]="options?.required"
+        [style.flex-direction]="flexDirection"
+        [disabled]="controlDisabled || options?.readonly"
+        [name]="controlName"
+        [value]="controlValue"
+      >
+        @for (radioItem of radiosList; track radioItem) {
+          <mat-radio-button
+            [id]="'control' + layoutNode?._id + '/' + radioItem?.name"
+            [value]="radioItem?.value"
+            (click)="updateValue(radioItem?.value)"
+          >
+            <span [innerHTML]="radioItem?.name"></span>
+          </mat-radio-button>
+        }
+      </mat-radio-group>
+    }
+    @if (options?.showErrors && options?.errorMessage) {
+      <mat-error [innerHTML]="options?.errorMessage"></mat-error>
+    }
+  </div>`,
   styles: [
     `
-    mat-radio-group { display: inline-flex; }
-    mat-radio-button { margin: 2px; }
-    mat-error { font-size: 75%; }
-  `,
+      mat-radio-group {
+        display: inline-flex;
+      }
+      mat-radio-button {
+        margin: 2px;
+      }
+      mat-error {
+        font-size: 75%;
+      }
+    `,
   ],
-  standalone: false,
 })
 export class MaterialRadiosComponent implements OnInit {
   formControl: AbstractControl;

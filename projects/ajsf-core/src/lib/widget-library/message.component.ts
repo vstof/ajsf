@@ -4,12 +4,9 @@ import {JsonSchemaFormService} from '../json-schema-form.service';
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'message-widget',
-  template: `
-    @if (message) {
-      <span
-        [class]="options?.labelHtmlClass || ''"
-      [innerHTML]="message"></span>
-    }`,
+  template: ` @if (message) {
+    <span [class]="options?.labelHtmlClass || ''" [innerHTML]="message"></span>
+  }`,
   standalone: false,
 })
 export class MessageComponent implements OnInit {

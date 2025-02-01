@@ -138,7 +138,6 @@ export class JsonSchemaFormService {
       validationMessages: {}, // set by setLanguage()
     },
   };
-  showSelectPopup: boolean;
 
   constructor() {
     this.setLanguage(this.language);
@@ -532,7 +531,7 @@ export class JsonSchemaFormService {
               : this.formatErrors(ctx.formControl.errors, ctx.options.validationMessages)),
       );
       ctx.formControl.valueChanges.subscribe((value) => {
-        if (!!value) {
+        if (value) {
           ctx.controlValue = value;
         }
       });
@@ -811,8 +810,5 @@ export class JsonSchemaFormService {
     // Remove layoutNode from layout
     JsonPointer.remove(this.layout, this.getLayoutPointer(ctx));
     return true;
-  }
-  selectPopup(event: {context: string; code: string; id: any}, source: any) {
-    throw new Error();
   }
 }

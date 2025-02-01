@@ -580,14 +580,14 @@ export function toSchemaType(value, types) {
   if ((<SchemaPrimitiveType[]>types).includes('number')) {
     // Convert mixed string to number
     const testValue = parseFloat(<string>value);
-    if (!!testValue) {
+    if (testValue) {
       return testValue;
     }
   }
   if ((<SchemaPrimitiveType[]>types).includes('integer')) {
     // Convert string or number to integer
     const testValue = parseInt(<string>value, 10);
-    if (!!testValue) {
+    if (testValue) {
       return testValue;
     }
   }

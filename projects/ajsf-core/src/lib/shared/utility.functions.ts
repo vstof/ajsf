@@ -266,7 +266,7 @@ export function getKeyAndValueByExpressionType(expressionType: ExpressionType, k
   return null;
 }
 
-export function cleanValueOfQuotes(keyAndValue): String {
+export function cleanValueOfQuotes(keyAndValue): string {
   if (keyAndValue.charAt(0) === "'" && keyAndValue.charAt(keyAndValue.length - 1) === "'") {
     return keyAndValue.replace("'", '').replace("'", '');
   }

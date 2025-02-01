@@ -8,7 +8,6 @@ import {JsonSchemaFormService} from '@ajsf/core';
   // tslint:disable-next-line:component-selector
   selector: 'material-stepper-widget',
   template: ``,
-  standalone: false,
 })
 export class MaterialStepperComponent implements OnInit {
   formControl: AbstractControl;

@@ -4,20 +4,16 @@ import {JsonSchemaFormService} from '../json-schema-form.service';
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'add-reference-widget',
-  template: `
-    @if (showAddButton) {
-      <button
-        [class]="options?.fieldHtmlClass || ''"
-        [disabled]="options?.readonly"
-        (click)="addItem($event)">
-        @if (options?.icon) {
-          <span [class]="options?.icon"></span>
-        }
-        @if (options?.title) {
-          <span [innerHTML]="buttonText"></span>
-        }
-      </button>
-    }`,
+  template: ` @if (showAddButton) {
+    <button [class]="options?.fieldHtmlClass || ''" [disabled]="options?.readonly" (click)="addItem($event)">
+      @if (options?.icon) {
+        <span [class]="options?.icon"></span>
+      }
+      @if (options?.title) {
+        <span [innerHTML]="buttonText"></span>
+      }
+    </button>
+  }`,
   changeDetection: ChangeDetectionStrategy.Default,
   standalone: false,
 })

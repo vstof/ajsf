@@ -18,7 +18,6 @@ import {JsonPointer} from '@ajsf/core';
       transition(':leave', [style({height: '*'}), animate(100, style({height: 0}))]),
     ]),
   ],
-  standalone: false,
 })
 export class DemoComponent implements OnInit {
   examples: any = Examples;

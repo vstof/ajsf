@@ -79,7 +79,7 @@ export class JsonSchemaFormComponent implements ControlValueAccessor, OnChanges,
   // TODO: quickfix to avoid subscribing twice to the same emitters
   private unsubscribeOnActivateForm$ = new Subject<void>();
 
-  debugOutput: any; // Debug information, if requested
+  debugOutput: string; // Debug information, if requested
   //  formValueSubscription: any = null;
   formInitialized = false;
   objectWrap = false; // Is non-object input schema wrapped in an object?
@@ -98,7 +98,6 @@ export class JsonSchemaFormComponent implements ControlValueAccessor, OnChanges,
     JSONSchema: any;
     UISchema: any;
     formData: any;
-    loadExternalAssets: boolean;
     debug: boolean;
   } = {
     schema: null,
@@ -112,7 +111,6 @@ export class JsonSchemaFormComponent implements ControlValueAccessor, OnChanges,
     JSONSchema: null,
     UISchema: null,
     formData: null,
-    loadExternalAssets: null,
     debug: null,
   };
 
@@ -121,7 +119,7 @@ export class JsonSchemaFormComponent implements ControlValueAccessor, OnChanges,
   @Input() layout: any[]; // The form layout
   @Input() data: any; // The form data
   @Input() options: any; // The global form options
-  @Input() framework: any | string; // The framework to load
+  @Input() framework: string; // The framework to load
   @Input() widgets: any; // Any custom widgets to load
 
   // Alternate combined single input
@@ -140,7 +138,6 @@ export class JsonSchemaFormComponent implements ControlValueAccessor, OnChanges,
   @Input() language: string; // Language
 
   // Development inputs, for testing and debugging
-  @Input() loadExternalAssets: boolean; // Load external framework assets?
   @Input() debug: boolean; // Show debug information?
 
   @Input()
@@ -168,10 +165,6 @@ export class JsonSchemaFormComponent implements ControlValueAccessor, OnChanges,
   @Output() formDataChange = new EventEmitter<any>();
   @Output() ngModelChange = new EventEmitter<any>();
 
-  @Input() showSelectPopup = false;
-
-  @Output() selectPopupAction = new EventEmitter<any>();
-
   onChange: Function;
   onTouched: Function;
 
@@ -182,52 +175,12 @@ export class JsonSchemaFormComponent implements ControlValueAccessor, OnChanges,
     public jsf: JsonSchemaFormService,
   ) {}
 
-  private resetScriptsAndStyleSheets() {
-    document.querySelectorAll('.ajsf').forEach((element) => element.remove());
-  }
-  private loadScripts() {
-    const scripts = this.frameworkLibrary.getFrameworkScripts();
-    console.log(scripts);
-    scripts.map((script) => {
-      const scriptTag: HTMLScriptElement = document.createElement('script');
-      scriptTag.src = script;
-      scriptTag.type = 'text/javascript';
-      scriptTag.async = true;
-      scriptTag.setAttribute('class', 'ajsf');
-      document.getElementsByTagName('head')[0].appendChild(scriptTag);
-    });
-  }
-  private loadStyleSheets() {
-    const stylesheets = this.frameworkLibrary.getFrameworkStylesheets();
-    stylesheets.map((stylesheet) => {
-      const linkTag: HTMLLinkElement = document.createElement('link');
-      linkTag.rel = 'stylesheet';
-      linkTag.href = stylesheet;
-      linkTag.setAttribute('class', 'ajsf');
-      document.getElementsByTagName('head')[0].appendChild(linkTag);
-    });
-  }
-  private loadAssets() {
-    this.resetScriptsAndStyleSheets();
-    this.loadScripts();
-    this.loadStyleSheets();
-  }
   ngOnInit() {
     this.updateForm();
-    this.loadAssets();
   }
 
   ngOnChanges(changes: SimpleChanges) {
     this.updateForm();
-    // Check if there's changes in Framework then load assets if that's the
-    if (changes['framework']) {
-      if (
-        !changes['framework'].isFirstChange() &&
-        changes['framework'].previousValue !== changes['framework'].currentValue
-      ) {
-        this.loadAssets();
-      }
-    }
   }
 
   writeValue(value: any) {
@@ -433,22 +386,18 @@ export class JsonSchemaFormComponent implements ControlValueAccessor, OnChanges,
       this.jsf.setLanguage(this.language);
     }
     this.jsf.setOptions({debug: !!this.debug});
-    let loadExternalAssets: boolean = this.loadExternalAssets || false;
     let framework: any = this.framework || 'default';
     if (isObject(this.options)) {
       this.jsf.setOptions(this.options);
-      loadExternalAssets = this.options.loadExternalAssets || loadExternalAssets;
       framework = this.options.framework || framework;
     }
     if (isObject(this.form) && isObject(this.form.options)) {
       this.jsf.setOptions(this.form.options);
-      loadExternalAssets = this.form.options.loadExternalAssets || loadExternalAssets;
       framework = this.form.options.framework || framework;
     }
     if (isObject(this.widgets)) {
       this.jsf.setOptions({widgets: this.widgets});
     }
-    this.frameworkLibrary.setLoadExternalAssets(loadExternalAssets);
     this.frameworkLibrary.setFramework(framework);
     this.jsf.framework = this.frameworkLibrary.getFramework();
     if (isObject(this.jsf.formOptions.widgets)) {
@@ -792,11 +741,6 @@ export class JsonSchemaFormComponent implements ControlValueAccessor, OnChanges,
       this.jsf.validationErrorChanges
         .pipe(takeUntil(this.unsubscribeOnActivateForm$))
         .subscribe((err) => this.validationErrors.emit(err));
-
-      this.jsf.showSelectPopup = this.showSelectPopup;
-      this.jsf.selectPopup = (event: {context: string; code: string; id: any}, source: any) => {
-        this.selectPopupAction.emit({event, source});
-      };
 
       // Output final schema, final layout, and initial data
       this.formSchema.emit(this.jsf.schema);
