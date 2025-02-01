@@ -3,9 +3,9 @@ import {Component, Input, OnInit} from '@angular/core';
 import {JsonSchemaFormService} from '../json-schema-form.service';
 
 @Component({
-  // tslint:disable-next-line:component-selector
-  selector: 'textarea-widget',
-  template: `<div [class]="options?.htmlClass || ''">
+    // tslint:disable-next-line:component-selector
+    selector: 'textarea-widget',
+    template: `<div [class]="options?.htmlClass || ''">
     <label
       *ngIf="options?.title"
       [attr.for]="'control' + layoutNode?._id"
@@ -48,6 +48,7 @@ import {JsonSchemaFormService} from '../json-schema-form.service';
       >{{ controlValue }}</textarea
     >
   </div>`,
+    standalone: false
 })
 export class TextareaComponent implements OnInit {
   formControl: AbstractControl;

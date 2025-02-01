@@ -4,9 +4,9 @@ import {JsonSchemaFormService, buildTitleMap, isArray} from '@ajsf/core';
 import {MAT_LEGACY_FORM_FIELD_DEFAULT_OPTIONS as MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/legacy-form-field';
 
 @Component({
-  // tslint:disable-next-line:component-selector
-  selector: 'material-select-widget',
-  template: `<mat-form-field
+    // tslint:disable-next-line:component-selector
+    selector: 'material-select-widget',
+    template: `<mat-form-field
       [appearance]="options?.appearance || matFormFieldDefaultOptions?.appearance || 'standard'"
       [class]="options?.htmlClass || ''"
       [floatLabel]="
@@ -89,8 +89,8 @@ import {MAT_LEGACY_FORM_FIELD_DEFAULT_OPTIONS as MAT_FORM_FIELD_DEFAULT_OPTIONS}
       ></mat-hint>
     </mat-form-field>
     <mat-error *ngIf="options?.showErrors && options?.errorMessage" [innerHTML]="options?.errorMessage"></mat-error>`,
-  styles: [
-    `
+    styles: [
+        `
       mat-error {
         font-size: 75%;
         margin-top: -1rem;
@@ -100,7 +100,8 @@ import {MAT_LEGACY_FORM_FIELD_DEFAULT_OPTIONS as MAT_FORM_FIELD_DEFAULT_OPTIONS}
         width: initial;
       }
     `,
-  ],
+    ],
+    standalone: false
 })
 export class MaterialSelectComponent implements OnInit {
   formControl: AbstractControl;

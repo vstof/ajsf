@@ -2,9 +2,9 @@ import {Component, Input, OnInit} from '@angular/core';
 import {JsonSchemaFormService} from '@ajsf/core';
 
 @Component({
-  // tslint:disable-next-line:component-selector
-  selector: 'material-tabs-widget',
-  template: `
+    // tslint:disable-next-line:component-selector
+    selector: 'material-tabs-widget',
+    template: `
     <nav mat-tab-nav-bar
       [attr.aria-label]="options?.label || options?.title || ''"
       [style.width]="'100%'">
@@ -23,7 +23,8 @@ import {JsonSchemaFormService} from '@ajsf/core';
         [layoutIndex]="(layoutIndex || []).concat(i)"
         [layoutNode]="layoutItem"></select-framework-widget>
     </div>`,
-  styles: [` a { cursor: pointer; } `],
+    styles: [` a { cursor: pointer; } `],
+    standalone: false
 })
 export class MaterialTabsComponent implements OnInit {
   options: any;

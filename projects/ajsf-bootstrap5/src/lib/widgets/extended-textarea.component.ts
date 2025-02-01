@@ -3,9 +3,9 @@ import {Component, Input, OnInit} from '@angular/core';
 import {JsonSchemaFormService} from '@ajsf/core';
 
 @Component({
-  // tslint:disable-next-line:component-selector
-  selector: 'extended-textarea-widget',
-  template: `<div [class]="options?.htmlClass || ''">
+    // tslint:disable-next-line:component-selector
+    selector: 'extended-textarea-widget',
+    template: `<div [class]="options?.htmlClass || ''">
     <textarea
       [attr.aria-describedby]="'control' + layoutNode?._id + 'Status'"
       [attr.maxlength]="options?.maxLength"
@@ -26,6 +26,7 @@ import {JsonSchemaFormService} from '@ajsf/core';
       <button (click)="selectPopup()" type="button" class="btn btn-link">select template</button> or enter #
     </span>
   </div>`,
+    standalone: false
 })
 export class ExtendedTextareaComponent implements OnInit {
   formControl: AbstractControl;

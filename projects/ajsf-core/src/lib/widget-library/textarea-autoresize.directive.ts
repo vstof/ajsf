@@ -15,7 +15,8 @@ import {WindowRef} from './window-ref.service';
 const MAX_LOOKUP_RETRIES = 3;
 
 @Directive({
-  selector: '[textareaAutoresize]',
+    selector: '[textareaAutoresize]',
+    standalone: false
 })
 export class TextareaAutoresizeDirective implements OnDestroy, OnChanges, AfterContentChecked {
   @Input()

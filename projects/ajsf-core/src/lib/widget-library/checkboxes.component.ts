@@ -4,9 +4,9 @@ import {Component, Input, OnInit} from '@angular/core';
 import {JsonSchemaFormService, TitleMapItem} from '../json-schema-form.service';
 
 @Component({
-  // tslint:disable-next-line:component-selector
-  selector: 'checkboxes-widget',
-  template: `
+    // tslint:disable-next-line:component-selector
+    selector: 'checkboxes-widget',
+    template: `
     <label
       *ngIf="options?.title"
       [class]="options?.labelHtmlClass || ''"
@@ -35,6 +35,7 @@ import {JsonSchemaFormService, TitleMapItem} from '../json-schema-form.service';
       </label>
     </div>
   `,
+    standalone: false
 })
 export class CheckboxesComponent implements OnInit {
   formControl: AbstractControl;

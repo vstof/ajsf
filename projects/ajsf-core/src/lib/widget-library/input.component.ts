@@ -3,9 +3,9 @@ import {Component, Input, OnInit} from '@angular/core';
 import {JsonSchemaFormService} from '../json-schema-form.service';
 
 @Component({
-  // tslint:disable-next-line:component-selector
-  selector: 'input-widget',
-  template: `<div [class]="options?.htmlClass || ''">
+    // tslint:disable-next-line:component-selector
+    selector: 'input-widget',
+    template: `<div [class]="options?.htmlClass || ''">
     <label
       *ngIf="options?.title"
       [attr.for]="'control' + layoutNode?._id"
@@ -52,6 +52,7 @@ import {JsonSchemaFormService} from '../json-schema-form.service';
       <option *ngFor="let word of options?.typeahead?.source" [value]="word"></option>
     </datalist>
   </div>`,
+    standalone: false
 })
 export class InputComponent implements OnInit {
   formControl: AbstractControl;

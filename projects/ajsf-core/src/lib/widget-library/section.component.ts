@@ -2,9 +2,9 @@ import {Component, Input, OnInit} from '@angular/core';
 import {JsonSchemaFormService} from '../json-schema-form.service';
 
 @Component({
-  // tslint:disable-next-line:component-selector
-  selector: 'section-widget',
-  template: `
+    // tslint:disable-next-line:component-selector
+    selector: 'section-widget',
+    template: `
     <div *ngIf="containerType === 'div'"
       [class]="options?.htmlClass || ''"
       [class.expandable]="options?.expandable && !expanded"
@@ -66,13 +66,14 @@ import {JsonSchemaFormService} from '../json-schema-form.service';
         [innerHTML]="options?.description"></p>
       </div>
     </fieldset>`,
-  styles: [
-    `
+    styles: [
+        `
     .legend { font-weight: bold; }
     .expandable > legend:before, .expandable > label:before  { content: '▶'; padding-right: .3em; }
     .expanded > legend:before, .expanded > label:before  { content: '▼'; padding-right: .2em; }
   `,
-  ],
+    ],
+    standalone: false
 })
 export class SectionComponent implements OnInit {
   options: any;

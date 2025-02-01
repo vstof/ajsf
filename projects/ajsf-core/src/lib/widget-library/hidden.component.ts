@@ -3,9 +3,9 @@ import {Component, Input, OnInit} from '@angular/core';
 import {JsonSchemaFormService} from '../json-schema-form.service';
 
 @Component({
-  // tslint:disable-next-line:component-selector
-  selector: 'hidden-widget',
-  template: `<input
+    // tslint:disable-next-line:component-selector
+    selector: 'hidden-widget',
+    template: `<input
       *ngIf="boundControl"
       [formControl]="formControl"
       [id]="'control' + layoutNode?._id"
@@ -20,6 +20,7 @@ import {JsonSchemaFormService} from '../json-schema-form.service';
       type="hidden"
       [value]="controlValue"
     />`,
+    standalone: false
 })
 export class HiddenComponent implements OnInit {
   formControl: AbstractControl;

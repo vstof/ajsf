@@ -2,9 +2,9 @@ import {Component, Input, OnInit} from '@angular/core';
 import {JsonSchemaFormService} from '../json-schema-form.service';
 
 @Component({
-  // tslint:disable-next-line:component-selector
-  selector: 'tabs-widget',
-  template: `
+    // tslint:disable-next-line:component-selector
+    selector: 'tabs-widget',
+    template: `
     <ul
       [class]="options?.labelHtmlClass || ''">
       <li *ngFor="let item of layoutNode?.items; let i = index"
@@ -33,7 +33,8 @@ import {JsonSchemaFormService} from '../json-schema-form.service';
         [layoutNode]="layoutItem"></select-framework-widget>
 
     </div>`,
-  styles: [` a { cursor: pointer; } `],
+    styles: [` a { cursor: pointer; } `],
+    standalone: false
 })
 export class TabsComponent implements OnInit {
   options: any;

@@ -4,9 +4,9 @@ import {AbstractControl} from '@angular/forms';
 import {JsonSchemaFormService} from '../json-schema-form.service';
 
 @Component({
-  // tslint:disable-next-line:component-selector
-  selector: 'number-widget',
-  template: `<div [class]="options?.htmlClass || ''">
+    // tslint:disable-next-line:component-selector
+    selector: 'number-widget',
+    template: `<div [class]="options?.htmlClass || ''">
     <label
       *ngIf="options?.title"
       [attr.for]="'control' + layoutNode?._id"
@@ -52,6 +52,7 @@ import {JsonSchemaFormService} from '../json-schema-form.service';
     />
     <span *ngIf="layoutNode?.type === 'range'" [innerHTML]="controlValue"></span>
   </div>`,
+    standalone: false
 })
 export class NumberComponent implements OnInit {
   formControl: AbstractControl;

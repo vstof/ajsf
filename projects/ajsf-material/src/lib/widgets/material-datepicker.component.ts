@@ -4,9 +4,9 @@ import {JsonSchemaFormService} from '@ajsf/core';
 import {MAT_LEGACY_FORM_FIELD_DEFAULT_OPTIONS as MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/legacy-form-field';
 
 @Component({
-  // tslint:disable-next-line:component-selector
-  selector: 'material-datepicker-widget',
-  template: `
+    // tslint:disable-next-line:component-selector
+    selector: 'material-datepicker-widget',
+    template: `
     <mat-form-field [appearance]="options?.appearance || matFormFieldDefaultOptions?.appearance || 'standard'"
                     [class]="options?.htmlClass || ''"
                     [floatLabel]="options?.floatLabel || matFormFieldDefaultOptions?.floatLabel || (options?.notitle ? 'never' : 'auto')"
@@ -56,13 +56,14 @@ import {MAT_LEGACY_FORM_FIELD_DEFAULT_OPTIONS as MAT_FORM_FIELD_DEFAULT_OPTIONS}
     <mat-datepicker #picker ></mat-datepicker>
     <mat-error *ngIf="options?.showErrors && options?.errorMessage"
       [innerHTML]="options?.errorMessage"></mat-error>`,
-  styles: [
-    `
+    styles: [
+        `
     mat-error { font-size: 75%; margin-top: -1rem; margin-bottom: 0.5rem; }
     ::ng-deep json-schema-form mat-form-field .mat-form-field-wrapper .mat-form-field-flex
       .mat-form-field-infix { width: initial; }
   `,
-  ],
+    ],
+    standalone: false
 })
 export class MaterialDatepickerComponent implements OnInit {
   formControl: AbstractControl;
