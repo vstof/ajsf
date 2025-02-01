@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatLegacyMenuTrigger as MatMenuTrigger} from '@angular/material/legacy-menu';
 import {trigger, state, style, animate, transition} from '@angular/animations';
 import {ActivatedRoute, Router} from '@angular/router';
-import {HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 import {Examples} from './example-schemas.model';
 import {JsonPointer} from '@ajsf/core';
