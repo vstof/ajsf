@@ -1,9 +1,9 @@
 import {Component, Input} from '@angular/core';
 
 @Component({
-    selector: 'no-framework',
-    templateUrl: './no-framework.component.html',
-    standalone: false
+  selector: 'no-framework',
+  templateUrl: './no-framework.component.html',
+  standalone: false,
 })
 export class NoFrameworkComponent {
   @Input() layoutNode: any;

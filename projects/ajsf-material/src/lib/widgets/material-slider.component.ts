@@ -3,33 +3,39 @@ import {Component, Input, OnInit} from '@angular/core';
 import {JsonSchemaFormService} from '@ajsf/core';
 
 @Component({
-    // tslint:disable-next-line:component-selector
-    selector: 'material-slider-widget',
-    template: `
-    <mat-slider thumbLabel *ngIf="boundControl"
-      [formControl]="formControl"
-      [attr.aria-describedby]="'control' + layoutNode?._id + 'Status'"
-      [id]="'control' + layoutNode?._id"
-      [max]="options?.maximum"
-      [min]="options?.minimum"
-      [step]="options?.multipleOf || options?.step || 'any'"
-      [style.width]="'100%'"
+  // tslint:disable-next-line:component-selector
+  selector: 'material-slider-widget',
+  template: `
+    @if (boundControl) {
+      <mat-slider thumbLabel
+        [formControl]="formControl"
+        [attr.aria-describedby]="'control' + layoutNode?._id + 'Status'"
+        [id]="'control' + layoutNode?._id"
+        [max]="options?.maximum"
+        [min]="options?.minimum"
+        [step]="options?.multipleOf || options?.step || 'any'"
+        [style.width]="'100%'"
       (blur)="options.showErrors = true"></mat-slider>
-    <mat-slider thumbLabel *ngIf="!boundControl"
-      [attr.aria-describedby]="'control' + layoutNode?._id + 'Status'"
-      [disabled]="controlDisabled || options?.readonly"
-      [id]="'control' + layoutNode?._id"
-      [max]="options?.maximum"
-      [min]="options?.minimum"
-      [step]="options?.multipleOf || options?.step || 'any'"
-      [style.width]="'100%'"
-      [value]="controlValue"
-      (blur)="options.showErrors = true"
+    }
+    @if (!boundControl) {
+      <mat-slider thumbLabel
+        [attr.aria-describedby]="'control' + layoutNode?._id + 'Status'"
+        [disabled]="controlDisabled || options?.readonly"
+        [id]="'control' + layoutNode?._id"
+        [max]="options?.maximum"
+        [min]="options?.minimum"
+        [step]="options?.multipleOf || options?.step || 'any'"
+        [style.width]="'100%'"
+        [value]="controlValue"
+        (blur)="options.showErrors = true"
       (change)="updateValue($event)"></mat-slider>
-    <mat-error *ngIf="options?.showErrors && options?.errorMessage"
-      [innerHTML]="options?.errorMessage"></mat-error>`,
-    styles: [` mat-error { font-size: 75%; } `],
-    standalone: false
+    }
+    @if (options?.showErrors && options?.errorMessage) {
+      <mat-error
+      [innerHTML]="options?.errorMessage"></mat-error>
+    }`,
+  styles: [` mat-error { font-size: 75%; } `],
+  standalone: false,
 })
 export class MaterialSliderComponent implements OnInit {
   formControl: AbstractControl;

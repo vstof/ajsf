@@ -2,29 +2,33 @@ import {Component, Input} from '@angular/core';
 import {JsonSchemaFormService} from '../json-schema-form.service';
 
 @Component({
-    // tslint:disable-next-line:component-selector
-    selector: 'root-widget',
-    template: `
-    <div *ngFor="let layoutItem of layout; let i = index"
-      [class.form-flex-item]="isFlexItem"
-      [style.align-self]="(layoutItem.options || {})['align-self']"
-      [style.flex-basis]="getFlexAttribute(layoutItem, 'flex-basis')"
-      [style.flex-grow]="getFlexAttribute(layoutItem, 'flex-grow')"
-      [style.flex-shrink]="getFlexAttribute(layoutItem, 'flex-shrink')"
-      [style.order]="(layoutItem.options || {}).order">
+  // tslint:disable-next-line:component-selector
+  selector: 'root-widget',
+  template: `
+    @for (layoutItem of layout; track layoutItem; let i = $index) {
       <div
-        [dataIndex]="layoutItem?.arrayItem ? (dataIndex || []).concat(i) : (dataIndex || [])"
-        [layoutIndex]="(layoutIndex || []).concat(i)"
-        [layoutNode]="layoutItem"
-        [orderable]="isDraggable(layoutItem)">
-        <select-framework-widget *ngIf="showWidget(layoutItem)"
+        [class.form-flex-item]="isFlexItem"
+        [style.align-self]="(layoutItem.options || {})['align-self']"
+        [style.flex-basis]="getFlexAttribute(layoutItem, 'flex-basis')"
+        [style.flex-grow]="getFlexAttribute(layoutItem, 'flex-grow')"
+        [style.flex-shrink]="getFlexAttribute(layoutItem, 'flex-shrink')"
+        [style.order]="(layoutItem.options || {}).order">
+        <div
           [dataIndex]="layoutItem?.arrayItem ? (dataIndex || []).concat(i) : (dataIndex || [])"
           [layoutIndex]="(layoutIndex || []).concat(i)"
-          [layoutNode]="layoutItem"></select-framework-widget>
+          [layoutNode]="layoutItem"
+          [orderable]="isDraggable(layoutItem)">
+          @if (showWidget(layoutItem)) {
+            <select-framework-widget
+              [dataIndex]="layoutItem?.arrayItem ? (dataIndex || []).concat(i) : (dataIndex || [])"
+              [layoutIndex]="(layoutIndex || []).concat(i)"
+            [layoutNode]="layoutItem"></select-framework-widget>
+          }
+        </div>
       </div>
-    </div>`,
-    styles: [
-        `
+    }`,
+  styles: [
+    `
     [draggable=true] {
       transition: all 150ms cubic-bezier(.4, 0, .2, 1);
     }
@@ -46,8 +50,8 @@ import {JsonSchemaFormService} from '../json-schema-form.service';
       position: relative; z-index: 20;
     }
   `,
-    ],
-    standalone: false
+  ],
+  standalone: false,
 })
 export class RootComponent {
   options: any;

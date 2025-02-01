@@ -3,11 +3,11 @@ import {isDefined, JsonSchemaFormService} from '@ajsf/core';
 import cloneDeep from 'lodash-es/cloneDeep';
 
 @Component({
-    // tslint:disable-next-line:component-selector
-    selector: 'material-design-framework',
-    templateUrl: './material-design-framework.component.html',
-    styleUrls: ['./material-design-framework.component.scss'],
-    standalone: false
+  // tslint:disable-next-line:component-selector
+  selector: 'material-design-framework',
+  templateUrl: './material-design-framework.component.html',
+  styleUrls: ['./material-design-framework.component.scss'],
+  standalone: false,
 })
 export class MaterialDesignFrameworkComponent implements OnInit, OnChanges {
   frameworkInitialized = false;

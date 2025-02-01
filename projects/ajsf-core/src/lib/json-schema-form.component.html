@@ -5,7 +5,9 @@
 >
   <root-widget [layout]="jsf?.layout"></root-widget>
 </form>
-<div *ngIf="debug || jsf?.formOptions?.debug">
-  Debug output:
-  <pre>{{debugOutput}}</pre>
-</div>
+@if (debug || jsf?.formOptions?.debug) {
+  <div>
+    Debug output:
+    <pre>{{debugOutput}}</pre>
+  </div>
+}

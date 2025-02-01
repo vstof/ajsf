@@ -2,23 +2,23 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatLegacyMenuTrigger as MatMenuTrigger} from '@angular/material/legacy-menu';
 import {trigger, state, style, animate, transition} from '@angular/animations';
 import {ActivatedRoute, Router} from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 
 import {Examples} from './example-schemas.model';
 import {JsonPointer} from '@ajsf/core';
 
 @Component({
-    // tslint:disable-next-line:component-selector
-    selector: 'demo',
-    templateUrl: 'demo.component.html',
-    animations: [
-        trigger('expandSection', [
-            state('in', style({ height: '*' })),
-            transition(':enter', [style({ height: 0 }), animate(100)]),
-            transition(':leave', [style({ height: '*' }), animate(100, style({ height: 0 }))]),
-        ]),
-    ],
-    standalone: false
+  // tslint:disable-next-line:component-selector
+  selector: 'demo',
+  templateUrl: 'demo.component.html',
+  animations: [
+    trigger('expandSection', [
+      state('in', style({height: '*'})),
+      transition(':enter', [style({height: 0}), animate(100)]),
+      transition(':leave', [style({height: '*'}), animate(100, style({height: 0}))]),
+    ]),
+  ],
+  standalone: false,
 })
 export class DemoComponent implements OnInit {
   examples: any = Examples;

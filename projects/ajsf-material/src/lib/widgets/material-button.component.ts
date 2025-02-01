@@ -3,9 +3,9 @@ import {Component, Input, OnInit} from '@angular/core';
 import {JsonSchemaFormService, hasOwn} from '@ajsf/core';
 
 @Component({
-    // tslint:disable-next-line:component-selector
-    selector: 'material-button-widget',
-    template: `
+  // tslint:disable-next-line:component-selector
+  selector: 'material-button-widget',
+  template: `
     <div class="button-row" [class]="options?.htmlClass || ''">
       <button mat-raised-button
         [attr.readonly]="options?.readonly ? 'readonly' : null"
@@ -17,12 +17,16 @@ import {JsonSchemaFormService, hasOwn} from '@ajsf/core';
         [type]="layoutNode?.type"
         [value]="controlValue"
         (click)="updateValue($event)">
-        <mat-icon *ngIf="options?.icon" class="mat-24">{{options?.icon}}</mat-icon>
-        <span *ngIf="options?.title" [innerHTML]="options?.title"></span>
+        @if (options?.icon) {
+          <mat-icon class="mat-24">{{options?.icon}}</mat-icon>
+        }
+        @if (options?.title) {
+          <span [innerHTML]="options?.title"></span>
+        }
       </button>
     </div>`,
-    styles: [` button { margin-top: 10px; } `],
-    standalone: false
+  styles: [` button { margin-top: 10px; } `],
+  standalone: false,
 })
 export class MaterialButtonComponent implements OnInit {
   formControl: AbstractControl;

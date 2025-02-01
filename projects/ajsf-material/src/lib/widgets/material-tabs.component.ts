@@ -2,29 +2,37 @@ import {Component, Input, OnInit} from '@angular/core';
 import {JsonSchemaFormService} from '@ajsf/core';
 
 @Component({
-    // tslint:disable-next-line:component-selector
-    selector: 'material-tabs-widget',
-    template: `
+  // tslint:disable-next-line:component-selector
+  selector: 'material-tabs-widget',
+  template: `
     <nav mat-tab-nav-bar
       [attr.aria-label]="options?.label || options?.title || ''"
       [style.width]="'100%'">
-        <a mat-tab-link *ngFor="let item of layoutNode?.items; let i = index"
+      @for (item of layoutNode?.items; track item; let i = $index) {
+        <a mat-tab-link
           [active]="selectedItem === i"
           (click)="select(i)">
-          <span *ngIf="showAddTab || item.type !== '$ref'"
+          @if (showAddTab || item.type !== '$ref') {
+            <span
             [innerHTML]="setTabTitle(item, i)"></span>
+          }
         </a>
+      }
     </nav>
-    <div *ngFor="let layoutItem of layoutNode?.items; let i = index"
-      [class]="options?.htmlClass || ''">
-      <select-framework-widget *ngIf="selectedItem === i"
-        [class]="(options?.fieldHtmlClass || '') + ' ' + (options?.activeClass || '') + ' ' + (options?.style?.selected || '')"
-        [dataIndex]="layoutNode?.dataType === 'array' ? (dataIndex || []).concat(i) : dataIndex"
-        [layoutIndex]="(layoutIndex || []).concat(i)"
-        [layoutNode]="layoutItem"></select-framework-widget>
-    </div>`,
-    styles: [` a { cursor: pointer; } `],
-    standalone: false
+    @for (layoutItem of layoutNode?.items; track layoutItem; let i = $index) {
+      <div
+        [class]="options?.htmlClass || ''">
+        @if (selectedItem === i) {
+          <select-framework-widget
+            [class]="(options?.fieldHtmlClass || '') + ' ' + (options?.activeClass || '') + ' ' + (options?.style?.selected || '')"
+            [dataIndex]="layoutNode?.dataType === 'array' ? (dataIndex || []).concat(i) : dataIndex"
+            [layoutIndex]="(layoutIndex || []).concat(i)"
+          [layoutNode]="layoutItem"></select-framework-widget>
+        }
+      </div>
+    }`,
+  styles: [` a { cursor: pointer; } `],
+  standalone: false,
 })
 export class MaterialTabsComponent implements OnInit {
   options: any;

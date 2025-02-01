@@ -3,30 +3,32 @@ import {Component, Input, OnInit} from '@angular/core';
 import {JsonSchemaFormService} from '@ajsf/core';
 
 @Component({
-    // tslint:disable-next-line:component-selector
-    selector: 'extended-textarea-widget',
-    template: `<div [class]="options?.htmlClass || ''">
-    <textarea
-      [attr.aria-describedby]="'control' + layoutNode?._id + 'Status'"
-      [attr.maxlength]="options?.maxLength"
-      [attr.minlength]="options?.minLength"
-      [attr.pattern]="options?.pattern"
-      [attr.placeholder]="options?.placeholder"
-      [attr.readonly]="options?.readonly ? 'readonly' : null"
-      [attr.required]="options?.required"
-      [class]="options?.fieldHtmlClass || ''"
-      [attr.disabled]="controlDisabled || options?.readonly ? 'disabled' : null"
-      [id]="'control' + layoutNode?._id"
-      [name]="controlName"
-      [value]="controlValue"
-      (input)="updateValue($event)"
-      >{{ controlValue }}</textarea
-    >
-    <span *ngIf="showSelectPopup" class="text-muted">
-      <button (click)="selectPopup()" type="button" class="btn btn-link">select template</button> or enter #
-    </span>
-  </div>`,
-    standalone: false
+  // tslint:disable-next-line:component-selector
+  selector: 'extended-textarea-widget',
+  template: `<div [class]="options?.htmlClass || ''">
+      <textarea
+        [attr.aria-describedby]="'control' + layoutNode?._id + 'Status'"
+        [attr.maxlength]="options?.maxLength"
+        [attr.minlength]="options?.minLength"
+        [attr.pattern]="options?.pattern"
+        [attr.placeholder]="options?.placeholder"
+        [attr.readonly]="options?.readonly ? 'readonly' : null"
+        [attr.required]="options?.required"
+        [class]="options?.fieldHtmlClass || ''"
+        [attr.disabled]="controlDisabled || options?.readonly ? 'disabled' : null"
+        [id]="'control' + layoutNode?._id"
+        [name]="controlName"
+        [value]="controlValue"
+        (input)="updateValue($event)"
+        >{{ controlValue }}</textarea
+        >
+        @if (showSelectPopup) {
+          <span class="text-muted">
+            <button (click)="selectPopup()" type="button" class="btn btn-link">select template</button> or enter #
+          </span>
+        }
+      </div>`,
+  standalone: false,
 })
 export class ExtendedTextareaComponent implements OnInit {
   formControl: AbstractControl;
