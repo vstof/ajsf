@@ -94,7 +94,7 @@
     "@angular/compiler": "^17.1.2",
     "@angular/core": "^17.1.2",
     "@angular/forms": "^17.1.2",
-    "@angular/material": "^16.2.0",
+    "@angular/material": "^17.1.2",
     "@angular/platform-browser": "^17.1.2",
     "@angular/platform-browser-dynamic": "^17.1.2",
     "@angular/router": "^17.1.2",
@@ -124,7 +124,6 @@
 
     "protractor": "~7.0.0",
     "ts-node": "~8.6.2",
-    "tsickle": "^0.46.3",
     "tslib": "^2.3.1",
     "tslint": "~6.1.0",
     "typescript": "~5.3.3",
