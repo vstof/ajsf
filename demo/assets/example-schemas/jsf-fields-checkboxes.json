@@ -7,21 +7,21 @@
         "items": {
           "type": "string",
           "title": "Option",
-          "enum": [ "starter", "maincourse", "cheese", "dessert", "OTHER" ]
+          "enum": ["starter", "maincourse", "cheese", "dessert", "OTHER"]
         },
         "minItems": 1
       },
-      "menuOther": { "type": "string" },
+      "menuOther": {"type": "string"},
       "menu2": {
         "type": "array",
         "title": "Options Inline",
         "items": {
           "type": "string",
           "title": "Option",
-          "enum": [ "starter", "maincourse", "CUSTOME_OTHER_VALUE", "cheese", "dessert" ]
+          "enum": ["starter", "maincourse", "CUSTOME_OTHER_VALUE", "cheese", "dessert"]
         }
       },
-      "menu2Other": { "type": "string" },
+      "menu2Other": {"type": "string"},
       "menu3": {
         "type": "array",
         "title": "Options",
@@ -33,7 +33,7 @@
       }
     }
   },
-  "nonDefaultFormItems": [ "menuOther", "menu2Other" ],
+  "nonDefaultFormItems": ["menuOther", "menu2Other"],
   "customFormItems": {
     "menu": {
       "type": "checkboxes",
@@ -43,7 +43,7 @@
         "cheese": "Cheddar rules!",
         "dessert": "Thumbs up for a dessert"
       },
-      "otherField": { "key": "menuOther", "inline": true }
+      "otherField": {"key": "menuOther", "inline": true}
     },
     "menu2": {
       "type": "checkboxes",
@@ -69,7 +69,7 @@
         "cheese": "Cheddar rules!",
         "dessert": "Thumbs up for a dessert"
       },
-      "otherField": { "key": "menu3[99]", "type": "text", "asArrayValue": true }
+      "otherField": {"key": "menu3[99]", "type": "text", "asArrayValue": true}
     }
   }
 }

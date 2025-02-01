@@ -1,11 +1,11 @@
-import { AbstractControl } from "@angular/forms";
-import { buildTitleMap } from "../shared";
-import { Component, Input, OnInit } from "@angular/core";
-import { JsonSchemaFormService, TitleMapItem } from "../json-schema-form.service";
+import {AbstractControl} from '@angular/forms';
+import {buildTitleMap} from '../shared';
+import {Component, Input, OnInit} from '@angular/core';
+import {JsonSchemaFormService, TitleMapItem} from '../json-schema-form.service';
 
 @Component({
   // tslint:disable-next-line:component-selector
-  selector: "checkboxes-widget",
+  selector: 'checkboxes-widget',
   template: `
     <label
       *ngIf="options?.title"
@@ -55,15 +55,19 @@ export class CheckboxesComponent implements OnInit {
   ngOnInit() {
     this.options = this.layoutNode.options || {};
     this.layoutOrientation =
-      this.layoutNode.type === "checkboxes-inline" || this.layoutNode.type === "checkboxbuttons"
-        ? "horizontal"
-        : "vertical";
+      this.layoutNode.type === 'checkboxes-inline' || this.layoutNode.type === 'checkboxbuttons'
+        ? 'horizontal'
+        : 'vertical';
     this.jsf.initializeControl(this);
-    this.checkboxList = buildTitleMap(this.options.titleMap || this.options.enumNames, this.options.enum, true);
+    this.checkboxList = buildTitleMap(
+      this.options.titleMap || this.options.enumNames,
+      this.options.enum,
+      true,
+    );
     if (this.boundControl) {
       const formArray = this.jsf.getFormControl(this);
       this.checkboxList.forEach(
-        (checkboxItem) => (checkboxItem.checked = formArray.value.includes(checkboxItem.value))
+        (checkboxItem) => (checkboxItem.checked = formArray.value.includes(checkboxItem.value)),
       );
     }
   }

@@ -1,7 +1,7 @@
-import { Framework } from './framework';
-import { hasOwn } from '../shared/utility.functions';
-import { Inject, Injectable } from '@angular/core';
-import { WidgetLibraryService } from '../widget-library/widget-library.service';
+import {Framework} from './framework';
+import {hasOwn} from '../shared/utility.functions';
+import {Inject, Injectable} from '@angular/core';
+import {WidgetLibraryService} from '../widget-library/widget-library.service';
 
 // Possible future frameworks:
 // - Foundation 6:
@@ -16,19 +16,17 @@ import { WidgetLibraryService } from '../widget-library/widget-library.service';
 })
 export class FrameworkLibraryService {
   activeFramework: Framework = null;
-  stylesheets: (HTMLStyleElement|HTMLLinkElement)[];
+  stylesheets: (HTMLStyleElement | HTMLLinkElement)[];
   scripts: HTMLScriptElement[];
   loadExternalAssets = false;
   defaultFramework: string;
-  frameworkLibrary: { [name: string]: Framework } = {};
+  frameworkLibrary: {[name: string]: Framework} = {};
 
   constructor(
     @Inject(Framework) private frameworks: any[],
-    @Inject(WidgetLibraryService) private widgetLibrary: WidgetLibraryService
+    @Inject(WidgetLibraryService) private widgetLibrary: WidgetLibraryService,
   ) {
-    this.frameworks.forEach(framework =>
-      this.frameworkLibrary[framework.name] = framework
-    );
+    this.frameworks.forEach((framework) => (this.frameworkLibrary[framework.name] = framework));
     this.defaultFramework = this.frameworks[0].name;
     this.setFramework(this.defaultFramework);
   }
@@ -38,22 +36,22 @@ export class FrameworkLibraryService {
   }
 
   public setFramework(
-    framework: string|Framework = this.defaultFramework,
-    loadExternalAssets = this.loadExternalAssets
+    framework: string | Framework = this.defaultFramework,
+    loadExternalAssets = this.loadExternalAssets,
   ): boolean {
     this.activeFramework =
-      typeof framework === 'string' && this.hasFramework(framework) ?
-        this.frameworkLibrary[framework] :
-      typeof framework === 'object' && hasOwn(framework, 'framework') ?
-        framework :
-        this.frameworkLibrary[this.defaultFramework];
+      typeof framework === 'string' && this.hasFramework(framework)
+        ? this.frameworkLibrary[framework]
+        : typeof framework === 'object' && hasOwn(framework, 'framework')
+          ? framework
+          : this.frameworkLibrary[this.defaultFramework];
     return this.registerFrameworkWidgets(this.activeFramework);
   }
 
   registerFrameworkWidgets(framework: Framework): boolean {
-    return hasOwn(framework, 'widgets') ?
-      this.widgetLibrary.registerFrameworkWidgets(framework.widgets) :
-      this.widgetLibrary.unRegisterFrameworkWidgets();
+    return hasOwn(framework, 'widgets')
+      ? this.widgetLibrary.registerFrameworkWidgets(framework.widgets)
+      : this.widgetLibrary.unRegisterFrameworkWidgets();
   }
 
   public hasFramework(type: string): boolean {
@@ -61,7 +59,9 @@ export class FrameworkLibraryService {
   }
 
   public getFramework(): any {
-    if (!this.activeFramework) { this.setFramework('default', true); }
+    if (!this.activeFramework) {
+      this.setFramework('default', true);
+    }
     return this.activeFramework.framework;
   }
 

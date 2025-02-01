@@ -1,9 +1,9 @@
-import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
-import { JsonSchemaFormService } from "@ajsf/core";
+import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
+import {JsonSchemaFormService} from '@ajsf/core';
 
 @Component({
   // tslint:disable-next-line:component-selector
-  selector: "flex-layout-root-widget",
+  selector: 'flex-layout-root-widget',
   template: ` <div
     *ngFor="let layoutNode of layout; let i = index"
     [class.form-flex-item]="isFlexItem"
@@ -38,11 +38,11 @@ export class FlexLayoutRootComponent {
   // Set attributes for flexbox child
   // (container attributes are set in flex-layout-section.component)
   getFlexAttribute(node: any, attribute: string) {
-    const index = ["flex-grow", "flex-shrink", "flex-basis"].indexOf(attribute);
+    const index = ['flex-grow', 'flex-shrink', 'flex-basis'].indexOf(attribute);
     return (
-      ((node.options || {}).flex || "").split(/\s+/)[index] ||
+      ((node.options || {}).flex || '').split(/\s+/)[index] ||
       (node.options || {})[attribute] ||
-      ["1", "1", "auto"][index]
+      ['1', '1', 'auto'][index]
     );
   }
 

@@ -1,11 +1,11 @@
-import { AbstractControl } from "@angular/forms";
-import { Component, Inject, Input, OnInit, Optional } from "@angular/core";
-import { JsonSchemaFormService } from "@ajsf/core";
-import { MAT_LEGACY_FORM_FIELD_DEFAULT_OPTIONS as MAT_FORM_FIELD_DEFAULT_OPTIONS } from "@angular/material/legacy-form-field";
+import {AbstractControl} from '@angular/forms';
+import {Component, Inject, Input, OnInit, Optional} from '@angular/core';
+import {JsonSchemaFormService} from '@ajsf/core';
+import {MAT_LEGACY_FORM_FIELD_DEFAULT_OPTIONS as MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/legacy-form-field';
 
 @Component({
   // tslint:disable-next-line:component-selector
-  selector: "material-input-widget",
+  selector: 'material-input-widget',
   template: `<mat-form-field
       [appearance]="options?.appearance || matFormFieldDefaultOptions?.appearance || 'standard'"
       [class]="options?.htmlClass || ''"
@@ -101,7 +101,7 @@ export class MaterialInputComponent implements OnInit {
 
   constructor(
     @Inject(MAT_FORM_FIELD_DEFAULT_OPTIONS) @Optional() public matFormFieldDefaultOptions,
-    private jsf: JsonSchemaFormService
+    private jsf: JsonSchemaFormService,
   ) {}
 
   ngOnInit() {

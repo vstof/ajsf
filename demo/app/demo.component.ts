@@ -1,65 +1,56 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
-import { MatLegacyMenuTrigger as MatMenuTrigger } from "@angular/material/legacy-menu";
-import {
-  trigger,
-  state,
-  style,
-  animate,
-  transition,
-} from "@angular/animations";
-import { ActivatedRoute, Router } from "@angular/router";
-import { HttpClient } from "@angular/common/http";
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {MatLegacyMenuTrigger as MatMenuTrigger} from '@angular/material/legacy-menu';
+import {trigger, state, style, animate, transition} from '@angular/animations';
+import {ActivatedRoute, Router} from '@angular/router';
+import {HttpClient} from '@angular/common/http';
 
-import { Examples } from "./example-schemas.model";
-import { JsonPointer } from "@ajsf/core";
+import {Examples} from './example-schemas.model';
+import {JsonPointer} from '@ajsf/core';
 
 @Component({
   // tslint:disable-next-line:component-selector
-  selector: "demo",
-  templateUrl: "demo.component.html",
+  selector: 'demo',
+  templateUrl: 'demo.component.html',
   animations: [
-    trigger("expandSection", [
-      state("in", style({ height: "*" })),
-      transition(":enter", [style({ height: 0 }), animate(100)]),
-      transition(":leave", [
-        style({ height: "*" }),
-        animate(100, style({ height: 0 })),
-      ]),
+    trigger('expandSection', [
+      state('in', style({height: '*'})),
+      transition(':enter', [style({height: 0}), animate(100)]),
+      transition(':leave', [style({height: '*'}), animate(100, style({height: 0}))]),
     ]),
   ],
 })
 export class DemoComponent implements OnInit {
   examples: any = Examples;
-  languageList: any = ["de", "en", "es", "fr", "it", "pt", "zh"];
+  languageList: any = ['de', 'en', 'es', 'fr', 'it', 'pt', 'zh'];
   languages: any = {
-    de: "German",
-    en: "English",
-    es: "Spanish",
-    fr: "French",
-    it: "Italian",
-    pt: "Portuguese",
-    zh: "Chinese",
+    de: 'German',
+    en: 'English',
+    es: 'Spanish',
+    fr: 'French',
+    it: 'Italian',
+    pt: 'Portuguese',
+    zh: 'Chinese',
   };
   frameworkList: any = [
-    "material-design",
-    "bootstrap-3",
-    "bootstrap-4",
-    "bootstrap-5",
-    "no-framework",
+    'material-design',
+    'bootstrap-3',
+    'bootstrap-4',
+    'bootstrap-5',
+    'no-framework',
   ];
   frameworks: any = {
-    "material-design": "Material Design",
-    "bootstrap-3": "Bootstrap 3",
-    "bootstrap-4": "Bootstrap 4",
-    "bootstrap-5": "Bootstrap 5",
-    "no-framework": "None (plain HTML)",
+    'material-design': 'Material Design',
+    'bootstrap-3': 'Bootstrap 3',
+    'bootstrap-4': 'Bootstrap 4',
+    'bootstrap-5': 'Bootstrap 5',
+    'no-framework': 'None (plain HTML)',
   };
-  selectedSet = "ng-jsf";
-  selectedSetName = "";
-  selectedExample = "ng-jsf-flex-layout";
-  selectedExampleName = "Flexbox layout";
-  selectedFramework = "material-design";
-  selectedLanguage = "en";
+  selectedSet = 'ng-jsf';
+  selectedSetName = '';
+  selectedExample = 'ng-jsf-flex-layout';
+  selectedExampleName = 'Flexbox layout';
+  selectedFramework = 'material-design';
+  selectedLanguage = 'en';
   visible = {
     options: true,
     schema: true,
@@ -70,7 +61,7 @@ export class DemoComponent implements OnInit {
   formActive = false;
   jsonFormSchema: string;
   jsonFormValid = false;
-  jsonFormStatusMessage = "Loading form...";
+  jsonFormStatusMessage = 'Loading form...';
   jsonFormObject: any;
   jsonFormOptions: any = {
     addSubmit: true, // Add a submit button if layout does not have one
@@ -78,7 +69,7 @@ export class DemoComponent implements OnInit {
     loadExternalAssets: true, // Load external css and JavaScript for frameworks
     returnEmptyFields: false, // Don't return values for empty input fields
     setSchemaDefaults: true, // Always use schema defaults for empty fields
-    defaultWidgetOptions: { feedback: true }, // Show inline feedback icons
+    defaultWidgetOptions: {feedback: true}, // Show inline feedback icons
   };
   liveFormData: any = {};
   formValidationErrors: any;
@@ -90,37 +81,37 @@ export class DemoComponent implements OnInit {
     printMargin: false,
     autoScrollEditorIntoView: true,
   };
-  @ViewChild(MatMenuTrigger, { static: true }) menuTrigger: MatMenuTrigger;
+  @ViewChild(MatMenuTrigger, {static: true}) menuTrigger: MatMenuTrigger;
 
   constructor(
     private http: HttpClient,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
   ) {}
 
   ngOnInit() {
     // Subscribe to query string to detect schema to load
     this.route.queryParams.subscribe((params) => {
-      if (params["set"]) {
-        this.selectedSet = params["set"];
+      if (params['set']) {
+        this.selectedSet = params['set'];
         this.selectedSetName = {
-          "ng-jsf": "",
-          asf: "Angular Schema Form:",
-          rsf: "React Schema Form:",
-          jsf: "JSONForm:",
+          'ng-jsf': '',
+          asf: 'Angular Schema Form:',
+          rsf: 'React Schema Form:',
+          jsf: 'JSONForm:',
         }[this.selectedSet];
       }
-      if (params["example"]) {
-        this.selectedExample = params["example"];
+      if (params['example']) {
+        this.selectedExample = params['example'];
         this.selectedExampleName = this.examples[this.selectedSet].schemas.find(
-          (schema) => schema.file === this.selectedExample
+          (schema) => schema.file === this.selectedExample,
         ).name;
       }
-      if (params["framework"]) {
-        this.selectedFramework = params["framework"];
+      if (params['framework']) {
+        this.selectedFramework = params['framework'];
       }
-      if (params["language"]) {
-        this.selectedLanguage = params["language"];
+      if (params['language']) {
+        this.selectedLanguage = params['language'];
       }
       this.loadSelectedExample();
     });
@@ -169,14 +160,14 @@ export class DemoComponent implements OnInit {
         errorArray.push(message);
       }
     }
-    return errorArray.join("<br>");
+    return errorArray.join('<br>');
   }
 
   loadSelectedExample(
     selectedSet: string = this.selectedSet,
     selectedSetName: string = this.selectedSetName,
     selectedExample: string = this.selectedExample,
-    selectedExampleName: string = this.selectedExampleName
+    selectedExampleName: string = this.selectedExampleName,
   ) {
     if (this.menuTrigger.menuOpen) {
       this.menuTrigger.closeMenu();
@@ -188,14 +179,14 @@ export class DemoComponent implements OnInit {
       this.selectedExample = selectedExample;
       this.selectedExampleName = selectedExampleName;
       this.router.navigateByUrl(
-        "/?set=" +
+        '/?set=' +
           selectedSet +
-          "&example=" +
+          '&example=' +
           selectedExample +
-          "&framework=" +
+          '&framework=' +
           this.selectedFramework +
-          "&language=" +
-          this.selectedLanguage
+          '&language=' +
+          this.selectedLanguage,
       );
       this.liveFormData = {};
       this.submittedFormData = null;
@@ -203,7 +194,7 @@ export class DemoComponent implements OnInit {
       this.formValidationErrors = null;
     }
     const exampleURL = `assets/example-schemas/${this.selectedExample}.json`;
-    this.http.get(exampleURL, { responseType: "text" }).subscribe((schema) => {
+    this.http.get(exampleURL, {responseType: 'text'}).subscribe((schema) => {
       this.jsonFormSchema = schema;
       this.generateForm(this.jsonFormSchema);
     });
@@ -219,7 +210,7 @@ export class DemoComponent implements OnInit {
     if (!newFormString) {
       return;
     }
-    this.jsonFormStatusMessage = "Loading form...";
+    this.jsonFormStatusMessage = 'Loading form...';
     this.formActive = false;
     this.liveFormData = {};
     this.submittedFormData = null;
@@ -237,7 +228,7 @@ export class DemoComponent implements OnInit {
         // parse as JavaScript instead to include functions
         const newFormObject: any = null;
         /* tslint:disable */
-        eval("newFormObject = " + newFormString);
+        eval('newFormObject = ' + newFormString);
         /* tslint:enable */
         this.jsonFormObject = newFormObject;
         this.jsonFormValid = true;
@@ -245,9 +236,9 @@ export class DemoComponent implements OnInit {
         // If entered content is not valid JSON or JavaScript, show error
         this.jsonFormValid = false;
         this.jsonFormStatusMessage =
-          "Entered content is not currently a valid JSON Form object.\n" +
-          "As soon as it is, you will see your form here. So keep typing. :-)\n\n" +
-          "JavaScript parser returned:\n\n" +
+          'Entered content is not currently a valid JSON Form object.\n' +
+          'As soon as it is, you will see your form here. So keep typing. :-)\n\n' +
+          'JavaScript parser returned:\n\n' +
           jsonError;
         return;
       }
@@ -260,7 +251,7 @@ export class DemoComponent implements OnInit {
   }
 
   toggleFormOption(option: string) {
-    if (option === "feedback") {
+    if (option === 'feedback') {
       this.jsonFormOptions.defaultWidgetOptions.feedback =
         !this.jsonFormOptions.defaultWidgetOptions.feedback;
     } else {

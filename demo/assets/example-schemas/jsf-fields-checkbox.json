@@ -17,7 +17,7 @@
             "type": "integer"
           }
         },
-        "required": [ "field1", "field2" ]
+        "required": ["field1", "field2"]
       },
       "commonInfo": {
         "title": "Common Field",
@@ -25,7 +25,7 @@
       }
     },
     "dependencies": {
-      "flag": [ "adultOnlyInfo" ]
+      "flag": ["adultOnlyInfo"]
     }
   },
   "customFormItems": {

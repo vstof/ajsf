@@ -9,17 +9,15 @@ import {
   AfterContentChecked,
   Output,
   EventEmitter,
-} from "@angular/core";
-import { WindowRef } from "./window-ref.service";
+} from '@angular/core';
+import {WindowRef} from './window-ref.service';
 
 const MAX_LOOKUP_RETRIES = 3;
 
 @Directive({
-  selector: "[textareaAutoresize]",
+  selector: '[textareaAutoresize]',
 })
-export class TextareaAutoresizeDirective
-  implements OnDestroy, OnChanges, AfterContentChecked
-{
+export class TextareaAutoresizeDirective implements OnDestroy, OnChanges, AfterContentChecked {
   @Input()
   set minRows(value) {
     this._minRows = value;
@@ -27,9 +25,9 @@ export class TextareaAutoresizeDirective
       this.textAreaEl.rows = value;
     }
   }
-  @Input("appTextareaAutoresize")
+  @Input('appTextareaAutoresize')
   set _autosize(autosize: boolean) {
-    this.autosize = typeof autosize === "boolean" ? autosize : true;
+    this.autosize = typeof autosize === 'boolean' ? autosize : true;
   }
   private _minRows: number;
 
@@ -49,7 +47,7 @@ export class TextareaAutoresizeDirective
   private _windowResizeHandler;
   private _destroyed = false;
 
-  @HostListener("input", ["$event.target"])
+  @HostListener('input', ['$event.target'])
   onInput(textArea: HTMLTextAreaElement): void {
     this.adjust();
   }
@@ -57,13 +55,13 @@ export class TextareaAutoresizeDirective
   constructor(
     public element: ElementRef,
     private _window: WindowRef,
-    private _zone: NgZone
+    private _zone: NgZone,
   ) {
-    if (this.element.nativeElement.tagName !== "TEXTAREA") {
+    if (this.element.nativeElement.tagName !== 'TEXTAREA') {
       this._findNestedTextArea();
     } else {
       this.textAreaEl = this.element.nativeElement;
-      this.textAreaEl.style["overflow-y"] = "hidden";
+      this.textAreaEl.style['overflow-y'] = 'hidden';
       this._onTextAreaFound();
     }
   }
@@ -71,11 +69,7 @@ export class TextareaAutoresizeDirective
   ngOnDestroy() {
     this._destroyed = true;
     if (this._windowResizeHandler) {
-      this._window.nativeWindow.removeEventListener(
-        "resize",
-        this._windowResizeHandler,
-        false
-      );
+      this._window.nativeWindow.removeEventListener('resize', this._windowResizeHandler, false);
     }
   }
 
@@ -88,16 +82,15 @@ export class TextareaAutoresizeDirective
   }
 
   _findNestedTextArea() {
-    this.textAreaEl = this.element.nativeElement.querySelector("TEXTAREA");
+    this.textAreaEl = this.element.nativeElement.querySelector('TEXTAREA');
 
     if (!this.textAreaEl && this.element.nativeElement.shadowRoot) {
-      this.textAreaEl =
-        this.element.nativeElement.shadowRoot.querySelector("TEXTAREA");
+      this.textAreaEl = this.element.nativeElement.shadowRoot.querySelector('TEXTAREA');
     }
 
     if (!this.textAreaEl) {
       if (this.retries >= MAX_LOOKUP_RETRIES) {
-        console.warn("ngx-autosize: textarea not found");
+        console.warn('ngx-autosize: textarea not found');
       } else {
         this.retries++;
         setTimeout(() => {
@@ -107,7 +100,7 @@ export class TextareaAutoresizeDirective
       return;
     }
 
-    this.textAreaEl.style["overflow-y"] = "hidden";
+    this.textAreaEl.style['overflow-y'] = 'hidden';
     this._onTextAreaFound();
   }
 
@@ -127,21 +120,12 @@ export class TextareaAutoresizeDirective
     // }, 200);
 
     this._zone.runOutsideAngular(() => {
-      this._window.nativeWindow.addEventListener(
-        "resize",
-        this._windowResizeHandler,
-        false
-      );
+      this._window.nativeWindow.addEventListener('resize', this._windowResizeHandler, false);
     });
   }
 
   adjust(inputsChanged = false): void {
-    if (
-      this.autosize &&
-      !this._destroyed &&
-      this.textAreaEl &&
-      this.textAreaEl.parentNode
-    ) {
+    if (this.autosize && !this._destroyed && this.textAreaEl && this.textAreaEl.parentNode) {
       const currentText = this.textAreaEl.value;
 
       if (
@@ -157,29 +141,26 @@ export class TextareaAutoresizeDirective
 
       const clone = this.textAreaEl.cloneNode(true);
       const parent = this.textAreaEl.parentNode;
-      clone.style.width = this.textAreaEl.offsetWidth + "px";
-      clone.style.visibility = "hidden";
-      clone.style.position = "absolute";
+      clone.style.width = this.textAreaEl.offsetWidth + 'px';
+      clone.style.visibility = 'hidden';
+      clone.style.position = 'absolute';
       clone.textContent = currentText;
 
       parent.appendChild(clone);
 
-      clone.style["overflow-y"] = "hidden";
-      clone.style.height = "auto";
+      clone.style['overflow-y'] = 'hidden';
+      clone.style.height = 'auto';
 
       let height = clone.scrollHeight;
 
       // add into height top and bottom borders' width
-      let computedStyle = this._window.nativeWindow.getComputedStyle(
-        clone,
-        null
-      );
-      height += parseInt(computedStyle.getPropertyValue("border-top-width"));
-      height += parseInt(computedStyle.getPropertyValue("border-bottom-width"));
+      let computedStyle = this._window.nativeWindow.getComputedStyle(clone, null);
+      height += parseInt(computedStyle.getPropertyValue('border-top-width'));
+      height += parseInt(computedStyle.getPropertyValue('border-bottom-width'));
 
       // add into height top and bottom paddings width
-      height += parseInt(computedStyle.getPropertyValue("padding-top"));
-      height += parseInt(computedStyle.getPropertyValue("padding-bottom"));
+      height += parseInt(computedStyle.getPropertyValue('padding-top'));
+      height += parseInt(computedStyle.getPropertyValue('padding-bottom'));
 
       const oldHeight = this.textAreaEl.offsetHeight;
       const willGrow = height > oldHeight;
@@ -194,15 +175,15 @@ export class TextareaAutoresizeDirective
           // never shrink the textarea if onlyGrow is true
           const maxHeight = this.maxRows * lineHeight;
           height = this.onlyGrow ? Math.max(maxHeight, oldHeight) : maxHeight;
-          this.textAreaEl.style["overflow-y"] = "auto";
+          this.textAreaEl.style['overflow-y'] = 'auto';
         } else {
-          this.textAreaEl.style["overflow-y"] = "hidden";
+          this.textAreaEl.style['overflow-y'] = 'hidden';
         }
 
-        const heightStyle = height + "px";
-        const important = this.useImportant ? "important" : "";
+        const heightStyle = height + 'px';
+        const important = this.useImportant ? 'important' : '';
 
-        this.textAreaEl.style.setProperty("height", heightStyle, important);
+        this.textAreaEl.style.setProperty('height', heightStyle, important);
 
         this.resized.emit(height);
       }
@@ -214,17 +195,15 @@ export class TextareaAutoresizeDirective
   private _getLineHeight() {
     let lineHeight = parseInt(this.textAreaEl.style.lineHeight, 10);
     if (isNaN(lineHeight) && this._window.nativeWindow.getComputedStyle) {
-      const styles = this._window.nativeWindow.getComputedStyle(
-        this.textAreaEl
-      );
+      const styles = this._window.nativeWindow.getComputedStyle(this.textAreaEl);
       lineHeight = parseInt(styles.lineHeight, 10);
     }
 
     if (isNaN(lineHeight)) {
       const fontSize = this._window.nativeWindow
         .getComputedStyle(this.textAreaEl, null)
-        .getPropertyValue("font-size");
-      lineHeight = Math.floor(parseInt(fontSize.replace("px", ""), 10) * 1.5);
+        .getPropertyValue('font-size');
+      lineHeight = Math.floor(parseInt(fontSize.replace('px', ''), 10) * 1.5);
     }
 
     return lineHeight;

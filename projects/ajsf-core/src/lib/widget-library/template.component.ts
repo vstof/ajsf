@@ -6,10 +6,9 @@ import {
   OnChanges,
   OnInit,
   ViewChild,
-  ViewContainerRef
-  } from '@angular/core';
-import { JsonSchemaFormService } from '../json-schema-form.service';
-
+  ViewContainerRef,
+} from '@angular/core';
+import {JsonSchemaFormService} from '../json-schema-form.service';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -21,13 +20,13 @@ export class TemplateComponent implements OnInit, OnChanges {
   @Input() layoutNode: any;
   @Input() layoutIndex: number[];
   @Input() dataIndex: number[];
-  @ViewChild('widgetContainer', { read: ViewContainerRef , static: true})
-    widgetContainer: ViewContainerRef;
+  @ViewChild('widgetContainer', {read: ViewContainerRef, static: true})
+  widgetContainer: ViewContainerRef;
 
   constructor(
     private componentFactory: ComponentFactoryResolver,
-    private jsf: JsonSchemaFormService
-  ) { }
+    private jsf: JsonSchemaFormService,
+  ) {}
 
   ngOnInit() {
     this.updateComponent();
@@ -40,7 +39,7 @@ export class TemplateComponent implements OnInit, OnChanges {
   updateComponent() {
     if (this.widgetContainer && !this.newComponent && this.layoutNode.options.template) {
       this.newComponent = this.widgetContainer.createComponent(
-        this.componentFactory.resolveComponentFactory(this.layoutNode.options.template)
+        this.componentFactory.resolveComponentFactory(this.layoutNode.options.template),
       );
     }
     if (this.newComponent) {

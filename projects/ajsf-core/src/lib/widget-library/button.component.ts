@@ -1,10 +1,10 @@
-import { AbstractControl } from "@angular/forms";
-import { Component, Input, OnInit } from "@angular/core";
-import { JsonSchemaFormService } from "../json-schema-form.service";
+import {AbstractControl} from '@angular/forms';
+import {Component, Input, OnInit} from '@angular/core';
+import {JsonSchemaFormService} from '../json-schema-form.service';
 
 @Component({
   // tslint:disable-next-line:component-selector
-  selector: "button-widget",
+  selector: 'button-widget',
   template: `<div [class]="options?.htmlClass || ''">
     <button
       [attr.readonly]="options?.readonly ? 'readonly' : null"
@@ -39,7 +39,7 @@ export class ButtonComponent implements OnInit {
   }
 
   updateValue(event) {
-    if (typeof this.options.onClick === "function") {
+    if (typeof this.options.onClick === 'function') {
       this.options.onClick(event);
     } else {
       this.jsf.updateValue(this, event.target.value);

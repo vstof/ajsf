@@ -1,4 +1,5 @@
-export const deValidationMessages: any = { // Default German error messages
+export const deValidationMessages: any = {
+  // Default German error messages
   required: 'Darf nicht leer sein',
   minLength: 'Mindestens {{minimumLength}} Zeichen benötigt (aktuell: {{currentLength}})',
   maxLength: 'Maximal {{maximumLength}} Zeichen erlaubt (aktuell: {{currentLength}})',
@@ -49,7 +50,8 @@ export const deValidationMessages: any = { // Default German error messages
       return `Muss ein Vielfaches von ${error.multipleOfValue} sein`;
     }
   },
-  minProperties: 'Mindestens {{minimumProperties}} Attribute erforderlich (aktuell: {{currentProperties}})',
+  minProperties:
+    'Mindestens {{minimumProperties}} Attribute erforderlich (aktuell: {{currentProperties}})',
   maxProperties: 'Maximal {{maximumProperties}} Attribute erlaubt (aktuell: {{currentProperties}})',
   minItems: 'Mindestens {{minimumItems}} Werte erforderlich (aktuell: {{currentItems}})',
   maxItems: 'Maximal {{maximumItems}} Werte erlaubt (aktuell: {{currentItems}})',

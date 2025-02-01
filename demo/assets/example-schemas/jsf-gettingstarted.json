@@ -5,10 +5,13 @@
       "title": "A field"
     }
   },
-  "form": [ {
-    "key": "field"
-  }, {
-    "type": "submit",
-    "title": "Submit"
-  } ]
+  "form": [
+    {
+      "key": "field"
+    },
+    {
+      "type": "submit",
+      "title": "Submit"
+    }
+  ]
 }

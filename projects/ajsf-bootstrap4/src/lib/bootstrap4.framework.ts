@@ -11,9 +11,7 @@ export class Bootstrap4Framework extends Framework {
 
   framework = Bootstrap4FrameworkComponent;
 
-  stylesheets = [
-    '//stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'
-  ];
+  stylesheets = ['//stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'];
 
   scripts = [
     '//code.jquery.com/jquery-3.3.1.slim.min.js',

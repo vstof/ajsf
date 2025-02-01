@@ -2,7 +2,7 @@
   "schema": {
     "friends": {
       "type": "array",
-      "default": [ "foo", "bar" ],
+      "default": ["foo", "bar"],
       "readOnly": true,
       "items": {
         "type": "string",
@@ -13,8 +13,8 @@
     "fiends": {
       "type": "array",
       "default": [
-        { "name": "bob", "age": 24 },
-        { "name": "alice", "age": 42 }
+        {"name": "bob", "age": 24},
+        {"name": "alice", "age": 42}
       ],
       "readOnly": true,
       "items": {
@@ -33,14 +33,14 @@
             "title": "Address",
             "type": "object",
             "properties": {
-              "street": { "type": "string" },
-              "zip": { "type": "string" },
-              "city": { "type": "string" }
+              "street": {"type": "string"},
+              "zip": {"type": "string"},
+              "city": {"type": "string"}
             },
-            "default": { "zip": "N/A" }
+            "default": {"zip": "N/A"}
           }
         },
-        "default": { "name": "ah", "age": 55 }
+        "default": {"name": "ah", "age": 55}
       }
     }
   }

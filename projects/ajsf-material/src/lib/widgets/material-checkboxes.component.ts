@@ -1,7 +1,7 @@
-import { AbstractControl } from '@angular/forms';
-import { buildTitleMap } from '@ajsf/core';
-import { Component, Input, OnInit } from '@angular/core';
-import { JsonSchemaFormService, TitleMapItem } from '@ajsf/core';
+import {AbstractControl} from '@angular/forms';
+import {buildTitleMap} from '@ajsf/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {JsonSchemaFormService, TitleMapItem} from '@ajsf/core';
 
 // TODO: Change this to use a Selection List instead?
 // https://material.angular.io/components/list/overview
@@ -43,13 +43,15 @@ import { JsonSchemaFormService, TitleMapItem } from '@ajsf/core';
       <mat-error *ngIf="options?.showErrors && options?.errorMessage"
         [innerHTML]="options?.errorMessage"></mat-error>
     </div>`,
-  styles: [`
+  styles: [
+    `
     .title { font-weight: bold; }
     .checkbox-list { list-style-type: none; }
     .horizontal-list > li { display: inline-block; margin-right: 10px; zoom: 1; }
     .checkbox-name { white-space: nowrap; }
     mat-error { font-size: 75%; }
-  `],
+  `,
+  ],
 })
 export class MaterialCheckboxesComponent implements OnInit {
   formControl: AbstractControl;
@@ -65,17 +67,17 @@ export class MaterialCheckboxesComponent implements OnInit {
   @Input() layoutIndex: number[];
   @Input() dataIndex: number[];
 
-  constructor(
-    private jsf: JsonSchemaFormService
-  ) { }
+  constructor(private jsf: JsonSchemaFormService) {}
 
   ngOnInit() {
     this.options = this.layoutNode.options || {};
-    this.horizontalList = this.layoutNode.type === 'checkboxes-inline' ||
-      this.layoutNode.type === 'checkboxbuttons';
+    this.horizontalList =
+      this.layoutNode.type === 'checkboxes-inline' || this.layoutNode.type === 'checkboxbuttons';
     this.jsf.initializeControl(this);
     this.checkboxList = buildTitleMap(
-      this.options.titleMap || this.options.enumNames, this.options.enum, true
+      this.options.titleMap || this.options.enumNames,
+      this.options.enum,
+      true,
     );
     if (this.boundControl) {
       const formArray = this.jsf.getFormControl(this);
@@ -86,11 +88,11 @@ export class MaterialCheckboxesComponent implements OnInit {
   }
 
   get allChecked(): boolean {
-    return this.checkboxList.filter(t => t.checked).length === this.checkboxList.length;
+    return this.checkboxList.filter((t) => t.checked).length === this.checkboxList.length;
   }
 
   get someChecked(): boolean {
-    const checkedItems = this.checkboxList.filter(t => t.checked).length;
+    const checkedItems = this.checkboxList.filter((t) => t.checked).length;
     return checkedItems > 0 && checkedItems < this.checkboxList.length;
   }
 
@@ -103,7 +105,7 @@ export class MaterialCheckboxesComponent implements OnInit {
 
   updateAllValues(event: any) {
     this.options.showErrors = true;
-    this.checkboxList.forEach(t => t.checked = event.checked);
+    this.checkboxList.forEach((t) => (t.checked = event.checked));
     this.updateValue();
   }
 }

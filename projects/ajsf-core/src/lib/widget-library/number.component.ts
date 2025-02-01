@@ -1,11 +1,11 @@
-import { Component, Input, OnInit } from "@angular/core";
-import { AbstractControl } from "@angular/forms";
+import {Component, Input, OnInit} from '@angular/core';
+import {AbstractControl} from '@angular/forms';
 
-import { JsonSchemaFormService } from "../json-schema-form.service";
+import {JsonSchemaFormService} from '../json-schema-form.service';
 
 @Component({
   // tslint:disable-next-line:component-selector
-  selector: "number-widget",
+  selector: 'number-widget',
   template: `<div [class]="options?.htmlClass || ''">
     <label
       *ngIf="options?.title"
@@ -63,7 +63,7 @@ export class NumberComponent implements OnInit {
   allowNegative = true;
   allowDecimal = true;
   allowExponents = false;
-  lastValidNumber = "";
+  lastValidNumber = '';
   @Input() layoutNode: any;
   @Input() layoutIndex: number[];
   @Input() dataIndex: number[];
@@ -73,7 +73,7 @@ export class NumberComponent implements OnInit {
   ngOnInit() {
     this.options = this.layoutNode.options || {};
     this.jsf.initializeControl(this);
-    if (this.layoutNode.dataType === "integer") {
+    if (this.layoutNode.dataType === 'integer') {
       this.allowDecimal = false;
     }
   }

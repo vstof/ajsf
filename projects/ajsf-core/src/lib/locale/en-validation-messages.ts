@@ -1,4 +1,5 @@
-export const enValidationMessages: any = { // Default English error messages
+export const enValidationMessages: any = {
+  // Default English error messages
   required: 'This field is required.',
   minLength: 'Must be {{minimumLength}} characters or longer (current length: {{currentLength}})',
   maxLength: 'Must be {{maximumLength}} characters or shorter (current length: {{currentLength}})',
@@ -49,8 +50,10 @@ export const enValidationMessages: any = { // Default English error messages
       return `Must be a multiple of ${error.multipleOfValue}.`;
     }
   },
-  minProperties: 'Must have {{minimumProperties}} or more items (current items: {{currentProperties}})',
-  maxProperties: 'Must have {{maximumProperties}} or fewer items (current items: {{currentProperties}})',
+  minProperties:
+    'Must have {{minimumProperties}} or more items (current items: {{currentProperties}})',
+  maxProperties:
+    'Must have {{maximumProperties}} or fewer items (current items: {{currentProperties}})',
   minItems: 'Must have {{minimumItems}} or more items (current items: {{currentItems}})',
   maxItems: 'Must have {{maximumItems}} or fewer items (current items: {{currentItems}})',
   uniqueItems: 'All items must be unique',

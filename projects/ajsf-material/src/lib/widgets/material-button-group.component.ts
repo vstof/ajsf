@@ -1,7 +1,6 @@
-import { AbstractControl } from '@angular/forms';
-import { Component, Input, OnInit } from '@angular/core';
-import { JsonSchemaFormService, buildTitleMap } from '@ajsf/core';
-
+import {AbstractControl} from '@angular/forms';
+import {Component, Input, OnInit} from '@angular/core';
+import {JsonSchemaFormService, buildTitleMap} from '@ajsf/core';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -33,7 +32,7 @@ import { JsonSchemaFormService, buildTitleMap } from '@ajsf/core';
       <mat-error *ngIf="options?.showErrors && options?.errorMessage"
         [innerHTML]="options?.errorMessage"></mat-error>
     </div>`,
-    styles: [` mat-error { font-size: 75%; } `],
+  styles: [` mat-error { font-size: 75%; } `],
 })
 export class MaterialButtonGroupComponent implements OnInit {
   formControl: AbstractControl;
@@ -48,15 +47,14 @@ export class MaterialButtonGroupComponent implements OnInit {
   @Input() layoutIndex: number[];
   @Input() dataIndex: number[];
 
-  constructor(
-    private jsf: JsonSchemaFormService
-  ) { }
+  constructor(private jsf: JsonSchemaFormService) {}
 
   ngOnInit() {
     this.options = this.layoutNode.options || {};
     this.radiosList = buildTitleMap(
       this.options.titleMap || this.options.enumNames,
-      this.options.enum, true
+      this.options.enum,
+      true,
     );
     this.jsf.initializeControl(this);
   }

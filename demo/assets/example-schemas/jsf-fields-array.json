@@ -2,8 +2,8 @@
   "schema": {
     "type": "object",
     "properties": {
-      "friendsA": { "$ref": "#/definitions/friends" },
-      "friendsB": { "$ref": "#/definitions/friends" }
+      "friendsA": {"$ref": "#/definitions/friends"},
+      "friendsB": {"$ref": "#/definitions/friends"}
     },
     "definitions": {
       "friends": {
@@ -22,7 +22,7 @@
                 "type": "string",
                 "title": "Animal name"
               },
-              "default": [ "dog", "cat" ]
+              "default": ["dog", "cat"]
             }
           }
         }
@@ -41,9 +41,7 @@
           {
             "type": "array",
             "key": "friendsB[].animals",
-            "items": [
-              "friendsB[].animals[]"
-            ]
+            "items": ["friendsB[].animals[]"]
           },
           "friendsB[].nick"
         ]
@@ -51,12 +49,15 @@
     }
   },
   "value": {
-    "friendsB": [ {
-      "nick": "B",
-      "animals": [ "fish", "bee" ]
-    }, {
-      "nick": "B2",
-      "animals": [ "bee", "cat" ]
-    } ]
+    "friendsB": [
+      {
+        "nick": "B",
+        "animals": ["fish", "bee"]
+      },
+      {
+        "nick": "B2",
+        "animals": ["bee", "cat"]
+      }
+    ]
   }
 }

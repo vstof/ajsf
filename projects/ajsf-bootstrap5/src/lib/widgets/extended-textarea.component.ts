@@ -1,10 +1,10 @@
-import { AbstractControl } from "@angular/forms";
-import { Component, Input, OnInit } from "@angular/core";
-import { JsonSchemaFormService } from "@ajsf/core";
+import {AbstractControl} from '@angular/forms';
+import {Component, Input, OnInit} from '@angular/core';
+import {JsonSchemaFormService} from '@ajsf/core';
 
 @Component({
   // tslint:disable-next-line:component-selector
-  selector: "extended-textarea-widget",
+  selector: 'extended-textarea-widget',
   template: `<div [class]="options?.htmlClass || ''">
     <textarea
       [attr.aria-describedby]="'control' + layoutNode?._id + 'Status'"
@@ -48,14 +48,14 @@ export class ExtendedTextareaComponent implements OnInit {
   }
 
   updateValue(event) {
-    if (this.showSelectPopup && event.target.value == "#") {
+    if (this.showSelectPopup && event.target.value == '#') {
       this.jsf.selectPopup(
         {
           context: null,
           code: null,
           id: 0,
         },
-        this
+        this,
       );
     } else {
       this.jsf.updateValue(this, event.target.value);
@@ -69,7 +69,7 @@ export class ExtendedTextareaComponent implements OnInit {
         code: null,
         id: 0,
       },
-      this
+      this,
     );
   }
 }

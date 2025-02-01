@@ -1,9 +1,15 @@
 import {
-  Component, ComponentFactoryResolver, ComponentRef, Input,
-  OnChanges, OnInit, ViewChild, ViewContainerRef
+  Component,
+  ComponentFactoryResolver,
+  ComponentRef,
+  Input,
+  OnChanges,
+  OnInit,
+  ViewChild,
+  ViewContainerRef,
 } from '@angular/core';
 
-import { JsonSchemaFormService } from '../json-schema-form.service';
+import {JsonSchemaFormService} from '../json-schema-form.service';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -16,14 +22,15 @@ export class SelectFrameworkComponent implements OnChanges, OnInit {
   @Input() layoutIndex: number[];
   @Input() dataIndex: number[];
   @ViewChild('widgetContainer', {
-      read: ViewContainerRef,
-      static: true })
-    widgetContainer: ViewContainerRef;
+    read: ViewContainerRef,
+    static: true,
+  })
+  widgetContainer: ViewContainerRef;
 
   constructor(
     private componentFactory: ComponentFactoryResolver,
-    private jsf: JsonSchemaFormService
-  ) { }
+    private jsf: JsonSchemaFormService,
+  ) {}
 
   ngOnInit() {
     this.updateComponent();
@@ -36,7 +43,7 @@ export class SelectFrameworkComponent implements OnChanges, OnInit {
   updateComponent() {
     if (this.widgetContainer && !this.newComponent && this.jsf.framework) {
       this.newComponent = this.widgetContainer.createComponent(
-        this.componentFactory.resolveComponentFactory(this.jsf.framework)
+        this.componentFactory.resolveComponentFactory(this.jsf.framework),
       );
     }
     if (this.newComponent) {

@@ -1,7 +1,10 @@
-export const ptValidationMessages: any = { // Brazilian Portuguese error messages
+export const ptValidationMessages: any = {
+  // Brazilian Portuguese error messages
   required: 'Este campo é obrigatório.',
-  minLength: 'É preciso no mínimo {{minimumLength}} caracteres ou mais (tamanho atual: {{currentLength}})',
-  maxLength: 'É preciso no máximo  {{maximumLength}} caracteres ou menos (tamanho atual: {{currentLength}})',
+  minLength:
+    'É preciso no mínimo {{minimumLength}} caracteres ou mais (tamanho atual: {{currentLength}})',
+  maxLength:
+    'É preciso no máximo  {{maximumLength}} caracteres ou menos (tamanho atual: {{currentLength}})',
   pattern: 'Tem que ajustar ao formato: {{requiredPattern}}',
   format: function (error) {
     switch (error.requiredFormat) {
@@ -49,8 +52,10 @@ export const ptValidationMessages: any = { // Brazilian Portuguese error message
       return `Tem que ser um múltiplo de ${error.multipleOfValue}.`;
     }
   },
-  minProperties: 'Deve ter {{minimumProperties}} ou mais itens (itens até o momento: {{currentProperties}})',
-  maxProperties: 'Deve ter {{maximumProperties}} ou menos intens (itens até o momento: {{currentProperties}})',
+  minProperties:
+    'Deve ter {{minimumProperties}} ou mais itens (itens até o momento: {{currentProperties}})',
+  maxProperties:
+    'Deve ter {{maximumProperties}} ou menos intens (itens até o momento: {{currentProperties}})',
   minItems: 'Deve ter {{minimumItems}} ou mais itens (itens até o momento: {{currentItems}})',
   maxItems: 'Deve ter {{maximumItems}} ou menos itens (itens até o momento: {{currentItems}})',
   uniqueItems: 'Todos os itens devem ser únicos',

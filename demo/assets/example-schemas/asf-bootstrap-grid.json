@@ -20,11 +20,7 @@
         "validationMessage": "Don't be greedy!"
       }
     },
-    "required": [
-      "name",
-      "email",
-      "comment"
-    ]
+    "required": ["name", "email", "comment"]
   },
   "form": [
     {
@@ -38,16 +34,12 @@
         {
           "type": "section",
           "htmlClass": "col-xs-6",
-          "items": [
-            "name"
-          ]
+          "items": ["name"]
         },
         {
           "type": "section",
           "htmlClass": "col-xs-6",
-          "items": [
-            "email"
-          ]
+          "items": ["email"]
         }
       ]
     },

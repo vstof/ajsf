@@ -1,9 +1,15 @@
 import {
-  Component, ComponentFactoryResolver, ComponentRef, Input,
-  OnChanges, OnInit, ViewChild, ViewContainerRef
+  Component,
+  ComponentFactoryResolver,
+  ComponentRef,
+  Input,
+  OnChanges,
+  OnInit,
+  ViewChild,
+  ViewContainerRef,
 } from '@angular/core';
 
-import { JsonSchemaFormService } from '../json-schema-form.service';
+import {JsonSchemaFormService} from '../json-schema-form.service';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -15,13 +21,13 @@ export class SelectWidgetComponent implements OnChanges, OnInit {
   @Input() layoutNode: any;
   @Input() layoutIndex: number[];
   @Input() dataIndex: number[];
-  @ViewChild('widgetContainer', { read: ViewContainerRef, static: true })
-    widgetContainer: ViewContainerRef;
+  @ViewChild('widgetContainer', {read: ViewContainerRef, static: true})
+  widgetContainer: ViewContainerRef;
 
   constructor(
     private componentFactory: ComponentFactoryResolver,
-    private jsf: JsonSchemaFormService
-  ) { }
+    private jsf: JsonSchemaFormService,
+  ) {}
 
   ngOnInit() {
     this.updateComponent();
@@ -34,7 +40,7 @@ export class SelectWidgetComponent implements OnChanges, OnInit {
   updateComponent() {
     if (this.widgetContainer && !this.newComponent && (this.layoutNode || {}).widget) {
       this.newComponent = this.widgetContainer.createComponent(
-        this.componentFactory.resolveComponentFactory(this.layoutNode.widget)
+        this.componentFactory.resolveComponentFactory(this.layoutNode.widget),
       );
     }
     if (this.newComponent) {

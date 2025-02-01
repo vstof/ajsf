@@ -14,7 +14,7 @@
           "gender": {
             "type": "string",
             "title": "Gender",
-            "enum": [ "male", "female", "alien" ]
+            "enum": ["male", "female", "alien"]
           },
           "age": {
             "type": "integer",

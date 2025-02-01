@@ -1,11 +1,11 @@
-import { AbstractControl } from "@angular/forms";
-import { Component, Inject, Input, OnInit, Optional } from "@angular/core";
-import { JsonSchemaFormService, buildTitleMap, isArray } from "@ajsf/core";
-import { MAT_LEGACY_FORM_FIELD_DEFAULT_OPTIONS as MAT_FORM_FIELD_DEFAULT_OPTIONS } from "@angular/material/legacy-form-field";
+import {AbstractControl} from '@angular/forms';
+import {Component, Inject, Input, OnInit, Optional} from '@angular/core';
+import {JsonSchemaFormService, buildTitleMap, isArray} from '@ajsf/core';
+import {MAT_LEGACY_FORM_FIELD_DEFAULT_OPTIONS as MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/legacy-form-field';
 
 @Component({
   // tslint:disable-next-line:component-selector
-  selector: "material-select-widget",
+  selector: 'material-select-widget',
   template: `<mat-form-field
       [appearance]="options?.appearance || matFormFieldDefaultOptions?.appearance || 'standard'"
       [class]="options?.htmlClass || ''"
@@ -117,7 +117,7 @@ export class MaterialSelectComponent implements OnInit {
 
   constructor(
     @Inject(MAT_FORM_FIELD_DEFAULT_OPTIONS) @Optional() public matFormFieldDefaultOptions,
-    private jsf: JsonSchemaFormService
+    private jsf: JsonSchemaFormService,
   ) {}
 
   ngOnInit() {
@@ -126,7 +126,7 @@ export class MaterialSelectComponent implements OnInit {
       this.options.titleMap || this.options.enumNames,
       this.options.enum,
       !!this.options.required,
-      !!this.options.flatList
+      !!this.options.flatList,
     );
     this.jsf.initializeControl(this, !this.options.readonly);
     if (!this.options.notitle && !this.options.description && this.options.placeholder) {

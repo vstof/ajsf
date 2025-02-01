@@ -9,13 +9,16 @@
     "search",
     {
       "type": "actions",
-      "items": [ {
-        "type": "submit",
-        "title": "Submit"
-      }, {
-        "type": "button",
-        "title": "Cancel"
-      } ]
+      "items": [
+        {
+          "type": "submit",
+          "title": "Submit"
+        },
+        {
+          "type": "button",
+          "title": "Cancel"
+        }
+      ]
     }
   ]
 }

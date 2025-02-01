@@ -18,13 +18,8 @@
             "main": "demo/main.ts",
             "polyfills": "demo/polyfills.ts",
             "tsConfig": "demo/tsconfig.app.json",
-            "assets": [
-              "demo/favicon.ico",
-              "demo/assets"
-            ],
-            "styles": [
-              "demo/styles.scss"
-            ],
+            "assets": ["demo/favicon.ico", "demo/assets"],
+            "styles": ["demo/styles.scss"],
             "scripts": [],
             "vendorChunk": true,
             "extractLicenses": false,
@@ -82,14 +77,9 @@
             "polyfills": "demo/polyfills.ts",
             "tsConfig": "demo/tsconfig.spec.json",
             "karmaConfig": "demo/karma.conf.js",
-            "styles": [
-              "demo/styles.scss"
-            ],
+            "styles": ["demo/styles.scss"],
             "scripts": [],
-            "assets": [
-              "demo/favicon.ico",
-              "demo/assets"
-            ]
+            "assets": ["demo/favicon.ico", "demo/assets"]
           }
         }
       }
@@ -173,9 +163,7 @@
               "projects/ajsf-bootstrap5/tsconfig.lib.json",
               "projects/ajsf-bootstrap5/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }

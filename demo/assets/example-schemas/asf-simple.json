@@ -20,11 +20,7 @@
         "validationMessage": "Don't be greedy!"
       }
     },
-    "required": [
-      "name",
-      "email",
-      "comment"
-    ]
+    "required": ["name", "email", "comment"]
   },
   "form": [
     "name",

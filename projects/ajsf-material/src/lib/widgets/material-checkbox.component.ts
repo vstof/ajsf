@@ -1,6 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { AbstractControl } from '@angular/forms';
-import { JsonSchemaFormService } from '@ajsf/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {AbstractControl} from '@angular/forms';
+import {JsonSchemaFormService} from '@ajsf/core';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -64,10 +64,12 @@ import { JsonSchemaFormService } from '@ajsf/core';
     </mat-slide-toggle>
     <mat-error *ngIf="options?.showErrors && options?.errorMessage"
       [innerHTML]="options?.errorMessage"></mat-error>`,
-  styles: [`
+  styles: [
+    `
     .checkbox-name { white-space: nowrap; }
     mat-error { font-size: 75%; }
-  `],
+  `,
+  ],
 })
 export class MaterialCheckboxComponent implements OnInit {
   formControl: AbstractControl;
@@ -83,9 +85,7 @@ export class MaterialCheckboxComponent implements OnInit {
   @Input() layoutIndex: number[];
   @Input() dataIndex: number[];
 
-  constructor(
-    private jsf: JsonSchemaFormService
-  ) { }
+  constructor(private jsf: JsonSchemaFormService) {}
 
   ngOnInit() {
     this.options = this.layoutNode.options || {};
@@ -94,9 +94,7 @@ export class MaterialCheckboxComponent implements OnInit {
       this.controlValue = false;
       this.jsf.updateValue(this, this.falseValue);
     }
-    if (this.layoutNode.type === 'slide-toggle' ||
-      this.layoutNode.format === 'slide-toggle'
-    ) {
+    if (this.layoutNode.type === 'slide-toggle' || this.layoutNode.format === 'slide-toggle') {
       this.showSlideToggle = true;
     }
   }

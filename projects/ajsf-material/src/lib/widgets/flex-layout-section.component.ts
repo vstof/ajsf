@@ -1,10 +1,10 @@
-import { AbstractControl } from "@angular/forms";
-import { Component, Input, OnInit } from "@angular/core";
-import { JsonSchemaFormService } from "@ajsf/core";
+import {AbstractControl} from '@angular/forms';
+import {Component, Input, OnInit} from '@angular/core';
+import {JsonSchemaFormService} from '@ajsf/core';
 
 @Component({
   // tslint:disable-next-line:component-selector
-  selector: "flex-layout-section-widget",
+  selector: 'flex-layout-section-widget',
   template: ` <div
       *ngIf="containerType === 'div'"
       [class]="options?.htmlClass || ''"
@@ -166,7 +166,7 @@ export class FlexLayoutSectionComponent implements OnInit {
   boundControl = false;
   options: any;
   expanded = true;
-  containerType = "div";
+  containerType = 'div';
   @Input() layoutNode: any;
   @Input() layoutIndex: number[];
   @Input() dataIndex: number[];
@@ -180,25 +180,26 @@ export class FlexLayoutSectionComponent implements OnInit {
   ngOnInit() {
     this.jsf.initializeControl(this);
     this.options = this.layoutNode.options || {};
-    this.expanded = typeof this.options.expanded === "boolean" ? this.options.expanded : !this.options.expandable;
+    this.expanded =
+      typeof this.options.expanded === 'boolean' ? this.options.expanded : !this.options.expandable;
     switch (this.layoutNode.type) {
-      case "section":
-      case "array":
-      case "fieldset":
-      case "advancedfieldset":
-      case "authfieldset":
-      case "optionfieldset":
-      case "selectfieldset":
-        this.containerType = "fieldset";
+      case 'section':
+      case 'array':
+      case 'fieldset':
+      case 'advancedfieldset':
+      case 'authfieldset':
+      case 'optionfieldset':
+      case 'selectfieldset':
+        this.containerType = 'fieldset';
         break;
-      case "card":
-        this.containerType = "card";
+      case 'card':
+        this.containerType = 'card';
         break;
-      case "expansion-panel":
-        this.containerType = "expansion-panel";
+      case 'expansion-panel':
+        this.containerType = 'expansion-panel';
         break;
       default: // 'div', 'flex', 'tab', 'conditional', 'actions'
-        this.containerType = "div";
+        this.containerType = 'div';
     }
   }
 
@@ -212,27 +213,31 @@ export class FlexLayoutSectionComponent implements OnInit {
   // (child attributes are set in flex-layout-root.component)
   getFlexAttribute(attribute: string) {
     const flexActive: boolean =
-      this.layoutNode.type === "flex" || !!this.options.displayFlex || this.options.display === "flex";
+      this.layoutNode.type === 'flex' ||
+      !!this.options.displayFlex ||
+      this.options.display === 'flex';
     // if (attribute !== 'flex' && !flexActive) { return null; }
     switch (attribute) {
-      case "is-flex":
+      case 'is-flex':
         return flexActive;
-      case "display":
-        return flexActive ? "flex" : "initial";
-      case "flex-direction":
-      case "flex-wrap":
-        const index = ["flex-direction", "flex-wrap"].indexOf(attribute);
+      case 'display':
+        return flexActive ? 'flex' : 'initial';
+      case 'flex-direction':
+      case 'flex-wrap':
+        const index = ['flex-direction', 'flex-wrap'].indexOf(attribute);
         return (
-          (this.options["flex-flow"] || "").split(/\s+/)[index] ||
+          (this.options['flex-flow'] || '').split(/\s+/)[index] ||
           this.options[attribute] ||
-          ["column", "nowrap"][index]
+          ['column', 'nowrap'][index]
         );
-      case "justify-content":
-      case "align-items":
-      case "align-content":
+      case 'justify-content':
+      case 'align-items':
+      case 'align-content':
         return this.options[attribute];
-      case "layout":
-        return (this.options.fxLayout || "row") + this.options.fxLayoutWrap ? " " + this.options.fxLayoutWrap : "";
+      case 'layout':
+        return (this.options.fxLayout || 'row') + this.options.fxLayoutWrap
+          ? ' ' + this.options.fxLayoutWrap
+          : '';
     }
   }
 }

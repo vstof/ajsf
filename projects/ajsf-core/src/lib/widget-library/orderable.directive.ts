@@ -1,12 +1,5 @@
-import {
-  Directive,
-  ElementRef,
-  Input,
-  NgZone,
-  OnInit
-  } from '@angular/core';
-import { JsonSchemaFormService } from '../json-schema-form.service';
-
+import {Directive, ElementRef, Input, NgZone, OnInit} from '@angular/core';
+import {JsonSchemaFormService} from '../json-schema-form.service';
 
 /**
  * OrderableDirective
@@ -46,8 +39,8 @@ export class OrderableDirective implements OnInit {
   constructor(
     private elementRef: ElementRef,
     private jsf: JsonSchemaFormService,
-    private ngZone: NgZone
-  ) { }
+    private ngZone: NgZone,
+  ) {}
 
   ngOnInit() {
     if (this.orderable && this.layoutNode && this.layoutIndex && this.dataIndex) {
@@ -56,7 +49,6 @@ export class OrderableDirective implements OnInit {
       this.arrayLayoutIndex = 'move:' + this.layoutIndex.slice(0, -1).toString();
 
       this.ngZone.runOutsideAngular(() => {
-
         // Listeners for movable element being dragged:
 
         this.element.addEventListener('dragstart', (event) => {
@@ -69,7 +61,9 @@ export class OrderableDirective implements OnInit {
         });
 
         this.element.addEventListener('dragover', (event) => {
-          if (event.preventDefault) { event.preventDefault(); }
+          if (event.preventDefault) {
+            event.preventDefault();
+          }
           event.dataTransfer.dropEffect = 'move';
           return false;
         });
@@ -123,7 +117,6 @@ export class OrderableDirective implements OnInit {
           sessionStorage.removeItem(this.arrayLayoutIndex);
           return false;
         });
-
       });
     }
   }

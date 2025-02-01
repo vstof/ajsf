@@ -1,11 +1,11 @@
-import { AbstractControl } from "@angular/forms";
-import { buildTitleMap, isArray } from "../shared";
-import { Component, Input, OnInit } from "@angular/core";
-import { JsonSchemaFormService } from "../json-schema-form.service";
+import {AbstractControl} from '@angular/forms';
+import {buildTitleMap, isArray} from '../shared';
+import {Component, Input, OnInit} from '@angular/core';
+import {JsonSchemaFormService} from '../json-schema-form.service';
 
 @Component({
   // tslint:disable-next-line:component-selector
-  selector: "select-widget",
+  selector: 'select-widget',
   template: `<div [class]="options?.htmlClass || ''">
     <label
       *ngIf="options?.title"
@@ -89,7 +89,7 @@ export class SelectComponent implements OnInit {
       this.options.titleMap || this.options.enumNames,
       this.options.enum,
       !!this.options.required,
-      !!this.options.flatList
+      !!this.options.flatList,
     );
     this.jsf.initializeControl(this);
   }

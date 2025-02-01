@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { JsonSchemaFormService } from '@ajsf/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {JsonSchemaFormService} from '@ajsf/core';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -34,9 +34,7 @@ export class MaterialTabsComponent implements OnInit {
   @Input() layoutIndex: number[];
   @Input() dataIndex: number[];
 
-  constructor(
-    private jsf: JsonSchemaFormService
-  ) { }
+  constructor(private jsf: JsonSchemaFormService) {}
 
   ngOnInit() {
     this.options = this.layoutNode.options || {};
@@ -49,7 +47,7 @@ export class MaterialTabsComponent implements OnInit {
       this.jsf.addItem({
         layoutNode: this.layoutNode.items[index],
         layoutIndex: this.layoutIndex.concat(index),
-        dataIndex: this.dataIndex.concat(index)
+        dataIndex: this.dataIndex.concat(index),
       });
       this.updateControl();
     }
@@ -59,8 +57,8 @@ export class MaterialTabsComponent implements OnInit {
   updateControl() {
     this.itemCount = this.layoutNode.items.length - 1;
     const lastItem = this.layoutNode.items[this.layoutNode.items.length - 1];
-    this.showAddTab = lastItem.type === '$ref' &&
-      this.itemCount < (lastItem.options.maxItems || 1000);
+    this.showAddTab =
+      lastItem.type === '$ref' && this.itemCount < (lastItem.options.maxItems || 1000);
   }
 
   setTabTitle(item: any, index: number): string {

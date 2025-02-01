@@ -1,12 +1,7 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { CommonModule } from '@angular/common';
-import {
-  JsonSchemaFormModule,
-  JsonSchemaFormService,
-  WidgetLibraryModule
-} from '@ajsf/core';
-import { MaterialDesignFrameworkComponent } from './material-design-framework.component';
-
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import {CommonModule} from '@angular/common';
+import {JsonSchemaFormModule, JsonSchemaFormService, WidgetLibraryModule} from '@ajsf/core';
+import {MaterialDesignFrameworkComponent} from './material-design-framework.component';
 
 describe('MaterialDesignFrameworkComponent', () => {
   let component: MaterialDesignFrameworkComponent;
@@ -14,21 +9,16 @@ describe('MaterialDesignFrameworkComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
-        JsonSchemaFormModule,
-        CommonModule,
-        WidgetLibraryModule,
-      ],
+      imports: [JsonSchemaFormModule, CommonModule, WidgetLibraryModule],
       declarations: [MaterialDesignFrameworkComponent],
-      providers: [JsonSchemaFormService]
-    })
-      .compileComponents();
+      providers: [JsonSchemaFormService],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(MaterialDesignFrameworkComponent);
     component = fixture.componentInstance;
-    component.layoutNode = { options: {} };
+    component.layoutNode = {options: {}};
     component.layoutIndex = [];
     component.dataIndex = [];
     fixture.detectChanges();

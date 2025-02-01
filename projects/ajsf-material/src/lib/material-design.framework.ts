@@ -1,5 +1,5 @@
-import { Injectable } from "@angular/core";
-import { Framework } from "@ajsf/core";
+import {Injectable} from '@angular/core';
+import {Framework} from '@ajsf/core';
 import {
   FlexLayoutRootComponent,
   FlexLayoutSectionComponent,
@@ -21,20 +21,20 @@ import {
   MaterialStepperComponent,
   MaterialTabsComponent,
   MaterialTextareaComponent,
-} from "./widgets/public_api";
+} from './widgets/public_api';
 
 // Material Design Framework
 // https://github.com/angular/material2
 
 @Injectable()
 export class MaterialDesignFramework extends Framework {
-  name = "material-design";
+  name = 'material-design';
 
   framework = MaterialDesignFrameworkComponent;
 
   stylesheets = [
-    "//fonts.googleapis.com/icon?family=Material+Icons",
-    "//fonts.googleapis.com/css?family=Roboto:300,400,500,700",
+    '//fonts.googleapis.com/icon?family=Material+Icons',
+    '//fonts.googleapis.com/css?family=Roboto:300,400,500,700',
   ];
 
   override widgets = {
@@ -42,14 +42,14 @@ export class MaterialDesignFramework extends Framework {
     section: FlexLayoutSectionComponent,
     $ref: MaterialAddReferenceComponent,
     button: MaterialButtonComponent,
-    "button-group": MaterialButtonGroupComponent,
+    'button-group': MaterialButtonGroupComponent,
     checkbox: MaterialCheckboxComponent,
     checkboxes: MaterialCheckboxesComponent,
-    "chip-list": MaterialChipListComponent,
+    'chip-list': MaterialChipListComponent,
     date: MaterialDatepickerComponent,
     file: MaterialFileComponent,
     number: MaterialNumberComponent,
-    "one-of": MaterialOneOfComponent,
+    'one-of': MaterialOneOfComponent,
     radios: MaterialRadiosComponent,
     select: MaterialSelectComponent,
     slider: MaterialSliderComponent,
@@ -57,19 +57,19 @@ export class MaterialDesignFramework extends Framework {
     tabs: MaterialTabsComponent,
     text: MaterialInputComponent,
     textarea: MaterialTextareaComponent,
-    "alt-date": "date",
-    "any-of": "one-of",
-    card: "section",
-    color: "text",
-    "expansion-panel": "section",
-    hidden: "none",
-    image: "none",
-    integer: "number",
-    radiobuttons: "button-group",
-    range: "slider",
-    submit: "button",
-    tagsinput: "chip-list",
-    wizard: "stepper",
+    'alt-date': 'date',
+    'any-of': 'one-of',
+    card: 'section',
+    color: 'text',
+    'expansion-panel': 'section',
+    hidden: 'none',
+    image: 'none',
+    integer: 'number',
+    radiobuttons: 'button-group',
+    range: 'slider',
+    submit: 'button',
+    tagsinput: 'chip-list',
+    wizard: 'stepper',
   };
   scripts = [];
 }

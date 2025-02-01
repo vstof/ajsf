@@ -1,6 +1,6 @@
-import { AbstractControl } from '@angular/forms';
-import { Component, Input, OnInit } from '@angular/core';
-import { JsonSchemaFormService, hasOwn } from '@ajsf/core';
+import {AbstractControl} from '@angular/forms';
+import {Component, Input, OnInit} from '@angular/core';
+import {JsonSchemaFormService, hasOwn} from '@ajsf/core';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -21,7 +21,7 @@ import { JsonSchemaFormService, hasOwn } from '@ajsf/core';
         <span *ngIf="options?.title" [innerHTML]="options?.title"></span>
       </button>
     </div>`,
-    styles: [` button { margin-top: 10px; } `],
+  styles: [` button { margin-top: 10px; } `],
 })
 export class MaterialButtonComponent implements OnInit {
   formControl: AbstractControl;
@@ -34,9 +34,7 @@ export class MaterialButtonComponent implements OnInit {
   @Input() layoutIndex: number[];
   @Input() dataIndex: number[];
 
-  constructor(
-    private jsf: JsonSchemaFormService
-  ) { }
+  constructor(private jsf: JsonSchemaFormService) {}
 
   ngOnInit() {
     this.options = this.layoutNode.options || {};
@@ -45,7 +43,7 @@ export class MaterialButtonComponent implements OnInit {
       this.controlDisabled = this.options.disabled;
     } else if (this.jsf.formOptions.disableInvalidSubmit) {
       this.controlDisabled = !this.jsf.isValid;
-      this.jsf.isValidChanges.subscribe(isValid => this.controlDisabled = !isValid);
+      this.jsf.isValidChanges.subscribe((isValid) => (this.controlDisabled = !isValid));
     }
   }
 

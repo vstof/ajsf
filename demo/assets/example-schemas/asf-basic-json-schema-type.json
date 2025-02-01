@@ -17,8 +17,6 @@
         "type": "boolean"
       }
     },
-    "required": [
-      "number"
-    ]
+    "required": ["number"]
   }
 }

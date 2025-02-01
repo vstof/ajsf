@@ -1,7 +1,7 @@
-import { Component, Inject, Input, OnInit, Optional } from '@angular/core';
-import { AbstractControl } from '@angular/forms';
-import { JsonSchemaFormService } from '@ajsf/core';
-import { MAT_LEGACY_FORM_FIELD_DEFAULT_OPTIONS as MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/legacy-form-field';
+import {Component, Inject, Input, OnInit, Optional} from '@angular/core';
+import {AbstractControl} from '@angular/forms';
+import {JsonSchemaFormService} from '@ajsf/core';
+import {MAT_LEGACY_FORM_FIELD_DEFAULT_OPTIONS as MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/legacy-form-field';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -56,11 +56,13 @@ import { MAT_LEGACY_FORM_FIELD_DEFAULT_OPTIONS as MAT_FORM_FIELD_DEFAULT_OPTIONS
     <mat-datepicker #picker ></mat-datepicker>
     <mat-error *ngIf="options?.showErrors && options?.errorMessage"
       [innerHTML]="options?.errorMessage"></mat-error>`,
-  styles: [`
+  styles: [
+    `
     mat-error { font-size: 75%; margin-top: -1rem; margin-bottom: 0.5rem; }
     ::ng-deep json-schema-form mat-form-field .mat-form-field-wrapper .mat-form-field-flex
       .mat-form-field-infix { width: initial; }
-  `],
+  `,
+  ],
 })
 export class MaterialDatepickerComponent implements OnInit {
   formControl: AbstractControl;
@@ -76,8 +78,8 @@ export class MaterialDatepickerComponent implements OnInit {
 
   constructor(
     @Inject(MAT_FORM_FIELD_DEFAULT_OPTIONS) @Optional() public matFormFieldDefaultOptions,
-    private jsf: JsonSchemaFormService
-  ) { }
+    private jsf: JsonSchemaFormService,
+  ) {}
 
   ngOnInit() {
     this.options = this.layoutNode.options || {};

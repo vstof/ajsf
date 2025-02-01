@@ -1,4 +1,4 @@
-import cloneDeep from "lodash-es/cloneDeep";
+import cloneDeep from 'lodash-es/cloneDeep';
 
 /**
  * 'convertSchemaToDraft6' function
@@ -24,17 +24,17 @@ export function convertSchemaToDraft6(schema, options: OptionObject = {}) {
   let draft: number = options.draft || null;
   let changed: boolean = options.changed || false;
 
-  if (typeof schema !== "object") {
+  if (typeof schema !== 'object') {
     return schema;
   }
-  if (typeof schema.map === "function") {
-    return [...schema.map((subSchema) => convertSchemaToDraft6(subSchema, { changed, draft }))];
+  if (typeof schema.map === 'function') {
+    return [...schema.map((subSchema) => convertSchemaToDraft6(subSchema, {changed, draft}))];
   }
-  let newSchema = { ...schema };
-  const simpleTypes = ["array", "boolean", "integer", "null", "number", "object", "string"];
+  let newSchema = {...schema};
+  const simpleTypes = ['array', 'boolean', 'integer', 'null', 'number', 'object', 'string'];
 
   if (
-    typeof newSchema.$schema === "string" &&
+    typeof newSchema.$schema === 'string' &&
     /http\:\/\/json\-schema\.org\/draft\-0\d\/schema\#/.test(newSchema.$schema)
   ) {
     draft = newSchema.$schema[30];
@@ -43,28 +43,28 @@ export function convertSchemaToDraft6(schema, options: OptionObject = {}) {
   // Convert v1-v2 'contentEncoding' to 'media.binaryEncoding'
   // Note: This is only used in JSON hyper-schema (not regular JSON schema)
   if (newSchema.contentEncoding) {
-    newSchema.media = { binaryEncoding: newSchema.contentEncoding };
+    newSchema.media = {binaryEncoding: newSchema.contentEncoding};
     delete newSchema.contentEncoding;
     changed = true;
   }
 
   // Convert v1-v3 'extends' to 'allOf'
-  if (typeof newSchema.extends === "object") {
+  if (typeof newSchema.extends === 'object') {
     newSchema.allOf =
-      typeof newSchema.extends.map === "function"
-        ? newSchema.extends.map((subSchema) => convertSchemaToDraft6(subSchema, { changed, draft }))
-        : [convertSchemaToDraft6(newSchema.extends, { changed, draft })];
+      typeof newSchema.extends.map === 'function'
+        ? newSchema.extends.map((subSchema) => convertSchemaToDraft6(subSchema, {changed, draft}))
+        : [convertSchemaToDraft6(newSchema.extends, {changed, draft})];
     delete newSchema.extends;
     changed = true;
   }
 
   // Convert v1-v3 'disallow' to 'not'
   if (newSchema.disallow) {
-    if (typeof newSchema.disallow === "string") {
-      newSchema.not = { type: newSchema.disallow };
-    } else if (typeof newSchema.disallow.map === "function") {
+    if (typeof newSchema.disallow === 'string') {
+      newSchema.not = {type: newSchema.disallow};
+    } else if (typeof newSchema.disallow.map === 'function') {
       newSchema.not = {
-        anyOf: newSchema.disallow.map((type) => (typeof type === "object" ? type : { type })),
+        anyOf: newSchema.disallow.map((type) => (typeof type === 'object' ? type : {type})),
       };
     }
     delete newSchema.disallow;
@@ -73,18 +73,20 @@ export function convertSchemaToDraft6(schema, options: OptionObject = {}) {
 
   // Convert v3 string 'dependencies' properties to arrays
   if (
-    typeof newSchema.dependencies === "object" &&
-    Object.keys(newSchema.dependencies).some((key) => typeof newSchema.dependencies[key] === "string")
+    typeof newSchema.dependencies === 'object' &&
+    Object.keys(newSchema.dependencies).some(
+      (key) => typeof newSchema.dependencies[key] === 'string',
+    )
   ) {
-    newSchema.dependencies = { ...newSchema.dependencies };
+    newSchema.dependencies = {...newSchema.dependencies};
     Object.keys(newSchema.dependencies)
-      .filter((key) => typeof newSchema.dependencies[key] === "string")
+      .filter((key) => typeof newSchema.dependencies[key] === 'string')
       .forEach((key) => (newSchema.dependencies[key] = [newSchema.dependencies[key]]));
     changed = true;
   }
 
   // Convert v1 'maxDecimal' to 'multipleOf'
-  if (typeof newSchema.maxDecimal === "number") {
+  if (typeof newSchema.maxDecimal === 'number') {
     newSchema.multipleOf = 1 / Math.pow(10, newSchema.maxDecimal);
     delete newSchema.divisibleBy;
     changed = true;
@@ -94,21 +96,21 @@ export function convertSchemaToDraft6(schema, options: OptionObject = {}) {
   }
 
   // Convert v2-v3 'divisibleBy' to 'multipleOf'
-  if (typeof newSchema.divisibleBy === "number") {
+  if (typeof newSchema.divisibleBy === 'number') {
     newSchema.multipleOf = newSchema.divisibleBy;
     delete newSchema.divisibleBy;
     changed = true;
   }
 
   // Convert v1-v2 boolean 'minimumCanEqual' to 'exclusiveMinimum'
-  if (typeof newSchema.minimum === "number" && newSchema.minimumCanEqual === false) {
+  if (typeof newSchema.minimum === 'number' && newSchema.minimumCanEqual === false) {
     newSchema.exclusiveMinimum = newSchema.minimum;
     delete newSchema.minimum;
     changed = true;
     if (!draft) {
       draft = 2;
     }
-  } else if (typeof newSchema.minimumCanEqual === "boolean") {
+  } else if (typeof newSchema.minimumCanEqual === 'boolean') {
     delete newSchema.minimumCanEqual;
     changed = true;
     if (!draft) {
@@ -117,24 +119,24 @@ export function convertSchemaToDraft6(schema, options: OptionObject = {}) {
   }
 
   // Convert v3-v4 boolean 'exclusiveMinimum' to numeric
-  if (typeof newSchema.minimum === "number" && newSchema.exclusiveMinimum === true) {
+  if (typeof newSchema.minimum === 'number' && newSchema.exclusiveMinimum === true) {
     newSchema.exclusiveMinimum = newSchema.minimum;
     delete newSchema.minimum;
     changed = true;
-  } else if (typeof newSchema.exclusiveMinimum === "boolean") {
+  } else if (typeof newSchema.exclusiveMinimum === 'boolean') {
     delete newSchema.exclusiveMinimum;
     changed = true;
   }
 
   // Convert v1-v2 boolean 'maximumCanEqual' to 'exclusiveMaximum'
-  if (typeof newSchema.maximum === "number" && newSchema.maximumCanEqual === false) {
+  if (typeof newSchema.maximum === 'number' && newSchema.maximumCanEqual === false) {
     newSchema.exclusiveMaximum = newSchema.maximum;
     delete newSchema.maximum;
     changed = true;
     if (!draft) {
       draft = 2;
     }
-  } else if (typeof newSchema.maximumCanEqual === "boolean") {
+  } else if (typeof newSchema.maximumCanEqual === 'boolean') {
     delete newSchema.maximumCanEqual;
     changed = true;
     if (!draft) {
@@ -143,23 +145,29 @@ export function convertSchemaToDraft6(schema, options: OptionObject = {}) {
   }
 
   // Convert v3-v4 boolean 'exclusiveMaximum' to numeric
-  if (typeof newSchema.maximum === "number" && newSchema.exclusiveMaximum === true) {
+  if (typeof newSchema.maximum === 'number' && newSchema.exclusiveMaximum === true) {
     newSchema.exclusiveMaximum = newSchema.maximum;
     delete newSchema.maximum;
     changed = true;
-  } else if (typeof newSchema.exclusiveMaximum === "boolean") {
+  } else if (typeof newSchema.exclusiveMaximum === 'boolean') {
     delete newSchema.exclusiveMaximum;
     changed = true;
   }
 
   // Search object 'properties' for 'optional', 'required', and 'requires' items,
   // and convert them into object 'required' arrays and 'dependencies' objects
-  if (typeof newSchema.properties === "object") {
-    const properties = { ...newSchema.properties };
-    const requiredKeys = Array.isArray(newSchema.required) ? new Set(newSchema.required) : new Set();
+  if (typeof newSchema.properties === 'object') {
+    const properties = {...newSchema.properties};
+    const requiredKeys = Array.isArray(newSchema.required)
+      ? new Set(newSchema.required)
+      : new Set();
 
     // Convert v1-v2 boolean 'optional' properties to 'required' array
-    if (draft === 1 || draft === 2 || Object.keys(properties).some((key) => properties[key].optional === true)) {
+    if (
+      draft === 1 ||
+      draft === 2 ||
+      Object.keys(properties).some((key) => properties[key].optional === true)
+    ) {
       Object.keys(properties)
         .filter((key) => properties[key].optional !== true)
         .forEach((key) => requiredKeys.add(key));
@@ -183,13 +191,16 @@ export function convertSchemaToDraft6(schema, options: OptionObject = {}) {
 
     // Convert v1-v2 array or string 'requires' properties to 'dependencies' object
     if (Object.keys(properties).some((key) => properties[key].requires)) {
-      const dependencies = typeof newSchema.dependencies === "object" ? { ...newSchema.dependencies } : {};
+      const dependencies =
+        typeof newSchema.dependencies === 'object' ? {...newSchema.dependencies} : {};
       Object.keys(properties)
         .filter((key) => properties[key].requires)
         .forEach(
           (key) =>
             (dependencies[key] =
-              typeof properties[key].requires === "string" ? [properties[key].requires] : properties[key].requires)
+              typeof properties[key].requires === 'string'
+                ? [properties[key].requires]
+                : properties[key].requires),
         );
       newSchema.dependencies = dependencies;
       changed = true;
@@ -202,7 +213,7 @@ export function convertSchemaToDraft6(schema, options: OptionObject = {}) {
   }
 
   // Revove v1-v2 boolean 'optional' key
-  if (typeof newSchema.optional === "boolean") {
+  if (typeof newSchema.optional === 'boolean') {
     delete newSchema.optional;
     changed = true;
     if (!draft) {
@@ -216,16 +227,16 @@ export function convertSchemaToDraft6(schema, options: OptionObject = {}) {
   }
 
   // Revove v3 boolean 'required' key
-  if (typeof newSchema.required === "boolean") {
+  if (typeof newSchema.required === 'boolean') {
     delete newSchema.required;
   }
 
   // Convert id to $id
-  if (typeof newSchema.id === "string" && !newSchema.$id) {
-    if (newSchema.id.slice(-1) === "#") {
+  if (typeof newSchema.id === 'string' && !newSchema.$id) {
+    if (newSchema.id.slice(-1) === '#') {
       newSchema.id = newSchema.id.slice(0, -1);
     }
-    newSchema.$id = newSchema.id + "-CONVERTED-TO-DRAFT-06#";
+    newSchema.$id = newSchema.id + '-CONVERTED-TO-DRAFT-06#';
     delete newSchema.id;
     changed = true;
   }
@@ -233,7 +244,7 @@ export function convertSchemaToDraft6(schema, options: OptionObject = {}) {
   // Check if v1-v3 'any' or object types will be converted
   if (
     newSchema.type &&
-    (typeof newSchema.type.every === "function"
+    (typeof newSchema.type.every === 'function'
       ? !newSchema.type.every((type) => simpleTypes.includes(type))
       : !simpleTypes.includes(newSchema.type))
   ) {
@@ -242,15 +253,15 @@ export function convertSchemaToDraft6(schema, options: OptionObject = {}) {
 
   // If schema changed, update or remove $schema identifier
   if (
-    typeof newSchema.$schema === "string" &&
+    typeof newSchema.$schema === 'string' &&
     /http\:\/\/json\-schema\.org\/draft\-0[1-4]\/schema\#/.test(newSchema.$schema)
   ) {
-    newSchema.$schema = "http://json-schema.org/draft-06/schema#";
+    newSchema.$schema = 'http://json-schema.org/draft-06/schema#';
     changed = true;
-  } else if (changed && typeof newSchema.$schema === "string") {
-    const addToDescription = "Converted to draft 6 from " + newSchema.$schema;
-    if (typeof newSchema.description === "string" && newSchema.description.length) {
-      newSchema.description += "\n" + addToDescription;
+  } else if (changed && typeof newSchema.$schema === 'string') {
+    const addToDescription = 'Converted to draft 6 from ' + newSchema.$schema;
+    if (typeof newSchema.description === 'string' && newSchema.description.length) {
+      newSchema.description += '\n' + addToDescription;
     } else {
       newSchema.description = addToDescription;
     }
@@ -260,43 +271,56 @@ export function convertSchemaToDraft6(schema, options: OptionObject = {}) {
   // Convert v1-v3 'any' and object types
   if (
     newSchema.type &&
-    (typeof newSchema.type.every === "function"
+    (typeof newSchema.type.every === 'function'
       ? !newSchema.type.every((type) => simpleTypes.includes(type))
       : !simpleTypes.includes(newSchema.type))
   ) {
     if (newSchema.type.length === 1) {
       newSchema.type = newSchema.type[0];
     }
-    if (typeof newSchema.type === "string") {
+    if (typeof newSchema.type === 'string') {
       // Convert string 'any' type to array of all standard types
-      if (newSchema.type === "any") {
+      if (newSchema.type === 'any') {
         newSchema.type = simpleTypes;
         // Delete non-standard string type
       } else {
         delete newSchema.type;
       }
-    } else if (typeof newSchema.type === "object") {
-      if (typeof newSchema.type.every === "function") {
+    } else if (typeof newSchema.type === 'object') {
+      if (typeof newSchema.type.every === 'function') {
         // If array of strings, only allow standard types
-        if (newSchema.type.every((type) => typeof type === "string")) {
-          newSchema.type = newSchema.type.some((type) => type === "any")
+        if (newSchema.type.every((type) => typeof type === 'string')) {
+          newSchema.type = newSchema.type.some((type) => type === 'any')
             ? (newSchema.type = simpleTypes)
             : newSchema.type.filter((type) => simpleTypes.includes(type));
           // If type is an array with objects, convert the current schema to an 'anyOf' array
         } else if (newSchema.type.length > 1) {
-          const arrayKeys = ["additionalItems", "items", "maxItems", "minItems", "uniqueItems", "contains"];
-          const numberKeys = ["multipleOf", "maximum", "exclusiveMaximum", "minimum", "exclusiveMinimum"];
-          const objectKeys = [
-            "maxProperties",
-            "minProperties",
-            "required",
-            "additionalProperties",
-            "properties",
-            "patternProperties",
-            "dependencies",
-            "propertyNames",
+          const arrayKeys = [
+            'additionalItems',
+            'items',
+            'maxItems',
+            'minItems',
+            'uniqueItems',
+            'contains',
           ];
-          const stringKeys = ["maxLength", "minLength", "pattern", "format"];
+          const numberKeys = [
+            'multipleOf',
+            'maximum',
+            'exclusiveMaximum',
+            'minimum',
+            'exclusiveMinimum',
+          ];
+          const objectKeys = [
+            'maxProperties',
+            'minProperties',
+            'required',
+            'additionalProperties',
+            'properties',
+            'patternProperties',
+            'dependencies',
+            'propertyNames',
+          ];
+          const stringKeys = ['maxLength', 'minLength', 'pattern', 'format'];
           const filterKeys = {
             array: [...numberKeys, ...objectKeys, ...stringKeys],
             integer: [...arrayKeys, ...objectKeys, ...stringKeys],
@@ -307,17 +331,21 @@ export function convertSchemaToDraft6(schema, options: OptionObject = {}) {
           };
           const anyOf = [];
           for (const type of newSchema.type) {
-            const newType = typeof type === "string" ? { type } : { ...type };
+            const newType = typeof type === 'string' ? {type} : {...type};
             Object.keys(newSchema)
               .filter(
                 (key) =>
                   !newType.hasOwnProperty(key) &&
-                  ![...(filterKeys[newType.type] || filterKeys.all), "type", "default"].includes(key)
+                  ![...(filterKeys[newType.type] || filterKeys.all), 'type', 'default'].includes(
+                    key,
+                  ),
               )
               .forEach((key) => (newType[key] = newSchema[key]));
             anyOf.push(newType);
           }
-          newSchema = newSchema.hasOwnProperty("default") ? { anyOf, default: newSchema.default } : { anyOf };
+          newSchema = newSchema.hasOwnProperty('default')
+            ? {anyOf, default: newSchema.default}
+            : {anyOf};
           // If type is an object, merge it with the current schema
         } else {
           const typeSchema = newSchema.type;
@@ -332,19 +360,30 @@ export function convertSchemaToDraft6(schema, options: OptionObject = {}) {
 
   // Convert sub schemas
   Object.keys(newSchema)
-    .filter((key) => typeof newSchema[key] === "object")
+    .filter((key) => typeof newSchema[key] === 'object')
     .forEach((key) => {
       if (
-        ["definitions", "dependencies", "properties", "patternProperties"].includes(key) &&
-        typeof newSchema[key].map !== "function"
+        ['definitions', 'dependencies', 'properties', 'patternProperties'].includes(key) &&
+        typeof newSchema[key].map !== 'function'
       ) {
         const newKey = {};
         Object.keys(newSchema[key]).forEach(
-          (subKey) => (newKey[subKey] = convertSchemaToDraft6(newSchema[key][subKey], { changed, draft }))
+          (subKey) =>
+            (newKey[subKey] = convertSchemaToDraft6(newSchema[key][subKey], {changed, draft})),
         );
         newSchema[key] = newKey;
-      } else if (["items", "additionalItems", "additionalProperties", "allOf", "anyOf", "oneOf", "not"].includes(key)) {
-        newSchema[key] = convertSchemaToDraft6(newSchema[key], { changed, draft });
+      } else if (
+        [
+          'items',
+          'additionalItems',
+          'additionalProperties',
+          'allOf',
+          'anyOf',
+          'oneOf',
+          'not',
+        ].includes(key)
+      ) {
+        newSchema[key] = convertSchemaToDraft6(newSchema[key], {changed, draft});
       } else {
         newSchema[key] = cloneDeep(newSchema[key]);
       }

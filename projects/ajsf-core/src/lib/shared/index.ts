@@ -37,7 +37,7 @@ export {
   PlainObject,
   IValidatorFn,
   AsyncIValidatorFn,
-} from "./validator.functions";
+} from './validator.functions';
 
 export {
   addClasses,
@@ -50,11 +50,11 @@ export {
   commonItems,
   fixTitle,
   toTitleCase,
-} from "./utility.functions";
+} from './utility.functions';
 
-export { Pointer, JsonPointer } from "./jsonpointer.functions";
+export {Pointer, JsonPointer} from './jsonpointer.functions';
 
-export { JsonValidators } from "./json.validators";
+export {JsonValidators} from './json.validators';
 
 export {
   buildSchemaFromLayout,
@@ -71,11 +71,11 @@ export {
   getSubSchema,
   combineAllOf,
   fixRequiredArrayProperties,
-} from "./json-schema.functions";
+} from './json-schema.functions';
 
-export { convertSchemaToDraft6 } from "./convert-schema-to-draft6.function";
+export {convertSchemaToDraft6} from './convert-schema-to-draft6.function';
 
-export { mergeSchemas } from "./merge-schemas.function";
+export {mergeSchemas} from './merge-schemas.function';
 
 export {
   buildFormGroupTemplate,
@@ -83,6 +83,12 @@ export {
   formatFormData,
   getControl,
   setRequiredFields,
-} from "./form-group.functions";
+} from './form-group.functions';
 
-export { buildLayout, buildLayoutFromSchema, mapLayout, getLayoutNode, buildTitleMap } from "./layout.functions";
+export {
+  buildLayout,
+  buildLayoutFromSchema,
+  mapLayout,
+  getLayoutNode,
+  buildTitleMap,
+} from './layout.functions';

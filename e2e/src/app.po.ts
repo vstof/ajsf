@@ -1,5 +1,5 @@
-import { browser, by, element } from 'protractor';
-import { promise as wdpromise } from 'selenium-webdriver';
+import {browser, by, element} from 'protractor';
+import {promise as wdpromise} from 'selenium-webdriver';
 
 export class AppPage {
   navigateTo(): wdpromise.Promise<any> {

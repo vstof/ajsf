@@ -48,15 +48,16 @@ Where `schema` is a valid JSON schema object, and `onSubmit` calls a function to
 
 `framework` is for the template you want to use, the default value is `no-framwork`. The possible values are:
 
-* `material-design` for  Material Design.
-* `bootstrap-3` for Bootstrap 3.
-* `bootstrap-4` for 'Bootstrap 4.
-* `bootstrap-5` for 'Bootstrap 5.
-* `no-framework` for (plain HTML).
+- `material-design` for Material Design.
+- `bootstrap-3` for Bootstrap 3.
+- `bootstrap-4` for 'Bootstrap 4.
+- `bootstrap-5` for 'Bootstrap 5.
+- `no-framework` for (plain HTML).
 
 ## Code scaffolding
 
 Run `ng generate component component-name --project @ajsf/bootstrap4` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project @ajsf/bootstrap4`.
+
 > Note: Don't forget to add `--project @ajsf/bootstrap4` or else it will be added to the default project in your `angular.json` file.
 
 ## Build

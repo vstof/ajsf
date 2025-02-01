@@ -15,7 +15,7 @@
         "gender": {
           "type": "string",
           "title": "Gender",
-          "enum": [ "male", "female", "alien" ]
+          "enum": ["male", "female", "alien"]
         },
         "magic": {
           "type": "integer",

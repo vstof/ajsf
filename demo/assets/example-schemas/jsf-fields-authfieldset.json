@@ -13,9 +13,7 @@
     "name",
     {
       "type": "authfieldset",
-      "items": [
-        "key"
-      ]
+      "items": ["key"]
     }
   ]
 }

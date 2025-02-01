@@ -3,7 +3,7 @@
     "language": {
       "type": "string",
       "title": "Best language",
-      "enum": [ "JavaScript", "Python", "PHP", "Java", "C++", "other" ]
+      "enum": ["JavaScript", "Python", "PHP", "Java", "C++", "other"]
     },
     "fantastic": {
       "type": "boolean",
@@ -19,30 +19,36 @@
       "title": "Is it cool again?"
     }
   },
-  "form": [ {
-    "key": "language",
-    "type": "radios"
-  }, {
-    "key": "fantastic",
-    "type": "radios",
-    "inline": true,
-    "toggleNextMap": { "true": true }
-  }, {
-    "key": "cool",
-    "type": "radios",
-    "titleMap": {
-      "false": "Not at all",
-      "true": "Very cool"
+  "form": [
+    {
+      "key": "language",
+      "type": "radios"
+    },
+    {
+      "key": "fantastic",
+      "type": "radios",
+      "inline": true,
+      "toggleNextMap": {"true": true}
+    },
+    {
+      "key": "cool",
+      "type": "radios",
+      "titleMap": {
+        "false": "Not at all",
+        "true": "Very cool"
+      }
+    },
+    {
+      "key": "cool2",
+      "type": "radios",
+      "options": {
+        "false": "Not at all",
+        "true": "Very cool"
+      }
+    },
+    {
+      "title": "Submit",
+      "type": "submit"
     }
-  }, {
-    "key": "cool2",
-    "type": "radios",
-    "options": {
-      "false": "Not at all",
-      "true": "Very cool"
-    }
-  }, {
-    "title": "Submit",
-    "type": "submit"
-  } ]
+  ]
 }

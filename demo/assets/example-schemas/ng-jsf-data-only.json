@@ -12,8 +12,8 @@
       "zip_code": "89123"
     },
     "phone_numbers": [
-      { "number": "702-123-4567", "type": "cell" },
-      { "number": "702-987-6543", "type": "work" }
+      {"number": "702-123-4567", "type": "cell"},
+      {"number": "702-987-6543", "type": "work"}
     ],
     "notes": ""
   }

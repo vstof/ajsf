@@ -1,10 +1,10 @@
-import { AbstractControl } from "@angular/forms";
-import { Component, Input, OnInit } from "@angular/core";
-import { JsonSchemaFormService } from "../json-schema-form.service";
+import {AbstractControl} from '@angular/forms';
+import {Component, Input, OnInit} from '@angular/core';
+import {JsonSchemaFormService} from '../json-schema-form.service';
 
 @Component({
   // tslint:disable-next-line:component-selector
-  selector: "hidden-widget",
+  selector: 'hidden-widget',
   template: `<input
       *ngIf="boundControl"
       [formControl]="formControl"

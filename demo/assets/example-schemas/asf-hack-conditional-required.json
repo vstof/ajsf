@@ -13,9 +13,7 @@
         "description": "Email will be used for evil."
       }
     },
-    "required": [
-      "switch"
-    ]
+    "required": ["switch"]
   },
   "form": [
     {

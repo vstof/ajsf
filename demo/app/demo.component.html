@@ -3,8 +3,8 @@
     Angular JSON Schema Form — Demonstration Playground
   </mat-toolbar>
   <div class="header-content">
-    An Angular <a href="http://json-schema.org/">JSON Schema</a> Form builder for Angular, similar to, and mostly API
-    compatible with,
+    An Angular <a href="http://json-schema.org/">JSON Schema</a> Form builder for Angular, similar
+    to, and mostly API compatible with,
     <span class="avoidwrap">
       <!-- JSON Schema Form's Angular Schema Form -->
       <!-- https://github.com/json-schema-form -->
@@ -12,7 +12,8 @@
       <a href="http://schemaform.io/examples/bootstrap-example.html">Angular Schema Form</a>,
       <!-- Mozilla's React JSON Schema Form -->
       <!-- https://github.com/mozilla-services/react-jsonschema-form -->
-      <a href="https://mozilla-services.github.io/react-jsonschema-form/">React JSON Schema Form</a>, and
+      <a href="https://mozilla-services.github.io/react-jsonschema-form/">React JSON Schema Form</a
+      >, and
       <!-- Joshfire's JSON Form -->
       <!-- http://factory.joshfire.com/ -->
       <!-- http://github.com/joshfire/jsonform/wiki -->
@@ -91,7 +92,12 @@
     </mat-menu>
   </div>
 </div>
-<div fxLayout="row" fxLayoutAlign="space-around start" fxLayout.lt-sm="column" fxLayoutAlign.lt-sm="flex-start center">
+<div
+  fxLayout="row"
+  fxLayoutAlign="space-around start"
+  fxLayout.lt-sm="column"
+  fxLayoutAlign.lt-sm="flex-start center"
+>
   <mat-card>
     <h4 class="default-cursor" (click)="toggleVisible('options')">
       {{ visible.options ? "▼" : "▶" }} Selected Framework and Options
@@ -111,7 +117,9 @@
           name="language"
           placeholder="Language"
         >
-          <mat-option *ngFor="let language of languageList" [value]="language"> {{ languages[language] }} </mat-option>
+          <mat-option *ngFor="let language of languageList" [value]="language">
+            {{ languages[language] }}
+          </mat-option>
         </mat-select>
       </mat-form-field>
       <div class="check-row">
@@ -121,7 +129,9 @@
         (default = true)
       </div>
       <div class="check-row">
-        <mat-checkbox color="primary" [(ngModel)]="jsonFormOptions.addSubmit"> Add submit button? </mat-checkbox>
+        <mat-checkbox color="primary" [(ngModel)]="jsonFormOptions.addSubmit">
+          Add submit button?
+        </mat-checkbox>
         (default = only add if no layout is defined)
       </div>
       <div class="check-row">
@@ -131,7 +141,9 @@
         (default = false)
       </div>
       <div class="check-row">
-        <mat-checkbox color="primary" [(ngModel)]="jsonFormOptions.debug"> Show debuging information? </mat-checkbox>
+        <mat-checkbox color="primary" [(ngModel)]="jsonFormOptions.debug">
+          Show debuging information?
+        </mat-checkbox>
         (default = false)
       </div>
     </div>
@@ -155,7 +167,9 @@
   </mat-card>
 
   <mat-card>
-    <h4 class="default-cursor" (click)="toggleVisible('form')">{{ visible.form ? "▼" : "▶" }} Generated Form</h4>
+    <h4 class="default-cursor" (click)="toggleVisible('form')">
+      {{ visible.form ? "▼" : "▶" }} Generated Form
+    </h4>
     <div *ngIf="visible.form" class="json-schema-form" [@expandSection]="true">
       <div *ngIf="!formActive">{{ jsonFormStatusMessage }}</div>
 
@@ -175,7 +189,9 @@
       </json-schema-form>
     </div>
     <hr />
-    <h4 class="default-cursor" (click)="toggleVisible('output')">{{ visible.output ? "▼" : "▶" }} Form Output</h4>
+    <h4 class="default-cursor" (click)="toggleVisible('output')">
+      {{ visible.output ? "▼" : "▶" }} Form Output
+    </h4>
     <div *ngIf="visible.output" fxLayout="column" [@expandSection]="true">
       <div>
         Valid?:
@@ -188,7 +204,11 @@
         </strong>
         <span *ngIf="!formIsValid && !prettyValidationErrors">n/a</span>
         <span *ngIf="prettyValidationErrors">— errors from validationErrors():</span>
-        <div *ngIf="prettyValidationErrors" class="data-bad" [innerHTML]="prettyValidationErrors"></div>
+        <div
+          *ngIf="prettyValidationErrors"
+          class="data-bad"
+          [innerHTML]="prettyValidationErrors"
+        ></div>
       </div>
       <br />
       <div>
@@ -198,18 +218,15 @@
             !prettyValidationErrors && prettyLiveFormData !== '{}'
           "
           [class.data-bad]="prettyValidationErrors"
-        >
-{{ prettyLiveFormData }}</pre
+          >{{ prettyLiveFormData }}</pre
         >
       </div>
       <br />
       <div>
         Submitted data — from onSubmit():
-        <pre [class.data-good]="prettySubmittedFormData !== 'null'">
-{{
+        <pre [class.data-good]="prettySubmittedFormData !== 'null'">{{
           prettySubmittedFormData
-        }}</pre
-        >
+        }}</pre>
       </div>
     </div>
   </mat-card>

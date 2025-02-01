@@ -1,11 +1,11 @@
-import { Component, Inject, Input, OnInit, Optional } from "@angular/core";
-import { AbstractControl } from "@angular/forms";
-import { JsonSchemaFormService } from "@ajsf/core";
-import { MAT_LEGACY_FORM_FIELD_DEFAULT_OPTIONS as MAT_FORM_FIELD_DEFAULT_OPTIONS } from "@angular/material/legacy-form-field";
+import {Component, Inject, Input, OnInit, Optional} from '@angular/core';
+import {AbstractControl} from '@angular/forms';
+import {JsonSchemaFormService} from '@ajsf/core';
+import {MAT_LEGACY_FORM_FIELD_DEFAULT_OPTIONS as MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/legacy-form-field';
 
 @Component({
   // tslint:disable-next-line:component-selector
-  selector: "material-number-widget",
+  selector: 'material-number-widget',
   template: `<mat-form-field
       [appearance]="options?.appearance || matFormFieldDefaultOptions?.appearance || 'standard'"
       [class]="options?.htmlClass || ''"
@@ -93,20 +93,20 @@ export class MaterialNumberComponent implements OnInit {
   allowNegative = true;
   allowDecimal = true;
   allowExponents = false;
-  lastValidNumber = "";
+  lastValidNumber = '';
   @Input() layoutNode: any;
   @Input() layoutIndex: number[];
   @Input() dataIndex: number[];
 
   constructor(
     @Inject(MAT_FORM_FIELD_DEFAULT_OPTIONS) @Optional() public matFormFieldDefaultOptions,
-    private jsf: JsonSchemaFormService
+    private jsf: JsonSchemaFormService,
   ) {}
 
   ngOnInit() {
     this.options = this.layoutNode.options || {};
     this.jsf.initializeControl(this);
-    if (this.layoutNode.dataType === "integer") {
+    if (this.layoutNode.dataType === 'integer') {
       this.allowDecimal = false;
     }
     if (!this.options.notitle && !this.options.description && this.options.placeholder) {

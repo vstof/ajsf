@@ -1,11 +1,11 @@
-import { AbstractControl } from "@angular/forms";
-import { buildTitleMap } from "../shared";
-import { Component, Input, OnInit } from "@angular/core";
-import { JsonSchemaFormService } from "../json-schema-form.service";
+import {AbstractControl} from '@angular/forms';
+import {buildTitleMap} from '../shared';
+import {Component, Input, OnInit} from '@angular/core';
+import {JsonSchemaFormService} from '../json-schema-form.service';
 
 @Component({
   // tslint:disable-next-line:component-selector
-  selector: "radios-widget",
+  selector: 'radios-widget',
   template: `<label
       *ngIf="options?.title"
       [attr.for]="'control' + layoutNode?._id"
@@ -42,7 +42,7 @@ export class RadiosComponent implements OnInit {
   controlDisabled = false;
   boundControl = false;
   options: any;
-  layoutOrientation = "vertical";
+  layoutOrientation = 'vertical';
   radiosList: any[] = [];
   @Input() layoutNode: any;
   @Input() layoutIndex: number[];
@@ -52,10 +52,14 @@ export class RadiosComponent implements OnInit {
 
   ngOnInit() {
     this.options = this.layoutNode.options || {};
-    if (this.layoutNode.type === "radios-inline" || this.layoutNode.type === "radiobuttons") {
-      this.layoutOrientation = "horizontal";
+    if (this.layoutNode.type === 'radios-inline' || this.layoutNode.type === 'radiobuttons') {
+      this.layoutOrientation = 'horizontal';
     }
-    this.radiosList = buildTitleMap(this.options.titleMap || this.options.enumNames, this.options.enum, true);
+    this.radiosList = buildTitleMap(
+      this.options.titleMap || this.options.enumNames,
+      this.options.enum,
+      true,
+    );
     this.jsf.initializeControl(this);
   }
 

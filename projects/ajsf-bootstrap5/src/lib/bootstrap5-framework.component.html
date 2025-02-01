@@ -16,7 +16,12 @@
     (formControl?.dirty || options?.feedbackOnRender)
   "
 >
-  <button *ngIf="showRemoveButton" class="float-end btn btn-outline-danger btn-sm" type="button" (click)="removeItem()">
+  <button
+    *ngIf="showRemoveButton"
+    class="float-end btn btn-outline-danger btn-sm"
+    type="button"
+    (click)="removeItem()"
+  >
     <span aria-hidden="true">&times;</span>
   </button>
   <div *ngIf="options?.messageLocation === 'top'">

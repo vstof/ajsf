@@ -5,8 +5,10 @@
       "title": "Your thoughts"
     }
   },
-  "form": [ {
-    "key": "comment",
-    "type": "textarea"
-  } ]
+  "form": [
+    {
+      "key": "comment",
+      "type": "textarea"
+    }
+  ]
 }

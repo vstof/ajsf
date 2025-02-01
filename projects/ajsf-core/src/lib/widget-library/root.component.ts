@@ -1,6 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { JsonSchemaFormService } from '../json-schema-form.service';
-
+import {Component, Input} from '@angular/core';
+import {JsonSchemaFormService} from '../json-schema-form.service';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -24,7 +23,8 @@ import { JsonSchemaFormService } from '../json-schema-form.service';
           [layoutNode]="layoutItem"></select-framework-widget>
       </div>
     </div>`,
-  styles: [`
+  styles: [
+    `
     [draggable=true] {
       transition: all 150ms cubic-bezier(.4, 0, .2, 1);
     }
@@ -45,7 +45,8 @@ import { JsonSchemaFormService } from '../json-schema-form.service';
       box-shadow: 0 2px 0 #000;
       position: relative; z-index: 20;
     }
-  `],
+  `,
+  ],
 })
 export class RootComponent {
   options: any;
@@ -55,21 +56,26 @@ export class RootComponent {
   @Input() isOrderable: boolean;
   @Input() isFlexItem = false;
 
-  constructor(
-    private jsf: JsonSchemaFormService
-  ) { }
+  constructor(private jsf: JsonSchemaFormService) {}
 
   isDraggable(node: any): boolean {
-    return node.arrayItem && node.type !== '$ref' &&
-      node.arrayItemType === 'list' && this.isOrderable !== false;
+    return (
+      node.arrayItem &&
+      node.type !== '$ref' &&
+      node.arrayItemType === 'list' &&
+      this.isOrderable !== false
+    );
   }
 
   // Set attributes for flexbox child
   // (container attributes are set in section.component)
   getFlexAttribute(node: any, attribute: string) {
     const index = ['flex-grow', 'flex-shrink', 'flex-basis'].indexOf(attribute);
-    return ((node.options || {}).flex || '').split(/\s+/)[index] ||
-      (node.options || {})[attribute] || ['1', '1', 'auto'][index];
+    return (
+      ((node.options || {}).flex || '').split(/\s+/)[index] ||
+      (node.options || {})[attribute] ||
+      ['1', '1', 'auto'][index]
+    );
   }
 
   showWidget(layoutNode: any): boolean {

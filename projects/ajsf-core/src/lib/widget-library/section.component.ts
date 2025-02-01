@@ -1,6 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { JsonSchemaFormService } from '../json-schema-form.service';
-
+import {Component, Input, OnInit} from '@angular/core';
+import {JsonSchemaFormService} from '../json-schema-form.service';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -67,11 +66,13 @@ import { JsonSchemaFormService } from '../json-schema-form.service';
         [innerHTML]="options?.description"></p>
       </div>
     </fieldset>`,
-  styles: [`
+  styles: [
+    `
     .legend { font-weight: bold; }
     .expandable > legend:before, .expandable > label:before  { content: '▶'; padding-right: .3em; }
     .expanded > legend:before, .expanded > label:before  { content: '▼'; padding-right: .2em; }
-  `],
+  `,
+  ],
 })
 export class SectionComponent implements OnInit {
   options: any;
@@ -81,9 +82,7 @@ export class SectionComponent implements OnInit {
   @Input() layoutIndex: number[];
   @Input() dataIndex: number[];
 
-  constructor(
-    private jsf: JsonSchemaFormService
-  ) { }
+  constructor(private jsf: JsonSchemaFormService) {}
 
   get sectionTitle() {
     return this.options.notitle ? null : this.jsf.setItemTitle(this);
@@ -92,21 +91,28 @@ export class SectionComponent implements OnInit {
   ngOnInit() {
     this.jsf.initializeControl(this);
     this.options = this.layoutNode.options || {};
-    this.expanded = typeof this.options.expanded === 'boolean' ?
-      this.options.expanded : !this.options.expandable;
+    this.expanded =
+      typeof this.options.expanded === 'boolean' ? this.options.expanded : !this.options.expandable;
     switch (this.layoutNode.type) {
-      case 'fieldset': case 'array': case 'tab': case 'advancedfieldset':
-      case 'authfieldset': case 'optionfieldset': case 'selectfieldset':
+      case 'fieldset':
+      case 'array':
+      case 'tab':
+      case 'advancedfieldset':
+      case 'authfieldset':
+      case 'optionfieldset':
+      case 'selectfieldset':
         this.containerType = 'fieldset';
-      break;
+        break;
       default: // 'div', 'flex', 'section', 'conditional', 'actions', 'tagsinput'
         this.containerType = 'div';
-      break;
+        break;
     }
   }
 
   toggleExpanded() {
-    if (this.options.expandable) { this.expanded = !this.expanded; }
+    if (this.options.expandable) {
+      this.expanded = !this.expanded;
+    }
   }
 
   // Set attributes for flexbox container
@@ -116,17 +122,25 @@ export class SectionComponent implements OnInit {
       this.layoutNode.type === 'flex' ||
       !!this.options.displayFlex ||
       this.options.display === 'flex';
-    if (attribute !== 'flex' && !flexActive) { return null; }
+    if (attribute !== 'flex' && !flexActive) {
+      return null;
+    }
     switch (attribute) {
       case 'is-flex':
         return flexActive;
       case 'display':
         return flexActive ? 'flex' : 'initial';
-      case 'flex-direction': case 'flex-wrap':
+      case 'flex-direction':
+      case 'flex-wrap':
         const index = ['flex-direction', 'flex-wrap'].indexOf(attribute);
-        return (this.options['flex-flow'] || '').split(/\s+/)[index] ||
-          this.options[attribute] || ['column', 'nowrap'][index];
-      case 'justify-content': case 'align-items': case 'align-content':
+        return (
+          (this.options['flex-flow'] || '').split(/\s+/)[index] ||
+          this.options[attribute] ||
+          ['column', 'nowrap'][index]
+        );
+      case 'justify-content':
+      case 'align-items':
+      case 'align-content':
         return this.options[attribute];
     }
   }

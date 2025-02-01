@@ -1,10 +1,10 @@
-import { AbstractControl } from "@angular/forms";
-import { Component, Input, OnInit } from "@angular/core";
-import { JsonSchemaFormService } from "../json-schema-form.service";
+import {AbstractControl} from '@angular/forms';
+import {Component, Input, OnInit} from '@angular/core';
+import {JsonSchemaFormService} from '../json-schema-form.service';
 
 @Component({
   // tslint:disable-next-line:component-selector
-  selector: "checkbox-widget",
+  selector: 'checkbox-widget',
   template: `<label [attr.for]="'control' + layoutNode?._id" [class]="options?.itemLabelHtmlClass || ''">
     <input
       *ngIf="boundControl"

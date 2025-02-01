@@ -59,10 +59,10 @@
               "type": "string"
             }
           },
-          "required": [ "street", "city" ]
+          "required": ["street", "city"]
         }
       },
-      "required": [ "name" ]
+      "required": ["name"]
     }
   }
 }

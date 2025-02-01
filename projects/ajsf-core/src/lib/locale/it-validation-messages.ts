@@ -1,7 +1,10 @@
-export const itValidationMessages: any = { // Default Italian error messages
+export const itValidationMessages: any = {
+  // Default Italian error messages
   required: 'Il campo è obbligatorio',
-  minLength: 'Deve inserire almeno {{minimumLength}} caratteri (lunghezza corrente: {{currentLength}})',
-  maxLength: 'Il numero massimo di caratteri consentito è {{maximumLength}} (lunghezza corrente: {{currentLength}})',
+  minLength:
+    'Deve inserire almeno {{minimumLength}} caratteri (lunghezza corrente: {{currentLength}})',
+  maxLength:
+    'Il numero massimo di caratteri consentito è {{maximumLength}} (lunghezza corrente: {{currentLength}})',
   pattern: 'Devi rispettare il pattern : {{requiredPattern}}',
   format: function (error) {
     switch (error.requiredFormat) {
@@ -49,8 +52,10 @@ export const itValidationMessages: any = { // Default Italian error messages
       return `Deve essere multiplo di ${error.multipleOfValue}.`;
     }
   },
-  minProperties: 'Deve avere {{minimumProperties}} o più elementi (elementi correnti: {{currentProperties}})',
-  maxProperties: 'Deve avere {{maximumProperties}} o meno elementi (elementi correnti: {{currentProperties}})',
+  minProperties:
+    'Deve avere {{minimumProperties}} o più elementi (elementi correnti: {{currentProperties}})',
+  maxProperties:
+    'Deve avere {{maximumProperties}} o meno elementi (elementi correnti: {{currentProperties}})',
   minItems: 'Deve avere {{minimumItems}} o più elementi (elementi correnti: {{currentItems}})',
   maxItems: 'Deve avere {{maximumItems}} o meno elementi (elementi correnti: {{currentItems}})',
   uniqueItems: 'Tutti gli elementi devono essere unici',

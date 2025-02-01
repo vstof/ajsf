@@ -3,12 +3,12 @@
     "gender": {
       "type": "string",
       "title": "Gender",
-      "enum": [ "male", "female", "alien" ]
+      "enum": ["male", "female", "alien"]
     },
     "gender2": {
       "type": "string",
       "title": "Gender",
-      "enum": [ "male", "female", "alien" ],
+      "enum": ["male", "female", "alien"],
       "required": true
     },
     "ismale": {
@@ -20,35 +20,41 @@
       "title": "Is female?"
     }
   },
-  "form": [ {
-    "key": "gender",
-    "titleMap": {
-      "male": "Dude",
-      "female": "Dudette",
-      "alien": "I'm from outer space!"
+  "form": [
+    {
+      "key": "gender",
+      "titleMap": {
+        "male": "Dude",
+        "female": "Dudette",
+        "alien": "I'm from outer space!"
+      }
+    },
+    {
+      "key": "gender2",
+      "title": "Gender re-ordered",
+      "options": {
+        "": "Please select",
+        "alien": "I'm from outer space!",
+        "male": "Dude",
+        "female": "Dudette"
+      }
+    },
+    {
+      "key": "ismale",
+      "type": "select",
+      "required": true
+    },
+    {
+      "key": "isfemale",
+      "type": "select",
+      "titleMap": {
+        "false": "No",
+        "true": "Yes"
+      }
+    },
+    {
+      "title": "Submit",
+      "type": "submit"
     }
-  }, {
-    "key": "gender2",
-    "title": "Gender re-ordered",
-    "options": {
-      "": "Please select",
-      "alien": "I'm from outer space!",
-      "male": "Dude",
-      "female": "Dudette"
-    }
-  }, {
-    "key": "ismale",
-    "type": "select",
-    "required": true
-  }, {
-    "key": "isfemale",
-    "type": "select",
-    "titleMap": {
-      "false": "No",
-      "true": "Yes"
-    }
-  }, {
-    "title": "Submit",
-    "type": "submit"
-  } ]
+  ]
 }

@@ -3,28 +3,32 @@
     "language": {
       "type": "string",
       "title": "Best language",
-      "enum": [ "JavaScript", "Python", "PHP", "Java", "C++", "other" ]
+      "enum": ["JavaScript", "Python", "PHP", "Java", "C++", "other"]
     },
     "favourite": {
       "type": "boolean",
       "title": "Is it your favourite?"
     }
   },
-  "form": [ {
-    "key": "language",
-    "type": "radiobuttons",
-    "activeClass": "btn-success"
-  }, {
-    "key": "favourite",
-    "type": "radiobuttons",
-    "activeClass": "btn-danger",
-    "titleMap": {
-      "true": "Yes",
-      "false": "No"
+  "form": [
+    {
+      "key": "language",
+      "type": "radiobuttons",
+      "activeClass": "btn-success"
+    },
+    {
+      "key": "favourite",
+      "type": "radiobuttons",
+      "activeClass": "btn-danger",
+      "titleMap": {
+        "true": "Yes",
+        "false": "No"
+      }
+    },
+    {
+      "title": "Submit",
+      "type": "submit"
     }
-  }, {
-    "title": "Submit",
-    "type": "submit"
-  } ],
-  "value": { "language": "Python" }
+  ],
+  "value": {"language": "Python"}
 }

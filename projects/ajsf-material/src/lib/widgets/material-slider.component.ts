@@ -1,6 +1,6 @@
-import { AbstractControl } from '@angular/forms';
-import { Component, Input, OnInit } from '@angular/core';
-import { JsonSchemaFormService } from '@ajsf/core';
+import {AbstractControl} from '@angular/forms';
+import {Component, Input, OnInit} from '@angular/core';
+import {JsonSchemaFormService} from '@ajsf/core';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -28,7 +28,7 @@ import { JsonSchemaFormService } from '@ajsf/core';
       (change)="updateValue($event)"></mat-slider>
     <mat-error *ngIf="options?.showErrors && options?.errorMessage"
       [innerHTML]="options?.errorMessage"></mat-error>`,
-    styles: [` mat-error { font-size: 75%; } `],
+  styles: [` mat-error { font-size: 75%; } `],
 })
 export class MaterialSliderComponent implements OnInit {
   formControl: AbstractControl;
@@ -45,9 +45,7 @@ export class MaterialSliderComponent implements OnInit {
   @Input() layoutIndex: number[];
   @Input() dataIndex: number[];
 
-  constructor(
-    private jsf: JsonSchemaFormService
-  ) { }
+  constructor(private jsf: JsonSchemaFormService) {}
 
   ngOnInit() {
     this.options = this.layoutNode.options || {};

@@ -4,19 +4,19 @@
       "address": {
         "type": "object",
         "properties": {
-          "street_address": { "type": "string" },
-          "city": { "type": "string" },
-          "state": { "type": "string" }
+          "street_address": {"type": "string"},
+          "city": {"type": "string"},
+          "state": {"type": "string"}
         },
-        "required": [ "street_address", "city", "state" ]
+        "required": ["street_address", "city", "state"]
       },
       "node": {
         "type": "object",
         "properties": {
-          "name": { "type": "string" },
+          "name": {"type": "string"},
           "children": {
             "type": "array",
-            "items": { "$ref": "#/definitions/node" }
+            "items": {"$ref": "#/definitions/node"}
           }
         }
       }
@@ -38,7 +38,7 @@
     }
   },
   "uiSchema": {
-    "ui:order": [ "shipping_address", "billing_address", "tree" ]
+    "ui:order": ["shipping_address", "billing_address", "tree"]
   },
   "formData": {
     "billing_address": {
@@ -53,7 +53,7 @@
     },
     "tree": {
       "name": "root",
-      "children": [ { "name": "leaf" } ]
+      "children": [{"name": "leaf"}]
     }
   }
 }

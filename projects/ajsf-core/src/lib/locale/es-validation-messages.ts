@@ -1,7 +1,10 @@
-export const esValidationMessages: any = { // Default Spanish error messages
+export const esValidationMessages: any = {
+  // Default Spanish error messages
   required: 'Este campo está requerido.',
-  minLength: 'Debe tener {{minimumLength}} caracteres o más longitud (longitud actual: {{currentLength}})',
-  maxLength: 'Debe tener {{maximumLength}} caracteres o menos longitud (longitud actual: {{currentLength}})',
+  minLength:
+    'Debe tener {{minimumLength}} caracteres o más longitud (longitud actual: {{currentLength}})',
+  maxLength:
+    'Debe tener {{maximumLength}} caracteres o menos longitud (longitud actual: {{currentLength}})',
   pattern: 'Must match pattern: {{requiredPattern}}',
   format: function (error) {
     switch (error.requiredFormat) {
@@ -47,8 +50,10 @@ export const esValidationMessages: any = { // Default Spanish error messages
       return `Debe ser múltiplo de ${error.multipleOfValue}.`;
     }
   },
-  minProperties: 'Debe tener {{minimumProperties}} o más elementos (elementos actuales: {{currentProperties}})',
-  maxProperties: 'Debe tener {{maximumProperties}} o menos elementos (elementos actuales: {{currentProperties}})',
+  minProperties:
+    'Debe tener {{minimumProperties}} o más elementos (elementos actuales: {{currentProperties}})',
+  maxProperties:
+    'Debe tener {{maximumProperties}} o menos elementos (elementos actuales: {{currentProperties}})',
   minItems: 'Debe tener {{minimumItems}} o más elementos (elementos actuales: {{currentItems}})',
   maxItems: 'Debe tener {{maximumItems}} o menos elementos (elementos actuales: {{currentItems}})',
   uniqueItems: 'Todos los elementos deben ser únicos',
