@@ -2,19 +2,19 @@ import {ChangeDetectorRef, Component, ElementRef, Input, OnChanges, OnInit} from
 
 import cloneDeep from 'lodash-es/cloneDeep';
 import map from 'lodash-es/map';
-import {JsonSchemaFormService, addClasses, inArray} from '@ajsf/core';
+import {addClasses, inArray} from '@ajsf/core';
 import {NoFrameworkComponent} from '@ajsf/core/framework-library/no-framework.component';
+import {SelectWidgetComponent} from '@ajsf/core/widget-library/select-widget.component';
 
 /**
  * Bootstrap 5 framework for Angular JSON Schema Form.
- *
  */
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'bootstrap-5-framework',
   templateUrl: './bootstrap5-framework.component.html',
   styleUrls: ['./bootstrap5-framework.component.scss'],
-  standalone: false,
+  imports: [SelectWidgetComponent],
 })
 export class Bootstrap5FrameworkComponent
   extends NoFrameworkComponent
@@ -94,8 +94,8 @@ export class Bootstrap5FrameworkComponent
         this.layoutNode.type === 'array'
           ? addClasses(this.options.htmlClass, 'list-group')
           : this.layoutNode.arrayItem && this.layoutNode.type !== '$ref'
-            ? addClasses(this.options.htmlClass, 'list-group-item')
-            : addClasses(this.options.htmlClass, 'form-group');
+          ? addClasses(this.options.htmlClass, 'list-group-item')
+          : addClasses(this.options.htmlClass, 'form-group');
 
       this.widgetOptions.htmlClass = '';
       this.options.labelHtmlClass = addClasses(this.options.labelHtmlClass, 'form-label');

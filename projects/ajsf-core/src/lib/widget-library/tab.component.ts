@@ -1,5 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {JsonSchemaFormService} from '../json-schema-form.service';
+import {RootComponent} from './root.component';
+import {CommonModule} from '@angular/common';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -7,7 +9,7 @@ import {JsonSchemaFormService} from '../json-schema-form.service';
   template: ` <div [class]="options?.htmlClass || ''">
     <root-widget [dataIndex]="dataIndex" [layoutIndex]="layoutIndex" [layout]="layoutNode.items"></root-widget>
   </div>`,
-  standalone: false,
+  imports: [CommonModule, RootComponent],
 })
 export class TabComponent implements OnInit {
   options: any;

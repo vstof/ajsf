@@ -1,10 +1,12 @@
-import {AbstractControl} from '@angular/forms';
+import {AbstractControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {Component, Input, OnInit} from '@angular/core';
 import {JsonSchemaFormService} from '../json-schema-form.service';
+import {CommonModule} from '@angular/common';
 
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'checkbox-widget',
+
   template: `<label [attr.for]="'control' + layoutNode?._id" [class]="options?.itemLabelHtmlClass || ''">
     @if (boundControl) {
       <input
@@ -45,7 +47,7 @@ import {JsonSchemaFormService} from '../json-schema-form.service';
       <span [style.display]="options?.notitle ? 'none' : ''" [innerHTML]="options?.title"></span>
     }
   </label>`,
-  standalone: false,
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
 })
 export class CheckboxComponent implements OnInit {
   formControl: AbstractControl;

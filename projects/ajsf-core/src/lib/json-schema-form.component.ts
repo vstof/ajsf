@@ -13,7 +13,7 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
+import {ControlValueAccessor, NG_VALUE_ACCESSOR, FormsModule} from '@angular/forms';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {convertSchemaToDraft6} from './shared/convert-schema-to-draft6.function';
@@ -24,6 +24,8 @@ import {JsonPointer} from './shared/jsonpointer.functions';
 import {JsonSchemaFormService} from './json-schema-form.service';
 import {resolveSchemaReferences} from './shared/json-schema.functions';
 import {WidgetLibraryService} from './widget-library/widget-library.service';
+import {RootComponent} from './widget-library/root.component';
+import {CommonModule} from '@angular/common';
 
 export const JSON_SCHEMA_FORM_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -73,7 +75,7 @@ export const JSON_SCHEMA_FORM_VALUE_ACCESSOR: any = {
   // Adding 'JsonSchemaFormService' here, instead of in the module,
   // creates a separate instance of the service for each component
   providers: [JsonSchemaFormService, JSON_SCHEMA_FORM_VALUE_ACCESSOR],
-  standalone: false,
+  imports: [CommonModule, FormsModule, RootComponent],
 })
 export class JsonSchemaFormComponent implements ControlValueAccessor, OnChanges, OnInit {
   // TODO: quickfix to avoid subscribing twice to the same emitters

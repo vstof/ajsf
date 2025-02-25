@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {JsonSchemaFormService} from '../json-schema-form.service';
+import {CommonModule} from '@angular/common';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -7,7 +8,7 @@ import {JsonSchemaFormService} from '../json-schema-form.service';
   template: ` @if (message) {
     <span [class]="options?.labelHtmlClass || ''" [innerHTML]="message"></span>
   }`,
-  standalone: false,
+  imports: [CommonModule],
 })
 export class MessageComponent implements OnInit {
   options: any;

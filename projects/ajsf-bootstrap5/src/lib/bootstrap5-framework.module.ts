@@ -12,9 +12,8 @@ import {Bootstrap5Framework} from './bootstrap5.framework';
 import {Bootstrap5FrameworkComponent} from './bootstrap5-framework.component';
 
 @NgModule({
-  imports: [JsonSchemaFormModule, CommonModule, WidgetLibraryModule],
-  declarations: [Bootstrap5FrameworkComponent],
-  exports: [JsonSchemaFormModule, Bootstrap5FrameworkComponent],
+  imports: [JsonSchemaFormModule, CommonModule, WidgetLibraryModule, Bootstrap5FrameworkComponent],
+  exports: [Bootstrap5FrameworkComponent],
   providers: [
     JsonSchemaFormService,
     FrameworkLibraryService,

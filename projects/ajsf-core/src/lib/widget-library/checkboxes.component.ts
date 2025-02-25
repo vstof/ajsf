@@ -2,10 +2,12 @@ import {AbstractControl} from '@angular/forms';
 import {buildTitleMap} from '../shared';
 import {Component, Input, OnInit} from '@angular/core';
 import {JsonSchemaFormService, TitleMapItem} from '../json-schema-form.service';
+import {CommonModule} from '@angular/common';
 
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'checkboxes-widget',
+  imports: [CommonModule],
   template: `
     @if (options?.title) {
       <label
@@ -38,7 +40,6 @@ import {JsonSchemaFormService, TitleMapItem} from '../json-schema-form.service';
       </div>
     }
   `,
-  standalone: false,
 })
 export class CheckboxesComponent implements OnInit {
   formControl: AbstractControl;

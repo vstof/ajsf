@@ -3,6 +3,7 @@ import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {hasOwn} from '../shared/utility.functions';
 import {JsonSchemaFormService} from '../json-schema-form.service';
 import {Subscription} from 'rxjs';
+import {CommonModule} from '@angular/common';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -21,7 +22,7 @@ import {Subscription} from 'rxjs';
       (click)="updateValue($event)"
     />
   </div>`,
-  standalone: false,
+  imports: [CommonModule],
 })
 export class SubmitComponent implements OnInit, OnDestroy {
   formControl: AbstractControl;

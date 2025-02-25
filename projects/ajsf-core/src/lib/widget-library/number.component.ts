@@ -1,7 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {AbstractControl} from '@angular/forms';
+import {AbstractControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import {JsonSchemaFormService} from '../json-schema-form.service';
+import {CommonModule} from '@angular/common';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -57,7 +58,7 @@ import {JsonSchemaFormService} from '../json-schema-form.service';
       <span [innerHTML]="controlValue"></span>
     }
   </div>`,
-  standalone: false,
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
 })
 export class NumberComponent implements OnInit {
   formControl: AbstractControl;

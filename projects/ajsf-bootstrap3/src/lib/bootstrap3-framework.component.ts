@@ -1,7 +1,7 @@
 import {ChangeDetectorRef, Component, Input, OnChanges, OnInit} from '@angular/core';
 import cloneDeep from 'lodash-es/cloneDeep';
 import map from 'lodash-es/map';
-import {JsonSchemaFormService, addClasses, inArray} from '@ajsf/core';
+import {JsonSchemaFormService, SelectWidgetComponent, addClasses, inArray} from '@ajsf/core';
 import {NoFrameworkComponent} from '@ajsf/core/framework-library/no-framework.component';
 
 /**
@@ -12,6 +12,7 @@ import {NoFrameworkComponent} from '@ajsf/core/framework-library/no-framework.co
   selector: 'bootstrap-3-framework',
   templateUrl: './bootstrap3-framework.component.html',
   styleUrls: ['./bootstrap3-framework.component.scss'],
+  imports: [SelectWidgetComponent],
 })
 export class Bootstrap3FrameworkComponent
   extends NoFrameworkComponent
@@ -91,8 +92,8 @@ export class Bootstrap3FrameworkComponent
           this.layoutNode.type === 'array'
             ? addClasses(this.options.htmlClass, 'list-group')
             : this.layoutNode.arrayItem && this.layoutNode.type !== '$ref'
-              ? addClasses(this.options.htmlClass, 'list-group-item')
-              : addClasses(this.options.htmlClass, 'form-group');
+            ? addClasses(this.options.htmlClass, 'list-group-item')
+            : addClasses(this.options.htmlClass, 'form-group');
       }
       this.widgetOptions.htmlClass = '';
       this.options.labelHtmlClass = addClasses(this.options.labelHtmlClass, 'control-label');

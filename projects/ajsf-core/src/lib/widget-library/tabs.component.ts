@@ -1,5 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {JsonSchemaFormService} from '../json-schema-form.service';
+import {SelectFrameworkComponent} from './select-framework.component';
+import {CommonModule} from '@angular/common';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -57,7 +59,7 @@ import {JsonSchemaFormService} from '../json-schema-form.service';
       }
     `,
   ],
-  standalone: false,
+  imports: [CommonModule, SelectFrameworkComponent],
 })
 export class TabsComponent implements OnInit {
   options: any;

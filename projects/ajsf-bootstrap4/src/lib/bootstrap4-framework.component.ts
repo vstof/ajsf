@@ -1,7 +1,7 @@
 import {Component, OnChanges, OnInit} from '@angular/core';
 import cloneDeep from 'lodash-es/cloneDeep';
 import map from 'lodash-es/map';
-import {addClasses, inArray} from '@ajsf/core';
+import {addClasses, inArray, SelectWidgetComponent} from '@ajsf/core';
 import {NoFrameworkComponent} from '@ajsf/core/framework-library/no-framework.component';
 
 /**
@@ -11,9 +11,10 @@ import {NoFrameworkComponent} from '@ajsf/core/framework-library/no-framework.co
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'bootstrap-4-framework',
-  standalone: false,
+
   templateUrl: './bootstrap4-framework.component.html',
   styleUrls: ['./bootstrap4-framework.component.scss'],
+  imports: [SelectWidgetComponent],
 })
 export class Bootstrap4FrameworkComponent
   extends NoFrameworkComponent
@@ -92,8 +93,8 @@ export class Bootstrap4FrameworkComponent
         this.layoutNode.type === 'array'
           ? addClasses(this.options.htmlClass, 'list-group')
           : this.layoutNode.arrayItem && this.layoutNode.type !== '$ref'
-            ? addClasses(this.options.htmlClass, 'list-group-item')
-            : addClasses(this.options.htmlClass, 'form-group');
+          ? addClasses(this.options.htmlClass, 'list-group-item')
+          : addClasses(this.options.htmlClass, 'form-group');
       this.widgetOptions.htmlClass = '';
       this.options.labelHtmlClass = addClasses(this.options.labelHtmlClass, 'control-label');
       this.widgetOptions.activeClass = addClasses(this.widgetOptions.activeClass, 'active');

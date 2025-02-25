@@ -25,7 +25,6 @@ import {JsonSchemaFormService} from '../json-schema-form.service';
 @Directive({
   // tslint:disable-next-line:directive-selector
   selector: '[orderable]',
-  standalone: false,
 })
 export class OrderableDirective implements OnInit {
   arrayLayoutIndex: string;

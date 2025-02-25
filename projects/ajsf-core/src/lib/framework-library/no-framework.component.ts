@@ -1,10 +1,12 @@
-import {ChangeDetectorRef, Component, Input} from '@angular/core';
+import {ChangeDetectorRef, Component, inject, Input} from '@angular/core';
 import {JsonSchemaFormService} from '../json-schema-form.service';
+import {SelectWidgetComponent} from '../widget-library/select-widget.component';
 
 @Component({
   selector: 'no-framework',
+
   templateUrl: './no-framework.component.html',
-  standalone: false,
+  imports: [SelectWidgetComponent],
 })
 export class NoFrameworkComponent {
   frameworkInitialized = false;
@@ -21,10 +23,8 @@ export class NoFrameworkComponent {
   @Input() layoutIndex: number[];
   @Input() dataIndex: number[];
 
-  constructor(
-    public changeDetector: ChangeDetectorRef,
-    public jsf: JsonSchemaFormService,
-  ) {}
+  protected readonly changeDetector = inject(ChangeDetectorRef);
+  protected readonly jsf = inject(JsonSchemaFormService);
 
   get showRemoveButton(): boolean {
     if (
@@ -45,9 +45,9 @@ export class NoFrameworkComponent {
     return this.parentArray.items.length - 1 <= this.parentArray.options.minItems
       ? false
       : // For removable list items, allow removing any item
-        this.layoutNode.arrayItemType === 'list'
-        ? true
-        : // For removable tuple items, only allow removing last item in list
-          this.layoutIndex[this.layoutIndex.length - 1] === this.parentArray.items.length - 2;
+      this.layoutNode.arrayItemType === 'list'
+      ? true
+      : // For removable tuple items, only allow removing last item in list
+        this.layoutIndex[this.layoutIndex.length - 1] === this.parentArray.items.length - 2;
   }
 }
