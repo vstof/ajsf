@@ -3,9 +3,9 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "demo": {
+    "demo-bootstrap5": {
       "root": "",
-      "sourceRoot": "demo",
+      "sourceRoot": "demo-bootstrap5",
       "projectType": "application",
       "prefix": "app",
       "schematics": {},
@@ -13,13 +13,13 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/demo",
-            "index": "demo/index.html",
-            "main": "demo/main.ts",
-            "polyfills": "demo/polyfills.ts",
-            "tsConfig": "demo/tsconfig.app.json",
-            "assets": ["demo/favicon.ico", "demo/assets"],
-            "styles": ["demo/styles.scss"],
+            "outputPath": "dist/demo-bootstrap5",
+            "index": "demo-bootstrap5/index.html",
+            "main": "demo-bootstrap5/main.ts",
+            "polyfills": "demo-bootstrap5/polyfills.ts",
+            "tsConfig": "demo-bootstrap5/tsconfig.app.json",
+            "assets": ["demo-bootstrap5/favicon.ico", "demo-bootstrap5/assets"],
+            "styles": ["demo-bootstrap5/styles.scss"],
             "scripts": [],
             "vendorChunk": true,
             "extractLicenses": false,
@@ -38,8 +38,8 @@
               ],
               "fileReplacements": [
                 {
-                  "replace": "demo/environments/environment.ts",
-                  "with": "demo/environments/environment.prod.ts"
+                  "replace": "demo-bootstrap5/environments/environment.ts",
+                  "with": "demo-bootstrap5/environments/environment.prod.ts"
                 }
               ],
               "optimization": true,
@@ -56,35 +56,35 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "buildTarget": "demo:build"
+            "buildTarget": "demo-bootstrap5:build"
           },
           "configurations": {
             "production": {
-              "buildTarget": "demo:build:production"
+              "buildTarget": "demo-bootstrap5:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "demo:build"
+            "buildTarget": "demo-bootstrap5:build"
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "demo/test.ts",
-            "polyfills": "demo/polyfills.ts",
-            "tsConfig": "demo/tsconfig.spec.json",
-            "karmaConfig": "demo/karma.conf.js",
-            "styles": ["demo/styles.scss"],
+            "main": "demo-bootstrap5/test.ts",
+            "polyfills": "demo-bootstrap5/polyfills.ts",
+            "tsConfig": "demo-bootstrap5/tsconfig.spec.json",
+            "karmaConfig": "demo-bootstrap5/karma.conf.js",
+            "styles": ["demo-bootstrap5/styles.scss"],
             "scripts": [],
-            "assets": ["demo/favicon.ico", "demo/assets"]
+            "assets": ["demo-bootstrap5/favicon.ico", "demo-bootstrap5/assets"]
           }
         }
       }
     },
-    "demo-e2e": {
+    "demo-bootstrap5-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "architect": {
@@ -92,11 +92,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "demo:serve"
+            "devServerTarget": "demo-bootstrap5:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "demo:serve:production"
+              "devServerTarget": "demo-bootstrap5:serve:production"
             }
           }
         }

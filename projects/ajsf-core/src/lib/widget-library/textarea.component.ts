@@ -1,11 +1,12 @@
-import {AbstractControl} from '@angular/forms';
+import { AbstractControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {Component, Input, OnInit} from '@angular/core';
 import {JsonSchemaFormService} from '../json-schema-form.service';
+import { TextareaAutoresizeDirective } from './textarea-autoresize.directive';
 
 @Component({
-  // tslint:disable-next-line:component-selector
-  selector: 'textarea-widget',
-  template: `<div [class]="options?.htmlClass || ''">
+    // tslint:disable-next-line:component-selector
+    selector: 'textarea-widget',
+    template: `<div [class]="options?.htmlClass || ''">
     @if (options?.title) {
       <label
         [attr.for]="'control' + layoutNode?._id"
@@ -51,7 +52,11 @@ import {JsonSchemaFormService} from '../json-schema-form.service';
       >
     }
   </div>`,
-  standalone: false,
+    imports: [
+        FormsModule,
+        TextareaAutoresizeDirective,
+        ReactiveFormsModule,
+    ],
 })
 export class TextareaComponent implements OnInit {
   formControl: AbstractControl;

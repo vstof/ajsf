@@ -1,10 +1,11 @@
 import {ChangeDetectorRef, Component, Input} from '@angular/core';
 import {JsonSchemaFormService} from '../json-schema-form.service';
+import { SelectWidgetComponent } from '../widget-library/select-widget.component';
 
 @Component({
-  selector: 'no-framework',
-  templateUrl: './no-framework.component.html',
-  standalone: false,
+    selector: 'no-framework',
+    templateUrl: './no-framework.component.html',
+    imports: [SelectWidgetComponent],
 })
 export class NoFrameworkComponent {
   frameworkInitialized = false;

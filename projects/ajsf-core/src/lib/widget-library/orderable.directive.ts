@@ -22,11 +22,9 @@ import {JsonSchemaFormService} from '../json-schema-form.service';
  * - dragleave: remove 'drag-target-...' classes from element
  * - drop: remove 'drag-target-...' classes from element, move dropped array item
  */
-@Directive({
-  // tslint:disable-next-line:directive-selector
-  selector: '[orderable]',
-  standalone: false,
-})
+@Directive({ 
+    // tslint:disable-next-line:directive-selector
+    selector: '[orderable]', })
 export class OrderableDirective implements OnInit {
   arrayLayoutIndex: string;
   element: any;

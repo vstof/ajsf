@@ -3,17 +3,18 @@ import cloneDeep from 'lodash-es/cloneDeep';
 import map from 'lodash-es/map';
 import {addClasses, inArray} from '@ajsf/core';
 import {NoFrameworkComponent} from '@ajsf/core/framework-library/no-framework.component';
+import { SelectWidgetComponent } from '../../../ajsf-core/src/lib/widget-library/select-widget.component';
 
 /**
  * Bootstrap 4 framework for Angular JSON Schema Form.
  *
  */
 @Component({
-  // tslint:disable-next-line:component-selector
-  selector: 'bootstrap-4-framework',
-  standalone: false,
-  templateUrl: './bootstrap4-framework.component.html',
-  styleUrls: ['./bootstrap4-framework.component.scss'],
+    // tslint:disable-next-line:component-selector
+    selector: 'bootstrap-4-framework',
+    templateUrl: './bootstrap4-framework.component.html',
+    styleUrls: ['./bootstrap4-framework.component.scss'],
+    imports: [SelectWidgetComponent],
 })
 export class Bootstrap4FrameworkComponent
   extends NoFrameworkComponent

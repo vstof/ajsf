@@ -5,9 +5,9 @@ import {JsonSchemaFormService} from '../json-schema-form.service';
 import {Subscription} from 'rxjs';
 
 @Component({
-  // tslint:disable-next-line:component-selector
-  selector: 'submit-widget',
-  template: `<div [class]="options?.htmlClass || ''">
+    // tslint:disable-next-line:component-selector
+    selector: 'submit-widget',
+    template: `<div [class]="options?.htmlClass || ''">
     <input
       [attr.aria-describedby]="'control' + layoutNode?._id + 'Status'"
       [attr.readonly]="options?.readonly ? 'readonly' : null"
@@ -21,7 +21,6 @@ import {Subscription} from 'rxjs';
       (click)="updateValue($event)"
     />
   </div>`,
-  standalone: false,
 })
 export class SubmitComponent implements OnInit, OnDestroy {
   formControl: AbstractControl;

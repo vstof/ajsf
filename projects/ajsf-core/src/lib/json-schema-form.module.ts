@@ -6,8 +6,7 @@ import {NoFrameworkModule} from './framework-library/no-framework.module';
 import {WidgetLibraryModule} from './widget-library/widget-library.module';
 
 @NgModule({
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, WidgetLibraryModule, NoFrameworkModule],
-  declarations: [JsonSchemaFormComponent],
-  exports: [JsonSchemaFormComponent, WidgetLibraryModule],
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, WidgetLibraryModule, NoFrameworkModule, JsonSchemaFormComponent],
+    exports: [JsonSchemaFormComponent, WidgetLibraryModule],
 })
 export class JsonSchemaFormModule {}

@@ -1,10 +1,12 @@
 import {Component, Input} from '@angular/core';
 import {JsonSchemaFormService} from '../json-schema-form.service';
+import { OrderableDirective } from './orderable.directive';
+import { SelectFrameworkComponent } from './select-framework.component';
 
 @Component({
-  // tslint:disable-next-line:component-selector
-  selector: 'root-widget',
-  template: ` @for (layoutItem of layout; track layoutItem; let i = $index) {
+    // tslint:disable-next-line:component-selector
+    selector: 'root-widget',
+    template: ` @for (layoutItem of layout; track layoutItem; let i = $index) {
     <div
       [class.form-flex-item]="isFlexItem"
       [style.align-self]="(layoutItem.options || {})['align-self']"
@@ -29,8 +31,8 @@ import {JsonSchemaFormService} from '../json-schema-form.service';
       </div>
     </div>
   }`,
-  styles: [
-    `
+    styles: [
+        `
       [draggable="true"] {
         transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
       }
@@ -55,8 +57,8 @@ import {JsonSchemaFormService} from '../json-schema-form.service';
         z-index: 20;
       }
     `,
-  ],
-  standalone: false,
+    ],
+    imports: [OrderableDirective, SelectFrameworkComponent],
 })
 export class RootComponent {
   options: any;
