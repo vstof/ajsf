@@ -1,7 +1,8 @@
-import { AbstractControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {AbstractControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {buildTitleMap, isArray} from '../shared';
 import {Component, Input, OnInit} from '@angular/core';
 import {JsonSchemaFormService} from '../json-schema-form.service';
+import {CommonModule} from '@angular/common';
 
 @Component({
     // tslint:disable-next-line:component-selector

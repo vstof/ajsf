@@ -1,10 +1,12 @@
 import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
 import {JsonSchemaFormService} from '../json-schema-form.service';
+import {CommonModule} from '@angular/common';
 
 @Component({
-    // tslint:disable-next-line:component-selector
-    selector: 'add-reference-widget',
-    template: ` @if (showAddButton) {
+  // tslint:disable-next-line:component-selector
+  selector: 'add-reference-widget',
+  imports: [CommonModule],
+  template: ` @if (showAddButton) {
     <button [class]="options?.fieldHtmlClass || ''" [disabled]="options?.readonly" (click)="addItem($event)">
       @if (options?.icon) {
         <span [class]="options?.icon"></span>
@@ -14,7 +16,7 @@ import {JsonSchemaFormService} from '../json-schema-form.service';
       }
     </button>
   }`,
-    changeDetection: ChangeDetectionStrategy.Default,
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class AddReferenceComponent implements OnInit {
   options: any;

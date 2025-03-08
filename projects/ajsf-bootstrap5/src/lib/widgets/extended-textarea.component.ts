@@ -1,6 +1,7 @@
 import {AbstractControl} from '@angular/forms';
 import {Component, Input, OnInit} from '@angular/core';
 import {JsonSchemaFormService} from '@ajsf/core';
+import {CommonModule} from '@angular/common';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -28,7 +29,7 @@ import {JsonSchemaFormService} from '@ajsf/core';
           </span>
         }
       </div>`,
-  standalone: false,
+  imports: [CommonModule],
 })
 export class ExtendedTextareaComponent implements OnInit {
   formControl: AbstractControl;

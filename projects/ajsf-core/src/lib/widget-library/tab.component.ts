@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {JsonSchemaFormService} from '../json-schema-form.service';
-import { RootComponent } from './root.component';
+import {RootComponent} from './root.component';
 
 @Component({
     // tslint:disable-next-line:component-selector

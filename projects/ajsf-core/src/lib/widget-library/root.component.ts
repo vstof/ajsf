@@ -1,7 +1,8 @@
 import {Component, Input} from '@angular/core';
 import {JsonSchemaFormService} from '../json-schema-form.service';
-import { OrderableDirective } from './orderable.directive';
-import { SelectFrameworkComponent } from './select-framework.component';
+import {OrderableDirective} from './orderable.directive';
+import {SelectFrameworkComponent} from './select-framework.component';
+import {CommonModule} from '@angular/common';
 
 @Component({
     // tslint:disable-next-line:component-selector
@@ -58,7 +59,7 @@ import { SelectFrameworkComponent } from './select-framework.component';
       }
     `,
     ],
-    imports: [OrderableDirective, SelectFrameworkComponent],
+  imports: [CommonModule, OrderableDirective, SelectFrameworkComponent],
 })
 export class RootComponent {
   options: any;

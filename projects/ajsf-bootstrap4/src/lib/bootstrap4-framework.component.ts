@@ -1,7 +1,7 @@
 import {Component, OnChanges, OnInit} from '@angular/core';
 import cloneDeep from 'lodash-es/cloneDeep';
 import map from 'lodash-es/map';
-import {addClasses, inArray} from '@ajsf/core';
+import {addClasses, inArray, SelectWidgetComponent} from '@ajsf/core';
 import {NoFrameworkComponent} from '@ajsf/core/framework-library/no-framework.component';
 import { SelectWidgetComponent } from '../../../ajsf-core/src/lib/widget-library/select-widget.component';
 

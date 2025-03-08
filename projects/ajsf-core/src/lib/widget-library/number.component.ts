@@ -1,12 +1,13 @@
 import {Component, Input, OnInit} from '@angular/core';
-import { AbstractControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {AbstractControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import {JsonSchemaFormService} from '../json-schema-form.service';
+import {CommonModule} from '@angular/common';
 
 @Component({
-    // tslint:disable-next-line:component-selector
-    selector: 'number-widget',
-    template: `<div [class]="options?.htmlClass || ''">
+  // tslint:disable-next-line:component-selector
+  selector: 'number-widget',
+  template: `<div [class]="options?.htmlClass || ''">
     @if (options?.title) {
       <label
         [attr.for]="'control' + layoutNode?._id"
@@ -57,7 +58,7 @@ import {JsonSchemaFormService} from '../json-schema-form.service';
       <span [innerHTML]="controlValue"></span>
     }
   </div>`,
-    imports: [FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
 })
 export class NumberComponent implements OnInit {
   formControl: AbstractControl;

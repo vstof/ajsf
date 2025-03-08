@@ -1,11 +1,13 @@
 import {AbstractControl} from '@angular/forms';
 import {Component, Input, OnInit} from '@angular/core';
 import {JsonSchemaFormService} from '../json-schema-form.service';
+import {CommonModule} from '@angular/common';
 
 @Component({
-    // tslint:disable-next-line:component-selector
-    selector: 'button-widget',
-    template: `<div [class]="options?.htmlClass || ''">
+  // tslint:disable-next-line:component-selector
+  selector: 'button-widget',
+  imports: [CommonModule],
+  template: `<div [class]="options?.htmlClass || ''">
     <button
       [attr.readonly]="options?.readonly ? 'readonly' : null"
       [attr.aria-describedby]="'control' + layoutNode?._id + 'Status'"

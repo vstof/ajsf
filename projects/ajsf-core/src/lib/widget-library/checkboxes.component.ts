@@ -2,11 +2,13 @@ import {AbstractControl} from '@angular/forms';
 import {buildTitleMap} from '../shared';
 import {Component, Input, OnInit} from '@angular/core';
 import {JsonSchemaFormService, TitleMapItem} from '../json-schema-form.service';
+import {CommonModule} from '@angular/common';
 
 @Component({
-    // tslint:disable-next-line:component-selector
-    selector: 'checkboxes-widget',
-    template: `
+  // tslint:disable-next-line:component-selector
+  selector: 'checkboxes-widget',
+  imports: [CommonModule],
+  template: `
     @if (options?.title) {
       <label
         [class]="options?.labelHtmlClass || ''"

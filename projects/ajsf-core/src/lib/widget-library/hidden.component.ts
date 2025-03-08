@@ -1,11 +1,12 @@
-import { AbstractControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {AbstractControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {Component, Input, OnInit} from '@angular/core';
 import {JsonSchemaFormService} from '../json-schema-form.service';
+import {CommonModule} from '@angular/common';
 
 @Component({
-    // tslint:disable-next-line:component-selector
-    selector: 'hidden-widget',
-    template: `@if (boundControl) {
+  // tslint:disable-next-line:component-selector
+  selector: 'hidden-widget',
+  template: `@if (boundControl) {
       <input [formControl]="formControl" [id]="'control' + layoutNode?._id" [name]="controlName" type="hidden" />
     }
     @if (!boundControl) {
@@ -17,7 +18,7 @@ import {JsonSchemaFormService} from '../json-schema-form.service';
         [value]="controlValue"
       />
     }`,
-    imports: [FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
 })
 export class HiddenComponent implements OnInit {
   formControl: AbstractControl;
