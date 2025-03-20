@@ -1,12 +1,11 @@
 import {AbstractControl} from '@angular/forms';
-import {Component, Input, OnInit, inject} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {JsonSchemaFormService} from '../json-schema-form.service';
-import {CommonModule} from '@angular/common';
+import {AbstractComponent} from './abstract.component';
 
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'button-widget',
-  imports: [CommonModule],
   template: `<div [class]="options?.htmlClass || ''">
     <button
       [attr.readonly]="options?.readonly ? 'readonly' : null"
@@ -24,19 +23,7 @@ import {CommonModule} from '@angular/common';
     </button>
   </div>`,
 })
-export class ButtonComponent implements OnInit {
-  private jsf = inject(JsonSchemaFormService);
-
-  formControl: AbstractControl;
-  controlName: string;
-  controlValue: any;
-  controlDisabled = false;
-  boundControl = false;
-  options: any;
-  @Input() layoutNode: any;
-  @Input() layoutIndex: number[];
-  @Input() dataIndex: number[];
-
+export class ButtonComponent extends AbstractComponent implements OnInit {
   ngOnInit() {
     this.options = this.layoutNode.options || {};
     this.jsf.initializeControl(this);

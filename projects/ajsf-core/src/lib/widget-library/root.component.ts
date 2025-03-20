@@ -1,8 +1,8 @@
-import {Component, Input, inject} from '@angular/core';
+import {Component, inject, Input, input} from '@angular/core';
 import {JsonSchemaFormService} from '../json-schema-form.service';
 import {OrderableDirective} from './orderable.directive';
-import {SelectFrameworkComponent} from './select-framework.component';
-import {CommonModule} from '@angular/common';
+import {NgComponentOutlet} from '@angular/common';
+import {Framework} from '@ajsf/core';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -23,11 +23,14 @@ import {CommonModule} from '@angular/common';
         [orderable]="isDraggable(layoutItem)"
       >
         @if (showWidget(layoutItem)) {
-          <select-framework-widget
-            [dataIndex]="layoutItem?.arrayItem ? (dataIndex || []).concat(i) : dataIndex || []"
-            [layoutIndex]="(layoutIndex || []).concat(i)"
-            [layoutNode]="layoutItem"
-          ></select-framework-widget>
+          <ng-container         
+            [ngComponentOutlet]="framework.frameworkComponent"
+            [ngComponentOutletInputs]="{
+                layoutNode: layoutItem, 
+                layoutIndex: (layoutIndex || []).concat(i), 
+                dataIndex: layoutItem?.arrayItem ? (dataIndex || []).concat(i) : dataIndex || []
+              }"
+            />   
         }
       </div>
     </div>
@@ -59,17 +62,23 @@ import {CommonModule} from '@angular/common';
       }
     `,
   ],
-  imports: [CommonModule, OrderableDirective, SelectFrameworkComponent],
+  imports: [OrderableDirective, NgComponentOutlet],
 })
 export class RootComponent {
   private jsf = inject(JsonSchemaFormService);
-
+  framework = inject(Framework);
   options: any;
-  @Input() dataIndex: number[];
-  @Input() layoutIndex: number[];
-  @Input() layout: any[];
-  @Input() isOrderable: boolean;
-  @Input() isFlexItem = false;
+
+  @Input()
+  layoutIndex: number[];
+  @Input()
+  dataIndex: number[];
+  @Input()
+  layout: any[];
+  @Input()
+  isOrderable: boolean;
+  @Input()
+  isFlexItem: boolean;
 
   isDraggable(node: any): boolean {
     return (

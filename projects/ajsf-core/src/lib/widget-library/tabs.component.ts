@@ -1,7 +1,8 @@
-import {Component, Input, OnInit, inject} from '@angular/core';
+import {Component, inject, Input, OnInit} from '@angular/core';
 import {JsonSchemaFormService} from '../json-schema-form.service';
-import {SelectFrameworkComponent} from './select-framework.component';
-import {CommonModule} from '@angular/common';
+import {AbstractComponent} from './abstract.component';
+import {NgComponentOutlet} from '@angular/common';
+import {Framework} from '@ajsf/core';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -37,18 +38,22 @@ import {CommonModule} from '@angular/common';
     @for (layoutItem of layoutNode?.items; track layoutItem; let i = $index) {
       <div [class]="options?.htmlClass || ''">
         @if (selectedItem === i) {
-          <select-framework-widget
-            [class]="
+          <div  [class]="
               (options?.fieldHtmlClass || '') +
               ' ' +
               (options?.activeClass || '') +
               ' ' +
               (options?.style?.selected || '')
-            "
-            [dataIndex]="layoutNode?.dataType === 'array' ? (dataIndex || []).concat(i) : dataIndex"
-            [layoutIndex]="(layoutIndex || []).concat(i)"
-            [layoutNode]="layoutItem"
-          ></select-framework-widget>
+            ">
+          <ng-container         
+            [ngComponentOutlet]="framework.frameworkComponent"
+            [ngComponentOutletInputs]="{
+                  layoutNode: layoutItem, 
+                  layoutIndex: (layoutIndex || []).concat(i), 
+                  dataIndex: layoutNode?.dataType === 'array' ? (dataIndex || []).concat(i) : dataIndex
+                }"
+          />
+        </div>
         }
       </div>
     }`,
@@ -59,18 +64,14 @@ import {CommonModule} from '@angular/common';
       }
     `,
   ],
-  imports: [SelectFrameworkComponent],
+  imports: [NgComponentOutlet],
 })
-export class TabsComponent implements OnInit {
-  private jsf = inject(JsonSchemaFormService);
+export class TabsComponent extends AbstractComponent implements OnInit {
+  framework = inject(Framework);
 
-  options: any;
   itemCount: number;
   selectedItem = 0;
   showAddTab = true;
-  @Input() layoutNode: any;
-  @Input() layoutIndex: number[];
-  @Input() dataIndex: number[];
 
   ngOnInit() {
     this.options = this.layoutNode.options || {};
@@ -79,10 +80,11 @@ export class TabsComponent implements OnInit {
   }
 
   select(index) {
-    if (this.layoutNode.items[index].type === '$ref') {
-      this.itemCount = this.layoutNode.items.length;
+    const layoutNode = this.layoutNode;
+    if (layoutNode.items[index].type === '$ref') {
+      this.itemCount = layoutNode.items.length;
       this.jsf.addItem({
-        layoutNode: this.layoutNode.items[index],
+        layoutNode: layoutNode.items[index],
         layoutIndex: this.layoutIndex.concat(index),
         dataIndex: this.dataIndex.concat(index),
       });

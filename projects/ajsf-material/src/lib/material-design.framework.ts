@@ -30,7 +30,7 @@ import {
 export class MaterialDesignFramework extends Framework {
   name = 'material-design';
 
-  framework = MaterialDesignFrameworkComponent;
+  frameworkComponent = MaterialDesignFrameworkComponent;
 
   widgets = {
     root: FlexLayoutRootComponent,

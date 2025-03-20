@@ -1,6 +1,5 @@
 import {
   Framework,
-  FrameworkLibraryService,
   JsonSchemaFormModule,
   JsonSchemaFormService,
   WidgetLibraryModule,
@@ -78,7 +77,6 @@ export const ANGULAR_MATERIAL_MODULES = [
   exports: [JsonSchemaFormModule, ...MATERIAL_FRAMEWORK_COMPONENTS],
   providers: [
     JsonSchemaFormService,
-    FrameworkLibraryService,
     WidgetLibraryService,
     {provide: Framework, useClass: MaterialDesignFramework, multi: true},
   ],

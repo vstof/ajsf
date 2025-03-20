@@ -1,19 +1,22 @@
-import {ChangeDetectorRef, Component, inject, Input} from '@angular/core';
+import {ChangeDetectorRef, Component, Input, inject} from '@angular/core';
 import {JsonSchemaFormService} from '../json-schema-form.service';
-import {SelectWidgetComponent} from '../widget-library/select-widget.component';
+import {AbstractComponent} from '../widget-library/abstract.component';
+import {NgComponentOutlet} from '@angular/common';
 
 @Component({
   selector: 'no-framework',
-
   templateUrl: './no-framework.component.html',
-  imports: [SelectWidgetComponent],
+  imports: [NgComponentOutlet],
 })
 export class NoFrameworkComponent {
+  changeDetector = inject(ChangeDetectorRef);
+  jsf = inject(JsonSchemaFormService);
+
   frameworkInitialized = false;
   widgetOptions: any; // Options passed to child widget
-  widgetLayoutNode: any; // layoutNode passed to child widget
+  widgetLayoutNode: AbstractComponent; // layoutNode passed to child widget
   options: any; // Options used in this framework
-  formControl: any = null;
+  formControl: AbstractComponent;
   debugOutput: any = '';
   debug: any = '';
   parentArray: any = null;
@@ -22,9 +25,6 @@ export class NoFrameworkComponent {
   @Input() layoutNode: any;
   @Input() layoutIndex: number[];
   @Input() dataIndex: number[];
-
-  protected readonly changeDetector = inject(ChangeDetectorRef);
-  protected readonly jsf = inject(JsonSchemaFormService);
 
   get showRemoveButton(): boolean {
     if (

@@ -2,19 +2,20 @@ import {ChangeDetectorRef, Component, ElementRef, Input, OnChanges, OnInit} from
 
 import cloneDeep from 'lodash-es/cloneDeep';
 import map from 'lodash-es/map';
-import {addClasses, inArray} from '@ajsf/core';
+import {JsonSchemaFormService, addClasses, inArray} from '@ajsf/core';
 import {NoFrameworkComponent} from '@ajsf/core/framework-library/no-framework.component';
-import {SelectWidgetComponent} from '@ajsf/core/widget-library/select-widget.component';
+import {NgComponentOutlet} from '@angular/common';
 
 /**
  * Bootstrap 5 framework for Angular JSON Schema Form.
+ *
  */
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'bootstrap-5-framework',
   templateUrl: './bootstrap5-framework.component.html',
   styleUrls: ['./bootstrap5-framework.component.scss'],
-  imports: [SelectWidgetComponent],
+  imports: [NgComponentOutlet],
 })
 export class Bootstrap5FrameworkComponent
   extends NoFrameworkComponent
@@ -237,7 +238,7 @@ export class Bootstrap5FrameworkComponent
       this.options.errorMessage = this.jsf.formatErrors(this.formControl.errors, this.options.validationMessages);
     } 
     this.options.helpBlock = status === 'INVALID' &&
-    this.optio§ns.enableErrorState && this.formControl.errors &&
+    this.options.enableErrorState && this.formControl.errors &&
     (this.formControl.dirty || this.options.feedbackOnRender) ?
       this.jsf.formatErrors(this.formControl.errors, this.options.validationMessages) :
       this.options.description || this.options.help || null;

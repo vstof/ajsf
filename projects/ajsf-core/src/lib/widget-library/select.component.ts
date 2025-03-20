@@ -1,8 +1,8 @@
 import {AbstractControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {buildTitleMap, isArray} from '../shared';
-import {Component, Input, OnInit, inject} from '@angular/core';
-import {JsonSchemaFormService} from '../json-schema-form.service';
-import {CommonModule} from '@angular/common';
+import {Component, Input, OnInit} from '@angular/core';
+import {JsonSchemaFormService, TitleMapItem} from '../json-schema-form.service';
+import {AbstractComponent} from './abstract.component';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -77,20 +77,9 @@ import {CommonModule} from '@angular/common';
   </div>`,
   imports: [FormsModule, ReactiveFormsModule],
 })
-export class SelectComponent implements OnInit {
-  private jsf = inject(JsonSchemaFormService);
-
-  formControl: AbstractControl;
-  controlName: string;
-  controlValue: any;
-  controlDisabled = false;
-  boundControl = false;
-  options: any;
-  selectList: any[] = [];
+export class SelectComponent extends AbstractComponent implements OnInit {
+  selectList: TitleMapItem[] = [];
   isArray = isArray;
-  @Input() layoutNode: any;
-  @Input() layoutIndex: number[];
-  @Input() dataIndex: number[];
 
   ngOnInit() {
     this.options = this.layoutNode.options || {};

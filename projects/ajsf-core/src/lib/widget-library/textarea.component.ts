@@ -1,8 +1,8 @@
 import {AbstractControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {Component, Input, OnInit, inject} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {JsonSchemaFormService} from '../json-schema-form.service';
-import {TextareaAutoresizeDirective} from './textarea-autoresize.directive';
-import {CommonModule} from '@angular/common';
+import {AbstractComponent} from './abstract.component';
+import {TextareaAutoresizeDirective} from '../../../../../../auto-size/textarea-autoresize.directive';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -18,7 +18,7 @@ import {CommonModule} from '@angular/common';
     }
     @if (boundControl) {
       <textarea
-        textareaAutoresize
+        [appTextareaAutoresize]="true"
         spellcheck="true"
         [formControl]="formControl"
         [attr.aria-describedby]="'control' + layoutNode?._id + 'Status'"
@@ -55,19 +55,7 @@ import {CommonModule} from '@angular/common';
   </div>`,
   imports: [FormsModule, TextareaAutoresizeDirective, ReactiveFormsModule],
 })
-export class TextareaComponent implements OnInit {
-  private jsf = inject(JsonSchemaFormService);
-
-  formControl: AbstractControl;
-  controlName: string;
-  controlValue: any;
-  controlDisabled = false;
-  boundControl = false;
-  options: any;
-  @Input() layoutNode: any;
-  @Input() layoutIndex: number[];
-  @Input() dataIndex: number[];
-
+export class TextareaComponent extends AbstractComponent implements OnInit {
   ngOnInit() {
     this.options = this.layoutNode.options || {};
     this.jsf.initializeControl(this);

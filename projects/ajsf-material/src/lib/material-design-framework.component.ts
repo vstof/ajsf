@@ -1,12 +1,11 @@
 import {ChangeDetectorRef, Component, Input, OnChanges, OnInit} from '@angular/core';
-import {isDefined, JsonSchemaFormService, SelectWidgetComponent} from '@ajsf/core';
+import {isDefined, JsonSchemaFormService} from '@ajsf/core';
 import cloneDeep from 'lodash-es/cloneDeep';
 import {NoFrameworkComponent} from '@ajsf/core/framework-library/no-framework.component';
 
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'material-design-framework',
-  imports: [SelectWidgetComponent],
   templateUrl: './material-design-framework.component.html',
   styleUrls: ['./material-design-framework.component.scss'],
 })

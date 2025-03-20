@@ -1,7 +1,7 @@
 import {AbstractControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {Component, Input, OnInit, inject} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {JsonSchemaFormService} from '../json-schema-form.service';
-import {CommonModule} from '@angular/common';
+import {AbstractComponent} from './abstract.component';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -18,20 +18,9 @@ import {CommonModule} from '@angular/common';
         [value]="controlValue"
       />
     }`,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [FormsModule, ReactiveFormsModule],
 })
-export class HiddenComponent implements OnInit {
-  private jsf = inject(JsonSchemaFormService);
-
-  formControl: AbstractControl;
-  controlName: string;
-  controlValue: any;
-  controlDisabled = false;
-  boundControl = false;
-  @Input() layoutNode: any;
-  @Input() layoutIndex: number[];
-  @Input() dataIndex: number[];
-
+export class HiddenComponent extends AbstractComponent implements OnInit {
   ngOnInit() {
     this.jsf.initializeControl(this);
   }

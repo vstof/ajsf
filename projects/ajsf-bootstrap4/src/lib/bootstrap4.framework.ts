@@ -5,9 +5,9 @@ import {Bootstrap4FrameworkComponent} from './bootstrap4-framework.component';
 // Bootstrap 4 Framework
 // https://github.com/ng-bootstrap/ng-bootstrap
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class Bootstrap4Framework implements Framework {
   name = 'bootstrap-4';
 
-  framework = Bootstrap4FrameworkComponent;
+  frameworkComponent = Bootstrap4FrameworkComponent;
 }

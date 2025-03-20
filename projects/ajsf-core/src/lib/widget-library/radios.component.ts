@@ -1,8 +1,8 @@
 import {AbstractControl} from '@angular/forms';
 import {buildTitleMap} from '../shared';
-import {Component, Input, OnInit, inject} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {JsonSchemaFormService} from '../json-schema-form.service';
-import {CommonModule} from '@angular/common';
+import {AbstractComponent} from './abstract.component';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -38,26 +38,15 @@ import {CommonModule} from '@angular/common';
         </label>
       </div>
     }`,
-  imports: [CommonModule],
 })
-export class RadiosComponent implements OnInit {
-  private jsf = inject(JsonSchemaFormService);
-
-  formControl: AbstractControl;
-  controlName: string;
-  controlValue: any;
-  controlDisabled = false;
-  boundControl = false;
-  options: any;
+export class RadiosComponent extends AbstractComponent implements OnInit {
   layoutOrientation = 'vertical';
   radiosList: any[] = [];
-  @Input() layoutNode: any;
-  @Input() layoutIndex: number[];
-  @Input() dataIndex: number[];
 
   ngOnInit() {
     this.options = this.layoutNode.options || {};
-    if (this.layoutNode.type === 'radios-inline' || this.layoutNode.type === 'radiobuttons') {
+    const layoutNode = this.layoutNode;
+    if (layoutNode.type === 'radios-inline' || layoutNode.type === 'radiobuttons') {
       this.layoutOrientation = 'horizontal';
     }
     this.radiosList = buildTitleMap(

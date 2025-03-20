@@ -1,4 +1,4 @@
-import {Directive, ElementRef, Input, NgZone, OnInit, inject} from '@angular/core';
+import {Directive, ElementRef, NgZone, OnInit, inject, Input} from '@angular/core';
 import {JsonSchemaFormService} from '../json-schema-form.service';
 
 /**
@@ -35,16 +35,21 @@ export class OrderableDirective implements OnInit {
   element: any;
   overParentElement = false;
   overChildElement = false;
-  @Input() orderable: boolean;
-  @Input() layoutNode: any;
-  @Input() layoutIndex: number[];
-  @Input() dataIndex: number[];
+  @Input()
+  orderable: boolean;
+  @Input()
+  layoutNode: any;
+  @Input()
+  layoutIndex: number[];
+  @Input()
+  dataIndex: number[];
 
   ngOnInit() {
-    if (this.orderable && this.layoutNode && this.layoutIndex && this.dataIndex) {
+    const layoutIndex = this.layoutIndex;
+    if (this.orderable && this.layoutNode && layoutIndex && this.dataIndex) {
       this.element = this.elementRef.nativeElement;
       this.element.draggable = true;
-      this.arrayLayoutIndex = 'move:' + this.layoutIndex.slice(0, -1).toString();
+      this.arrayLayoutIndex = 'move:' + layoutIndex.slice(0, -1).toString();
 
       this.ngZone.runOutsideAngular(() => {
         // Listeners for movable element being dragged:

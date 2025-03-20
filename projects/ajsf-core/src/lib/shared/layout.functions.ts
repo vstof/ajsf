@@ -1061,7 +1061,13 @@ export function getLayoutNode(refNode, jsf, widgetLibrary: any = null, nodeValue
  * //  { boolean = true } flatList -
  * // { TitleMapItem[] }
  */
-export function buildTitleMap(titleMap, enumList, fieldRequired = true, flatList = true) {
+export function buildTitleMap(
+  titleMap,
+  enumList,
+  fieldRequired = true,
+  flatList = true,
+  addEmptyValueIfNeeded = true,
+): TitleMapItem[] {
   let newTitleMap: TitleMapItem[] = [];
   let hasEmptyValue = false;
   if (titleMap) {
@@ -1204,8 +1210,8 @@ export function buildTitleMap(titleMap, enumList, fieldRequired = true, flatList
       }, []);
     }
   }
-  if (!fieldRequired && !hasEmptyValue) {
-    newTitleMap.unshift({name: '<em>None</em>', value: null});
+  if (!fieldRequired && !hasEmptyValue && addEmptyValueIfNeeded) {
+    newTitleMap.unshift({name: '-', value: null});
   }
   return newTitleMap;
 }

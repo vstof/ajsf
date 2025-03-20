@@ -1,9 +1,9 @@
 import {AbstractControl} from '@angular/forms';
-import {Component, Input, OnDestroy, OnInit, inject} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {hasOwn} from '../shared/utility.functions';
 import {JsonSchemaFormService} from '../json-schema-form.service';
 import {Subscription} from 'rxjs';
-import {CommonModule} from '@angular/common';
+import {AbstractComponent} from './abstract.component';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -23,19 +23,7 @@ import {CommonModule} from '@angular/common';
     />
   </div>`,
 })
-export class SubmitComponent implements OnInit, OnDestroy {
-  private jsf = inject(JsonSchemaFormService);
-
-  formControl: AbstractControl;
-  controlName: string;
-  controlValue: any;
-  controlDisabled = false;
-  boundControl = false;
-  options: any;
-  @Input() layoutNode: any;
-  @Input() layoutIndex: number[];
-  @Input() dataIndex: number[];
-
+export class SubmitComponent extends AbstractComponent implements OnInit, OnDestroy {
   isValidChangesSubs: Subscription;
 
   ngOnInit() {

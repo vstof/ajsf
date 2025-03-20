@@ -7,32 +7,24 @@ import {hasOwn} from '../shared/utility.functions';
 import {Injectable} from '@angular/core';
 import {InputComponent} from './input.component';
 import {MessageComponent} from './message.component';
-import {NoneComponent} from './none.component';
 import {NumberComponent} from './number.component';
 import {OneOfComponent} from './one-of.component';
 import {RadiosComponent} from './radios.component';
-import {RootComponent} from './root.component';
 import {SectionComponent} from './section.component';
 import {SelectComponent} from './select.component';
-import {SelectFrameworkComponent} from './select-framework.component';
-import {SelectWidgetComponent} from './select-widget.component';
 import {SubmitComponent} from './submit.component';
 import {TabsComponent} from './tabs.component';
-import {TemplateComponent} from './template.component';
 import {TextareaComponent} from './textarea.component';
+import {AbstractComponent} from './abstract.component';
 
 @Injectable({
   providedIn: 'root',
 })
 export class WidgetLibraryService {
   defaultWidget = 'text';
-  widgetLibrary: any = {
+  widgetLibrary: {[key: string]: typeof AbstractComponent | string} = {
     // Angular JSON Schema Form administrative widgets
-    none: NoneComponent, // Placeholder, for development - displays nothing
-    root: RootComponent, // Form root, renders a complete layout
-    'select-framework': SelectFrameworkComponent, // Applies the selected framework to a specified widget
-    'select-widget': SelectWidgetComponent, // Displays a specified widget
-    $ref: AddReferenceComponent, // Button to add a new array item or $ref element
+    '$ref': AddReferenceComponent, // Button to add a new array item or $ref element
 
     // Free-form text HTML 'input' form control widgets <input type="...">
     email: 'text',
@@ -98,7 +90,6 @@ export class WidgetLibraryService {
     help: 'message', // Insert arbitrary html
     msg: 'message', // Insert arbitrary html
     html: 'message', // Insert arbitrary html
-    template: TemplateComponent, // Insert a custom Angular component
 
     // Widgets included for compatibility with JSON Form API
     advancedfieldset: 'section', // Adds 'Advanced settings' title <fieldset>
@@ -135,33 +126,34 @@ export class WidgetLibraryService {
     // 'wysihtml5': HTML editor - http://jhollingworth.github.io/bootstrap-wysihtml5
     // 'quill': Quill HTML / rich text editor (?) - https://quilljs.com
   };
-  registeredWidgets: any = {};
-  frameworkWidgets: any = {};
-  activeWidgets: any = {};
+  registeredWidgets: {[key: string]: typeof AbstractComponent | string} = {};
+  frameworkWidgets: {[key: string]: typeof AbstractComponent | string} = {};
+  activeWidgets: {[key: string]: typeof AbstractComponent} = {};
 
   constructor() {
     this.setActiveWidgets();
   }
 
   setActiveWidgets(): boolean {
-    this.activeWidgets = Object.assign(
+    const activeWidgets = Object.assign(
       {},
       this.widgetLibrary,
       this.frameworkWidgets,
       this.registeredWidgets,
     );
-    for (const widgetName of Object.keys(this.activeWidgets)) {
-      let widget: any = this.activeWidgets[widgetName];
+    this.activeWidgets = {};
+    for (const widgetName of Object.keys(activeWidgets)) {
+      let widget: typeof AbstractComponent | string = activeWidgets[widgetName];
       // Resolve aliases
       if (typeof widget === 'string') {
         const usedAliases: string[] = [];
         while (typeof widget === 'string' && !usedAliases.includes(widget)) {
           usedAliases.push(widget);
-          widget = this.activeWidgets[widget];
+          widget = activeWidgets[widget];
         }
-        if (typeof widget !== 'string') {
-          this.activeWidgets[widgetName] = widget;
-        }
+      }
+      if (typeof widget !== 'string') {
+        this.activeWidgets[widgetName] = widget;
       }
     }
     return true;
@@ -210,7 +202,7 @@ export class WidgetLibraryService {
     return this.setActiveWidgets();
   }
 
-  registerFrameworkWidgets(widgets: any): boolean {
+  registerFrameworkWidgets(widgets: {[key: string]: typeof AbstractComponent | string}): boolean {
     if (widgets === null || typeof widgets !== 'object') {
       widgets = {};
     }

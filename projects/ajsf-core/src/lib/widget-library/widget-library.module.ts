@@ -3,20 +3,17 @@ import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgModule} from '@angular/core';
 import {OrderableDirective} from './orderable.directive';
-import {TextareaAutoresizeDirective} from './textarea-autoresize.directive';
-
-import {WindowRef} from './window-ref.service';
+import {AutoSizeModule} from '../../../../../../auto-size';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    ...BASIC_WIDGETS,
+    AutoSizeModule,
     OrderableDirective,
-    TextareaAutoresizeDirective,
+    ...BASIC_WIDGETS,
   ],
-  providers: [WindowRef],
-  exports: [...BASIC_WIDGETS, OrderableDirective, TextareaAutoresizeDirective],
+  exports: [OrderableDirective, ...BASIC_WIDGETS],
 })
 export class WidgetLibraryModule {}

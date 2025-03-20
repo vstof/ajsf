@@ -1,2 +1,8 @@
-<select-widget-widget [dataIndex]="dataIndex" [layoutIndex]="layoutIndex" [layoutNode]="layoutNode">
-</select-widget-widget>
+<ng-container
+  [ngComponentOutlet]="layoutNode.widget"
+  [ngComponentOutletInputs]="{
+            layoutNode: widgetLayoutNode, 
+            layoutIndex:layoutIndex, 
+            dataIndex:dataIndex
+          }"
+/>

@@ -1,5 +1,7 @@
-import {Component, Input, OnInit, inject} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {JsonSchemaFormService} from '../json-schema-form.service';
+import {AbstractControl} from '@angular/forms';
+import {AbstractComponent} from './abstract.component';
 import {RootComponent} from './root.component';
 
 @Component({
@@ -10,14 +12,7 @@ import {RootComponent} from './root.component';
   </div>`,
   imports: [RootComponent],
 })
-export class TabComponent implements OnInit {
-  private jsf = inject(JsonSchemaFormService);
-
-  options: any;
-  @Input() layoutNode: any;
-  @Input() layoutIndex: number[];
-  @Input() dataIndex: number[];
-
+export class TabComponent extends AbstractComponent implements OnInit {
   ngOnInit() {
     this.options = this.layoutNode.options || {};
   }

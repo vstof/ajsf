@@ -1,12 +1,12 @@
 import {AbstractControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {Component, Input, OnInit, inject} from '@angular/core';
+import {Component, HostBinding, Input, OnInit} from '@angular/core';
 import {JsonSchemaFormService} from '../json-schema-form.service';
-import {CommonModule} from '@angular/common';
+import {AbstractComponent} from './abstract.component';
 
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'input-widget',
-  template: `<div [class]="options?.htmlClass || ''">
+  template: `
     @if (options?.title) {
       <label
         [attr.for]="'control' + layoutNode?._id"
@@ -59,25 +59,15 @@ import {CommonModule} from '@angular/common';
         }
       </datalist>
     }
-  </div>`,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  `,
+  imports: [FormsModule, ReactiveFormsModule],
 })
-export class InputComponent implements OnInit {
-  private jsf = inject(JsonSchemaFormService);
-
-  formControl: AbstractControl;
-  controlName: string;
-  controlValue: string;
-  controlDisabled = false;
-  boundControl = false;
-  options: any;
-  autoCompleteList: string[] = [];
-  @Input() layoutNode: any;
-  @Input() layoutIndex: number[];
-  @Input() dataIndex: number[];
+export class InputComponent extends AbstractComponent implements OnInit {
+  @HostBinding('class') public htmlClass = '';
 
   ngOnInit() {
     this.options = this.layoutNode.options || {};
+    this.htmlClass = this.options.htmlClass || '';
     this.jsf.initializeControl(this);
   }
 

@@ -1,11 +1,10 @@
-import {ChangeDetectionStrategy, Component, Input, OnInit, inject} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
 import {JsonSchemaFormService} from '../json-schema-form.service';
-import {CommonModule} from '@angular/common';
+import {AbstractComponent} from './abstract.component';
 
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'add-reference-widget',
-  imports: [CommonModule],
   template: ` @if (showAddButton) {
     <button [class]="options?.fieldHtmlClass || ''" [disabled]="options?.readonly" (click)="addItem($event)">
       @if (options?.icon) {
@@ -18,16 +17,10 @@ import {CommonModule} from '@angular/common';
   }`,
   changeDetection: ChangeDetectionStrategy.Default,
 })
-export class AddReferenceComponent implements OnInit {
-  private jsf = inject(JsonSchemaFormService);
-
-  options: any;
+export class AddReferenceComponent extends AbstractComponent implements OnInit {
   itemCount: number;
   previousLayoutIndex: number[];
   previousDataIndex: number[];
-  @Input() layoutNode: any;
-  @Input() layoutIndex: number[];
-  @Input() dataIndex: number[];
 
   ngOnInit() {
     this.options = this.layoutNode.options || {};

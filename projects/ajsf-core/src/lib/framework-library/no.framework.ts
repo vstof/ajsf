@@ -7,5 +7,5 @@ import {NoFrameworkComponent} from './no-framework.component';
 export class NoFramework extends Framework {
   name = 'no-framework';
 
-  framework = NoFrameworkComponent;
+  frameworkComponent = NoFrameworkComponent;
 }

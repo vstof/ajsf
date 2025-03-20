@@ -1,6 +1,6 @@
-import {Component, Input, OnInit, inject} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {JsonSchemaFormService} from '../json-schema-form.service';
-import {CommonModule} from '@angular/common';
+import {AbstractComponent} from './abstract.component';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -8,16 +8,9 @@ import {CommonModule} from '@angular/common';
   template: ` @if (message) {
     <span [class]="options?.labelHtmlClass || ''" [innerHTML]="message"></span>
   }`,
-  imports: [CommonModule],
 })
-export class MessageComponent implements OnInit {
-  private jsf = inject(JsonSchemaFormService);
-
-  options: any;
+export class MessageComponent extends AbstractComponent implements OnInit {
   message: string = null;
-  @Input() layoutNode: any;
-  @Input() layoutIndex: number[];
-  @Input() dataIndex: number[];
 
   ngOnInit() {
     this.options = this.layoutNode.options || {};

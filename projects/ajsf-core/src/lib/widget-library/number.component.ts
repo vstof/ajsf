@@ -1,13 +1,13 @@
-import {Component, Input, OnInit, inject} from '@angular/core';
+import {Component, HostBinding, Input, OnInit} from '@angular/core';
 import {AbstractControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import {JsonSchemaFormService} from '../json-schema-form.service';
-import {CommonModule} from '@angular/common';
+import {AbstractComponent} from './abstract.component';
 
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'number-widget',
-  template: `<div [class]="options?.htmlClass || ''">
+  template: `
     @if (options?.title) {
       <label
         [attr.for]="'control' + layoutNode?._id"
@@ -56,29 +56,17 @@ import {CommonModule} from '@angular/common';
     }
     @if (layoutNode?.type === "range") {
       <span [innerHTML]="controlValue"></span>
-    }
-  </div>`,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+    }`,
+  imports: [FormsModule, ReactiveFormsModule],
 })
-export class NumberComponent implements OnInit {
-  private jsf = inject(JsonSchemaFormService);
+export class NumberComponent extends AbstractComponent implements OnInit {
+  @HostBinding('class') public htmlClass = '';
 
-  formControl: AbstractControl;
-  controlName: string;
-  controlValue: any;
-  controlDisabled = false;
-  boundControl = false;
-  options: any;
-  allowNegative = true;
   allowDecimal = true;
-  allowExponents = false;
   lastValidNumber = '';
-  @Input() layoutNode: any;
-  @Input() layoutIndex: number[];
-  @Input() dataIndex: number[];
-
   ngOnInit() {
     this.options = this.layoutNode.options || {};
+    this.htmlClass = this.options.htmlClass || '';
     this.jsf.initializeControl(this);
     if (this.layoutNode.dataType === 'integer') {
       this.allowDecimal = false;

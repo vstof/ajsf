@@ -33,14 +33,16 @@
           <span class="input-group-text" [innerHTML]="options?.fieldAddonLeft"></span>
         </div>
       }
-
-      <select-widget-widget
-        [layoutNode]="widgetLayoutNode"
-        [dataIndex]="dataIndex"
-        [layoutIndex]="layoutIndex"
-        class="flex-fill"
-      ></select-widget-widget>
-
+      <div class="flex-fill">
+        <ng-container
+          [ngComponentOutlet]="layoutNode.widget"
+          [ngComponentOutletInputs]="{
+                layoutNode: widgetLayoutNode, 
+                layoutIndex:layoutIndex, 
+                dataIndex:dataIndex
+              }"
+        />
+      </div>
       @if (options?.fieldAddonRight) {
         <div class="input-group-append">
           <span class="input-group-text" [innerHTML]="options?.fieldAddonRight"></span>

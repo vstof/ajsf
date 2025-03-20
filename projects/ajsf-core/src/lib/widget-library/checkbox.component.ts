@@ -1,12 +1,11 @@
 import {AbstractControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {Component, Input, OnInit, inject} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {JsonSchemaFormService} from '../json-schema-form.service';
-import {CommonModule} from '@angular/common';
+import {AbstractComponent} from './abstract.component';
 
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'checkbox-widget',
-
   template: `<label [attr.for]="'control' + layoutNode?._id" [class]="options?.itemLabelHtmlClass || ''">
     @if (boundControl) {
       <input
@@ -47,23 +46,11 @@ import {CommonModule} from '@angular/common';
       <span [style.display]="options?.notitle ? 'none' : ''" [innerHTML]="options?.title"></span>
     }
   </label>`,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [FormsModule, ReactiveFormsModule],
 })
-export class CheckboxComponent implements OnInit {
-  private jsf = inject(JsonSchemaFormService);
-
-  formControl: AbstractControl;
-  controlName: string;
-  controlValue: any;
-  controlDisabled = false;
-  boundControl = false;
-  options: any;
+export class CheckboxComponent extends AbstractComponent implements OnInit {
   trueValue: any = true;
   falseValue: any = false;
-  @Input() layoutNode: any;
-  @Input() layoutIndex: number[];
-  @Input() dataIndex: number[];
-
   ngOnInit() {
     this.options = this.layoutNode.options || {};
     this.jsf.initializeControl(this);

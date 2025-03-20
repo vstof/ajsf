@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {AbstractControl, UntypedFormArray, UntypedFormGroup} from '@angular/forms';
 import {Subject} from 'rxjs';
 import cloneDeep from 'lodash-es/cloneDeep';
@@ -36,6 +36,9 @@ import {
   ptValidationMessages,
   zhValidationMessages,
 } from './locale';
+import {NoFrameworkComponent} from './framework-library/no-framework.component';
+import {Framework} from '@ajsf/core';
+import {AbstractComponent} from './widget-library/abstract.component';
 
 export interface TitleMapItem {
   name?: string;
@@ -53,9 +56,6 @@ export interface ErrorMessages {
 
 @Injectable()
 export class JsonSchemaFormService {
-  JsonFormCompatibility = false;
-  ReactJsonSchemaFormCompatibility = false;
-  AngularSchemaFormCompatibility = false;
   tpldata: any = {};
 
   ajv: Ajv; // AJV: Another JSON Schema Validator
@@ -67,14 +67,13 @@ export class JsonSchemaFormService {
   layout: any[] = []; // Internal form layout
   formGroupTemplate: any = {}; // Template used to create formGroup
   formGroup: any = null; // Angular formGroup, which powers the reactive form
-  framework: any = null; // Active framework component
   formOptions: any; // Active options, used to configure the form
 
   validData: any = null; // Valid form data (or null) (=== isValid ? data : null)
   isValid: boolean = null; // Is current form data valid?
   ajvErrors: any = null; // Ajv errors for current data
   validationErrors: any = null; // Any validation errors for current data
-  dataErrors: any = new Map(); //
+  // dataErrors: any = new Map(); //
   formValueSubscription: any = null; // Subscription to formGroup.valueChanges observable (for un- and re-subscribing)
   dataChanges: Subject<any> = new Subject(); // Form data observable
   isValidChanges: Subject<any> = new Subject(); // isValid observable
@@ -185,9 +184,6 @@ export class JsonSchemaFormService {
   }
 
   resetAllValues() {
-    this.JsonFormCompatibility = false;
-    this.ReactJsonSchemaFormCompatibility = false;
-    this.AngularSchemaFormCompatibility = false;
     this.tpldata = {};
     this.validateFormData = null;
     this.formValues = {};
@@ -195,7 +191,6 @@ export class JsonSchemaFormService {
     this.layout = [];
     this.formGroupTemplate = {};
     this.formGroup = null;
-    this.framework = null;
     this.data = {};
     this.validData = null;
     this.isValid = null;
@@ -389,12 +384,12 @@ export class JsonSchemaFormService {
       return pointer[0] === 'value' && JsonPointer.has(value, pointer.slice(1))
         ? JsonPointer.get(value, pointer.slice(1))
         : pointer[0] === 'values' && JsonPointer.has(values, pointer.slice(1))
-          ? JsonPointer.get(values, pointer.slice(1))
-          : pointer[0] === 'tpldata' && JsonPointer.has(tpldata, pointer.slice(1))
-            ? JsonPointer.get(tpldata, pointer.slice(1))
-            : JsonPointer.has(values, pointer)
-              ? JsonPointer.get(values, pointer)
-              : '';
+        ? JsonPointer.get(values, pointer.slice(1))
+        : pointer[0] === 'tpldata' && JsonPointer.has(tpldata, pointer.slice(1))
+        ? JsonPointer.get(tpldata, pointer.slice(1))
+        : JsonPointer.has(values, pointer)
+        ? JsonPointer.get(values, pointer)
+        : '';
     }
     if (expression.indexOf('[idx]') > -1) {
       expression = expression.replace(/\[idx\]/g, <string>index);
@@ -501,7 +496,7 @@ export class JsonSchemaFormService {
     return result;
   }
 
-  initializeControl(ctx: any, bind = true): boolean {
+  initializeControl(ctx: AbstractComponent, bind = true): boolean {
     if (!isObject(ctx)) {
       return false;
     }
@@ -523,13 +518,12 @@ export class JsonSchemaFormService {
       ctx.options.showErrors =
         this.formOptions.validateOnRender === true ||
         (this.formOptions.validateOnRender === 'auto' && hasValue(ctx.controlValue));
-      ctx.formControl.statusChanges.subscribe(
-        (status) =>
-          (ctx.options.errorMessage =
-            status === 'VALID'
-              ? null
-              : this.formatErrors(ctx.formControl.errors, ctx.options.validationMessages)),
-      );
+      ctx.formControl.statusChanges.subscribe((status) => {
+        ctx.options.errorMessage =
+          status === 'VALID'
+            ? null
+            : this.formatErrors(ctx.formControl.errors, ctx.options.validationMessages);
+      });
       ctx.formControl.valueChanges.subscribe((value) => {
         if (value) {
           ctx.controlValue = value;
@@ -564,12 +558,12 @@ export class JsonSchemaFormService {
               error[key] === true
                 ? addSpaces(key)
                 : error[key] === false
-                  ? 'Not ' + addSpaces(key)
-                  : addSpaces(key) + ': ' + formatError(error[key]),
+                ? 'Not ' + addSpaces(key)
+                : addSpaces(key) + ': ' + formatError(error[key]),
             )
             .join(', ')
         : addSpaces(error.toString());
-    const messages = [];
+
     return (
       Object.keys(errors)
         // Hide 'required' error, unless it is the only one
@@ -579,24 +573,24 @@ export class JsonSchemaFormService {
           typeof validationMessages === 'string'
             ? validationMessages
             : // If custom error message is a function, return function result
-              typeof validationMessages[errorKey] === 'function'
-              ? validationMessages[errorKey](errors[errorKey])
-              : // If custom error message is a string, replace placeholders and return
-                typeof validationMessages[errorKey] === 'string'
-                ? // Does error message have any {{property}} placeholders?
-                  !/{{.+?}}/.test(validationMessages[errorKey])
-                  ? validationMessages[errorKey]
-                  : // Replace {{property}} placeholders with values
-                    Object.keys(errors[errorKey]).reduce(
-                      (errorMessage, errorProperty) =>
-                        errorMessage.replace(
-                          new RegExp('{{' + errorProperty + '}}', 'g'),
-                          errors[errorKey][errorProperty],
-                        ),
-                      validationMessages[errorKey],
-                    )
-                : // If no custom error message, return formatted error data instead
-                  addSpaces(errorKey) + ' Error: ' + formatError(errors[errorKey]),
+            typeof validationMessages[errorKey] === 'function'
+            ? validationMessages[errorKey](errors[errorKey])
+            : // If custom error message is a string, replace placeholders and return
+            typeof validationMessages[errorKey] === 'string'
+            ? // Does error message have any {{property}} placeholders?
+              !/{{.+?}}/.test(validationMessages[errorKey])
+              ? validationMessages[errorKey]
+              : // Replace {{property}} placeholders with values
+                Object.keys(errors[errorKey]).reduce(
+                  (errorMessage, errorProperty) =>
+                    errorMessage.replace(
+                      new RegExp('{{' + errorProperty + '}}', 'g'),
+                      errors[errorKey][errorProperty],
+                    ),
+                  validationMessages[errorKey],
+                )
+            : // If no custom error message, return formatted error data instead
+              addSpaces(errorKey) + ' Error: ' + formatError(errors[errorKey]),
         )
         .join('<br>')
     );
@@ -624,8 +618,7 @@ export class JsonSchemaFormService {
   }
 
   updateArrayCheckboxList(ctx: any, checkboxList: TitleMapItem[]): void {
-    const formArray = <UntypedFormArray>this.getFormControl(ctx);
-
+    const formArray = <UntypedFormArray>(<unknown>this.getFormControl(ctx));
     // Remove all existing items
     while (formArray.value.length) {
       formArray.removeAt(0);
@@ -647,34 +640,56 @@ export class JsonSchemaFormService {
     formArray.markAsDirty();
   }
 
-  getFormControl(ctx: any): AbstractControl {
-    if (
-      !ctx.layoutNode ||
-      !isDefined(ctx.layoutNode.dataPointer) ||
-      ctx.layoutNode.type === '$ref'
-    ) {
-      return null;
+  /*
+  updateArrayCheckboxList(ctx: any, checkboxList: TitleMapItem[]): void {
+    const formArray = <UntypedFormArray>(<unknown>this.getFormControl(ctx));
+
+    // CVS: to avoid that change event is triggered unnecessary 
+    
+    // Re-add an item for each checked box
+    const refPointer = removeRecursiveReferences(
+      ctx.layoutNode.dataPointer + '/-',
+      this.dataRecursiveRefMap,
+      this.arrayMap,
+    );
+
+    for (const checkboxItem of checkboxList) {
+      let i = formArray.value
+        ? (<Array<string>>formArray.value).findIndex(
+            (v: string): boolean => v == checkboxItem.value,
+          )
+        : -1;
+
+      if (checkboxItem.checked) {
+        if (i < 0) {
+          const newFormControl = buildFormGroup(this.templateRefLibrary[refPointer]);
+          newFormControl.setValue(checkboxItem.value);
+          formArray.push(newFormControl);
+        }
+      } else {
+        if (i >= 0) {
+          formArray.removeAt(i);
+        }
+      }
     }
-    return getControl(this.formGroup, this.getDataPointer(ctx));
+    formArray.markAsDirty();
+  }
+*/
+  getFormControl(ctx: any): AbstractComponent {
+    return ctx.layoutNode && isDefined(ctx.layoutNode.dataPointer) && ctx.layoutNode.type !== '$ref'
+      ? getControl(this.formGroup, this.getDataPointer(ctx))
+      : null;
   }
 
   getFormControlValue(ctx: any): AbstractControl {
-    if (
-      !ctx.layoutNode ||
-      !isDefined(ctx.layoutNode.dataPointer) ||
-      ctx.layoutNode.type === '$ref'
-    ) {
-      return null;
-    }
-    const control = getControl(this.formGroup, this.getDataPointer(ctx));
+    const control = this.getFormControl(ctx);
     return control ? control.value : null;
   }
 
   getFormControlGroup(ctx: any): UntypedFormArray | UntypedFormGroup {
-    if (!ctx.layoutNode || !isDefined(ctx.layoutNode.dataPointer)) {
-      return null;
-    }
-    return getControl(this.formGroup, this.getDataPointer(ctx), true);
+    return ctx.layoutNode && isDefined(ctx.layoutNode.dataPointer)
+      ? getControl(this.formGroup, this.getDataPointer(ctx), true)
+      : null;
   }
 
   getFormControlName(ctx: any): string {

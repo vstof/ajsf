@@ -1,13 +1,12 @@
 import {AbstractControl} from '@angular/forms';
 import {buildTitleMap} from '../shared';
-import {Component, Input, OnInit, inject} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {JsonSchemaFormService, TitleMapItem} from '../json-schema-form.service';
-import {CommonModule} from '@angular/common';
+import {AbstractComponent} from './abstract.component';
 
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'checkboxes-widget',
-  imports: [CommonModule],
   template: `
     @if (options?.title) {
       <label
@@ -41,26 +40,16 @@ import {CommonModule} from '@angular/common';
     }
   `,
 })
-export class CheckboxesComponent implements OnInit {
-  private jsf = inject(JsonSchemaFormService);
-
-  formControl: AbstractControl;
-  controlName: string;
-  controlValue: any;
-  controlDisabled = false;
-  boundControl = false;
-  options: any;
+export class CheckboxesComponent extends AbstractComponent implements OnInit {
   layoutOrientation: string;
   formArray: AbstractControl;
   checkboxList: TitleMapItem[] = [];
-  @Input() layoutNode: any;
-  @Input() layoutIndex: number[];
-  @Input() dataIndex: number[];
 
   ngOnInit() {
     this.options = this.layoutNode.options || {};
+    const layoutNode = this.layoutNode;
     this.layoutOrientation =
-      this.layoutNode.type === 'checkboxes-inline' || this.layoutNode.type === 'checkboxbuttons'
+      layoutNode.type === 'checkboxes-inline' || layoutNode.type === 'checkboxbuttons'
         ? 'horizontal'
         : 'vertical';
     this.jsf.initializeControl(this);
