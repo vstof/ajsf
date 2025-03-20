@@ -9,9 +9,14 @@ describe('FwBootstrap4Component', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [JsonSchemaFormModule, CommonModule, WidgetLibraryModule, Bootstrap4FrameworkComponent],
-    providers: [JsonSchemaFormService],
-}).compileComponents();
+      imports: [
+        JsonSchemaFormModule,
+        CommonModule,
+        WidgetLibraryModule,
+        Bootstrap4FrameworkComponent,
+      ],
+      providers: [JsonSchemaFormService],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

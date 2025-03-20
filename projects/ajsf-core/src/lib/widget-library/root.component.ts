@@ -5,9 +5,9 @@ import {SelectFrameworkComponent} from './select-framework.component';
 import {CommonModule} from '@angular/common';
 
 @Component({
-    // tslint:disable-next-line:component-selector
-    selector: 'root-widget',
-    template: ` @for (layoutItem of layout; track layoutItem; let i = $index) {
+  // tslint:disable-next-line:component-selector
+  selector: 'root-widget',
+  template: ` @for (layoutItem of layout; track layoutItem; let i = $index) {
     <div
       [class.form-flex-item]="isFlexItem"
       [style.align-self]="(layoutItem.options || {})['align-self']"
@@ -32,8 +32,8 @@ import {CommonModule} from '@angular/common';
       </div>
     </div>
   }`,
-    styles: [
-        `
+  styles: [
+    `
       [draggable="true"] {
         transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
       }
@@ -58,7 +58,7 @@ import {CommonModule} from '@angular/common';
         z-index: 20;
       }
     `,
-    ],
+  ],
   imports: [CommonModule, OrderableDirective, SelectFrameworkComponent],
 })
 export class RootComponent {

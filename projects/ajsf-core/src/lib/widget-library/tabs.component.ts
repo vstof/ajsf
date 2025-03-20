@@ -4,9 +4,9 @@ import {SelectFrameworkComponent} from './select-framework.component';
 import {CommonModule} from '@angular/common';
 
 @Component({
-    // tslint:disable-next-line:component-selector
-    selector: 'tabs-widget',
-    template: ` <ul [class]="options?.labelHtmlClass || ''">
+  // tslint:disable-next-line:component-selector
+  selector: 'tabs-widget',
+  template: ` <ul [class]="options?.labelHtmlClass || ''">
       @for (item of layoutNode?.items; track item; let i = $index) {
         <li
           [class]="
@@ -52,14 +52,14 @@ import {CommonModule} from '@angular/common';
         }
       </div>
     }`,
-    styles: [
-        `
+  styles: [
+    `
       a {
         cursor: pointer;
       }
     `,
-    ],
-    imports: [SelectFrameworkComponent],
+  ],
+  imports: [SelectFrameworkComponent],
 })
 export class TabsComponent implements OnInit {
   options: any;

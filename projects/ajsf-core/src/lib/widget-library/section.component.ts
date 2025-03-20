@@ -4,9 +4,9 @@ import {RootComponent} from './root.component';
 import {CommonModule} from '@angular/common';
 
 @Component({
-    // tslint:disable-next-line:component-selector
-    selector: 'section-widget',
-    template: ` @if (containerType === "div") {
+  // tslint:disable-next-line:component-selector
+  selector: 'section-widget',
+  template: ` @if (containerType === "div") {
       <div
         [class]="options?.htmlClass || ''"
         [class.expandable]="options?.expandable && !expanded"
@@ -87,8 +87,8 @@ import {CommonModule} from '@angular/common';
         }
       </fieldset>
     }`,
-    styles: [
-        `
+  styles: [
+    `
       .legend {
         font-weight: bold;
       }
@@ -103,7 +103,7 @@ import {CommonModule} from '@angular/common';
         padding-right: 0.2em;
       }
     `,
-    ],
+  ],
   imports: [CommonModule, RootComponent],
 })
 export class SectionComponent implements OnInit {

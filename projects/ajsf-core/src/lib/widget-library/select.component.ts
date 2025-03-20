@@ -5,9 +5,9 @@ import {JsonSchemaFormService} from '../json-schema-form.service';
 import {CommonModule} from '@angular/common';
 
 @Component({
-    // tslint:disable-next-line:component-selector
-    selector: 'select-widget',
-    template: `<div [class]="options?.htmlClass || ''">
+  // tslint:disable-next-line:component-selector
+  selector: 'select-widget',
+  template: `<div [class]="options?.htmlClass || ''">
     @if (options?.title) {
       <label
         [attr.for]="'control' + layoutNode?._id"
@@ -75,7 +75,7 @@ import {CommonModule} from '@angular/common';
       </select>
     }
   </div>`,
-    imports: [FormsModule, ReactiveFormsModule],
+  imports: [FormsModule, ReactiveFormsModule],
 })
 export class SelectComponent implements OnInit {
   formControl: AbstractControl;

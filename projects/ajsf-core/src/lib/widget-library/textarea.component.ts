@@ -5,9 +5,9 @@ import {TextareaAutoresizeDirective} from './textarea-autoresize.directive';
 import {CommonModule} from '@angular/common';
 
 @Component({
-    // tslint:disable-next-line:component-selector
-    selector: 'textarea-widget',
-    template: `<div [class]="options?.htmlClass || ''">
+  // tslint:disable-next-line:component-selector
+  selector: 'textarea-widget',
+  template: `<div [class]="options?.htmlClass || ''">
     @if (options?.title) {
       <label
         [attr.for]="'control' + layoutNode?._id"
@@ -53,11 +53,7 @@ import {CommonModule} from '@angular/common';
       >
     }
   </div>`,
-    imports: [
-        FormsModule,
-        TextareaAutoresizeDirective,
-        ReactiveFormsModule,
-    ],
+  imports: [FormsModule, TextareaAutoresizeDirective, ReactiveFormsModule],
 })
 export class TextareaComponent implements OnInit {
   formControl: AbstractControl;

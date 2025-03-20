@@ -52,80 +52,80 @@
       {{ visible.options ? "▼" : "▶" }} Selected Framework and Options
     </h4>
     @if (visible.options) {
-    <div fxLayout="column" [@expandSection]="true">
-      <select
-        [(ngModel)]="selectedLanguage"
-        (onChange)="loadSelectedLanguage()"
-        name="language"
-        placeholder="Language"
-      >
-        @for (language of languageList; track language) {
-        <option [value]="language">{{ languages[language] }}</option>
-        }
-      </select>
-      <div class="form-check">
-        <input
-          class="form-check-input"
-          type="checkbox"
-          [(ngModel)]="jsonFormOptions.returnEmptyFields"
-          id="returnEmptyFields"
-        />
-        <label class="form-check-label" for="returnEmptyFields">
-          Return empty fields? (default = true)
-        </label>
+      <div fxLayout="column" [@expandSection]="true">
+        <select
+          [(ngModel)]="selectedLanguage"
+          (onChange)="loadSelectedLanguage()"
+          name="language"
+          placeholder="Language"
+        >
+          @for (language of languageList; track language) {
+            <option [value]="language">{{ languages[language] }}</option>
+          }
+        </select>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            [(ngModel)]="jsonFormOptions.returnEmptyFields"
+            id="returnEmptyFields"
+          />
+          <label class="form-check-label" for="returnEmptyFields">
+            Return empty fields? (default = true)
+          </label>
+        </div>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            [(ngModel)]="jsonFormOptions.addSubmit"
+            id="addSubmit"
+          />
+          <label class="form-check-label" for="addSubmit">
+            Add submit button? (default = only add if no layout is defined)
+          </label>
+        </div>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            [(ngModel)]="jsonFormOptions.defaultWidgetOptions.feedback"
+            id="feedback"
+          />
+          <label class="form-check-label" for="feedback">
+            Show inline feedback? (default = false)
+          </label>
+        </div>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            [(ngModel)]="jsonFormOptions.debug"
+            id="debug"
+          />
+          <label class="form-check-label" for="debug">
+            Show debugging information? (default = false)
+          </label>
+        </div>
       </div>
-      <div class="form-check">
-        <input
-          class="form-check-input"
-          type="checkbox"
-          [(ngModel)]="jsonFormOptions.addSubmit"
-          id="addSubmit"
-        />
-        <label class="form-check-label" for="addSubmit">
-          Add submit button? (default = only add if no layout is defined)
-        </label>
-      </div>
-      <div class="form-check">
-        <input
-          class="form-check-input"
-          type="checkbox"
-          [(ngModel)]="jsonFormOptions.defaultWidgetOptions.feedback"
-          id="feedback"
-        />
-        <label class="form-check-label" for="feedback">
-          Show inline feedback? (default = false)
-        </label>
-      </div>
-      <div class="form-check">
-        <input
-          class="form-check-input"
-          type="checkbox"
-          [(ngModel)]="jsonFormOptions.debug"
-          id="debug"
-        />
-        <label class="form-check-label" for="debug">
-          Show debugging information? (default = false)
-        </label>
-      </div>
-    </div>
     }
     <hr />
     <h4 class="default-cursor" (click)="toggleVisible('schema')">
       {{ visible.schema ? "▼" : "▶" }} Input JSON Schema and Form Layout
     </h4>
     @if (visible.schema) {
-    <div
-      [@expandSection]="true"
-      ace-editor
-      [text]="jsonFormSchema"
-      [options]="aceEditorOptions"
-      [readOnly]="false"
-      [autoUpdateContent]="true"
-      (textChanged)="generateForm($event)"
-      style="width: 100%; overflow: auto; border: 1px solid black"
-    >
-      (loading form specification...)
-    </div>
+      <div
+        [@expandSection]="true"
+        ace-editor
+        [text]="jsonFormSchema"
+        [options]="aceEditorOptions"
+        [readOnly]="false"
+        [autoUpdateContent]="true"
+        (textChanged)="generateForm($event)"
+        style="width: 100%; overflow: auto; border: 1px solid black"
+      >
+        (loading form specification...)
+      </div>
     }
   </div>
 
@@ -134,64 +134,68 @@
       {{ visible.form ? "▼" : "▶" }} Generated Form
     </h4>
     @if (visible.form) {
-    <div class="json-schema-form" [@expandSection]="true">
-      @if (!formActive) {
-      <div>{{ jsonFormStatusMessage }}</div>
-      }
-      <!-- This is the form! -->
-      @if (formActive) {
-      <json-schema-form
-        loadExternalAssets="true"
-        [form]="jsonFormObject"
-        [options]="jsonFormOptions"
-        framework="bootstrap-5"
-        [language]="selectedLanguage"
-        (onChanges)="onChanges($event)"
-        (onSubmit)="onSubmit($event)"
-        (isValid)="isValid($event)"
-        (validationErrors)="validationErrors($event)"
-      >
-      </json-schema-form>
-      }
-    </div>
+      <div class="json-schema-form" [@expandSection]="true">
+        @if (!formActive) {
+          <div>{{ jsonFormStatusMessage }}</div>
+        }
+        <!-- This is the form! -->
+        @if (formActive) {
+          <json-schema-form
+            loadExternalAssets="true"
+            [form]="jsonFormObject"
+            [options]="jsonFormOptions"
+            framework="bootstrap-5"
+            [language]="selectedLanguage"
+            (onChanges)="onChanges($event)"
+            (onSubmit)="onSubmit($event)"
+            (isValid)="isValid($event)"
+            (validationErrors)="validationErrors($event)"
+          >
+          </json-schema-form>
+        }
+      </div>
     }
     <hr />
     <h4 class="default-cursor" (click)="toggleVisible('output')">
       {{ visible.output ? "▼" : "▶" }} Form Output
     </h4>
     @if (visible.output) {
-    <div fxLayout="column" [@expandSection]="true">
-      <div>
-        Valid?: @if (formIsValid || prettyValidationErrors) {
-        <strong [class.text-success]="formIsValid" [class.text-danger]="!formIsValid">
-          {{ formIsValid ? "Yes" : "No" }}
-        </strong>
-        } @if (!formIsValid && !prettyValidationErrors) {
-        <span>n/a</span>
-        } @if (prettyValidationErrors) {
-        <span>— errors from validationErrors():</span>
-        } @if (prettyValidationErrors) {
-        <div class="data-bad" [innerHTML]="prettyValidationErrors"></div>
-        }
-      </div>
-      <br />
-      <div>
-        Live data — from onChanges():
-        <pre
-          [class.data-good]="!prettyValidationErrors && prettyLiveFormData !== '{}'"
-          [class.data-bad]="prettyValidationErrors"
-        >
+      <div fxLayout="column" [@expandSection]="true">
+        <div>
+          Valid?:
+          @if (formIsValid || prettyValidationErrors) {
+            <strong [class.text-success]="formIsValid" [class.text-danger]="!formIsValid">
+              {{ formIsValid ? "Yes" : "No" }}
+            </strong>
+          }
+          @if (!formIsValid && !prettyValidationErrors) {
+            <span>n/a</span>
+          }
+          @if (prettyValidationErrors) {
+            <span>— errors from validationErrors():</span>
+          }
+          @if (prettyValidationErrors) {
+            <div class="data-bad" [innerHTML]="prettyValidationErrors"></div>
+          }
+        </div>
+        <br />
+        <div>
+          Live data — from onChanges():
+          <pre
+            [class.data-good]="!prettyValidationErrors && prettyLiveFormData !== '{}'"
+            [class.data-bad]="prettyValidationErrors"
+          >
               {{ prettyLiveFormData }}</pre
-        >
-      </div>
-      <br />
-      <div>
-        Submitted data — from onSubmit():
-        <pre [class.data-good]="prettySubmittedFormData !== 'null'">
+          >
+        </div>
+        <br />
+        <div>
+          Submitted data — from onSubmit():
+          <pre [class.data-good]="prettySubmittedFormData !== 'null'">
                 {{ prettySubmittedFormData }}</pre
-        >
+          >
+        </div>
       </div>
-    </div>
     }
   </div>
 </div>

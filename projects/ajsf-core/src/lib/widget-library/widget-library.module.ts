@@ -8,8 +8,15 @@ import {TextareaAutoresizeDirective} from './textarea-autoresize.directive';
 import {WindowRef} from './window-ref.service';
 
 @NgModule({
-    imports: [CommonModule, FormsModule, ReactiveFormsModule, ...BASIC_WIDGETS, OrderableDirective, TextareaAutoresizeDirective],
-    providers: [WindowRef],
-    exports: [...BASIC_WIDGETS, OrderableDirective, TextareaAutoresizeDirective],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    ...BASIC_WIDGETS,
+    OrderableDirective,
+    TextareaAutoresizeDirective,
+  ],
+  providers: [WindowRef],
+  exports: [...BASIC_WIDGETS, OrderableDirective, TextareaAutoresizeDirective],
 })
 export class WidgetLibraryModule {}

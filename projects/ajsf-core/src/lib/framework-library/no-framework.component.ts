@@ -45,9 +45,9 @@ export class NoFrameworkComponent {
     return this.parentArray.items.length - 1 <= this.parentArray.options.minItems
       ? false
       : // For removable list items, allow removing any item
-      this.layoutNode.arrayItemType === 'list'
-      ? true
-      : // For removable tuple items, only allow removing last item in list
-        this.layoutIndex[this.layoutIndex.length - 1] === this.parentArray.items.length - 2;
+        this.layoutNode.arrayItemType === 'list'
+        ? true
+        : // For removable tuple items, only allow removing last item in list
+          this.layoutIndex[this.layoutIndex.length - 1] === this.parentArray.items.length - 2;
   }
 }

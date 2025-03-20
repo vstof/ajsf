@@ -69,7 +69,11 @@ export class DemoComponent implements OnInit {
     autoScrollEditorIntoView: true,
   };
 
-  constructor(private http: HttpClient, private route: ActivatedRoute, private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private route: ActivatedRoute,
+    private router: Router,
+  ) {}
 
   ngOnInit() {
     // Subscribe to query string to detect schema to load

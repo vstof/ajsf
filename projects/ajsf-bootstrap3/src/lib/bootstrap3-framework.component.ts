@@ -92,8 +92,8 @@ export class Bootstrap3FrameworkComponent
           this.layoutNode.type === 'array'
             ? addClasses(this.options.htmlClass, 'list-group')
             : this.layoutNode.arrayItem && this.layoutNode.type !== '$ref'
-            ? addClasses(this.options.htmlClass, 'list-group-item')
-            : addClasses(this.options.htmlClass, 'form-group');
+              ? addClasses(this.options.htmlClass, 'list-group-item')
+              : addClasses(this.options.htmlClass, 'form-group');
       }
       this.widgetOptions.htmlClass = '';
       this.options.labelHtmlClass = addClasses(this.options.labelHtmlClass, 'control-label');

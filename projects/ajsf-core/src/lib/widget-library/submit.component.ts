@@ -6,9 +6,9 @@ import {Subscription} from 'rxjs';
 import {CommonModule} from '@angular/common';
 
 @Component({
-    // tslint:disable-next-line:component-selector
-    selector: 'submit-widget',
-    template: `<div [class]="options?.htmlClass || ''">
+  // tslint:disable-next-line:component-selector
+  selector: 'submit-widget',
+  template: `<div [class]="options?.htmlClass || ''">
     <input
       [attr.aria-describedby]="'control' + layoutNode?._id + 'Status'"
       [attr.readonly]="options?.readonly ? 'readonly' : null"
