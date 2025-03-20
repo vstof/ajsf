@@ -1,6 +1,6 @@
 import {AbstractControl} from '@angular/forms';
 import {buildTitleMap} from '../shared';
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import {JsonSchemaFormService} from '../json-schema-form.service';
 import {CommonModule} from '@angular/common';
 
@@ -41,6 +41,8 @@ import {CommonModule} from '@angular/common';
   imports: [CommonModule],
 })
 export class RadiosComponent implements OnInit {
+  private jsf = inject(JsonSchemaFormService);
+
   formControl: AbstractControl;
   controlName: string;
   controlValue: any;
@@ -52,8 +54,6 @@ export class RadiosComponent implements OnInit {
   @Input() layoutNode: any;
   @Input() layoutIndex: number[];
   @Input() dataIndex: number[];
-
-  constructor(private jsf: JsonSchemaFormService) {}
 
   ngOnInit() {
     this.options = this.layoutNode.options || {};

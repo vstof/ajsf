@@ -1,5 +1,5 @@
 import {AbstractControl} from '@angular/forms';
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import {JsonSchemaFormService, buildTitleMap} from '@ajsf/core';
 
 @Component({
@@ -48,6 +48,8 @@ import {JsonSchemaFormService, buildTitleMap} from '@ajsf/core';
   ],
 })
 export class MaterialButtonGroupComponent implements OnInit {
+  private jsf = inject(JsonSchemaFormService);
+
   formControl: AbstractControl;
   controlName: string;
   controlValue: any;
@@ -59,8 +61,6 @@ export class MaterialButtonGroupComponent implements OnInit {
   @Input() layoutNode: any;
   @Input() layoutIndex: number[];
   @Input() dataIndex: number[];
-
-  constructor(private jsf: JsonSchemaFormService) {}
 
   ngOnInit() {
     this.options = this.layoutNode.options || {};

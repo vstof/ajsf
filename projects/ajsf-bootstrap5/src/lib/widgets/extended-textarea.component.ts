@@ -1,5 +1,5 @@
 import {AbstractControl} from '@angular/forms';
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import {JsonSchemaFormService} from '@ajsf/core';
 import {CommonModule} from '@angular/common';
 
@@ -32,6 +32,8 @@ import {CommonModule} from '@angular/common';
   imports: [CommonModule],
 })
 export class ExtendedTextareaComponent implements OnInit {
+  private jsf = inject(JsonSchemaFormService);
+
   formControl: AbstractControl;
   controlName: string;
   controlValue: any;
@@ -42,8 +44,6 @@ export class ExtendedTextareaComponent implements OnInit {
   @Input() layoutIndex: number[];
   @Input() dataIndex: number[];
   showSelectPopup: boolean;
-
-  constructor(private jsf: JsonSchemaFormService) {}
 
   ngOnInit() {
     this.options = this.layoutNode.options || {};

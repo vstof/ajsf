@@ -1,18 +1,7 @@
 import cloneDeep from 'lodash-es/cloneDeep';
 import isEqual from 'lodash-es/isEqual';
 
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  EventEmitter,
-  forwardRef,
-  Input,
-  OnChanges,
-  OnInit,
-  Output,
-  SimpleChanges,
-} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, Input, OnChanges, OnInit, Output, SimpleChanges, inject } from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR, FormsModule} from '@angular/forms';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
@@ -78,6 +67,11 @@ export const JSON_SCHEMA_FORM_VALUE_ACCESSOR: any = {
   imports: [CommonModule, FormsModule, RootComponent],
 })
 export class JsonSchemaFormComponent implements ControlValueAccessor, OnChanges, OnInit {
+  private changeDetector = inject(ChangeDetectorRef);
+  private frameworkLibrary = inject(FrameworkLibraryService);
+  private widgetLibrary = inject(WidgetLibraryService);
+  jsf = inject(JsonSchemaFormService);
+
   // TODO: quickfix to avoid subscribing twice to the same emitters
   private unsubscribeOnActivateForm$ = new Subject<void>();
 
@@ -169,13 +163,6 @@ export class JsonSchemaFormComponent implements ControlValueAccessor, OnChanges,
 
   onChange: Function;
   onTouched: Function;
-
-  constructor(
-    private changeDetector: ChangeDetectorRef,
-    private frameworkLibrary: FrameworkLibraryService,
-    private widgetLibrary: WidgetLibraryService,
-    public jsf: JsonSchemaFormService,
-  ) {}
 
   ngOnInit() {
     this.updateForm();

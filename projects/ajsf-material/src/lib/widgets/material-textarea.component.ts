@@ -1,5 +1,5 @@
 import {AbstractControl} from '@angular/forms';
-import {Component, Inject, Input, OnInit, Optional} from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import {JsonSchemaFormService} from '@ajsf/core';
 import {MAT_LEGACY_FORM_FIELD_DEFAULT_OPTIONS as MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/legacy-form-field';
 
@@ -83,6 +83,9 @@ import {MAT_LEGACY_FORM_FIELD_DEFAULT_OPTIONS as MAT_FORM_FIELD_DEFAULT_OPTIONS}
   ],
 })
 export class MaterialTextareaComponent implements OnInit {
+  matFormFieldDefaultOptions = inject(MAT_FORM_FIELD_DEFAULT_OPTIONS, { optional: true });
+  private jsf = inject(JsonSchemaFormService);
+
   formControl: AbstractControl;
   controlName: string;
   controlValue: any;
@@ -92,11 +95,6 @@ export class MaterialTextareaComponent implements OnInit {
   @Input() layoutNode: any;
   @Input() layoutIndex: number[];
   @Input() dataIndex: number[];
-
-  constructor(
-    @Inject(MAT_FORM_FIELD_DEFAULT_OPTIONS) @Optional() public matFormFieldDefaultOptions,
-    private jsf: JsonSchemaFormService,
-  ) {}
 
   ngOnInit() {
     this.options = this.layoutNode.options || {};

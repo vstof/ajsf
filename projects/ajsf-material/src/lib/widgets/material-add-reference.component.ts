@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit, inject } from '@angular/core';
 import {JsonSchemaFormService} from '@ajsf/core';
 
 @Component({
@@ -24,6 +24,8 @@ import {JsonSchemaFormService} from '@ajsf/core';
   changeDetection: ChangeDetectionStrategy.Default,
 })
 export class MaterialAddReferenceComponent implements OnInit {
+  private jsf = inject(JsonSchemaFormService);
+
   options: any;
   itemCount: number;
   previousLayoutIndex: number[];
@@ -31,8 +33,6 @@ export class MaterialAddReferenceComponent implements OnInit {
   @Input() layoutNode: any;
   @Input() layoutIndex: number[];
   @Input() dataIndex: number[];
-
-  constructor(private jsf: JsonSchemaFormService) {}
 
   ngOnInit() {
     this.options = this.layoutNode.options || {};

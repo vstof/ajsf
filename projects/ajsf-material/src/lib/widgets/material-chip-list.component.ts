@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import {AbstractControl} from '@angular/forms';
 import {JsonSchemaFormService} from '@ajsf/core';
 
@@ -10,6 +10,8 @@ import {JsonSchemaFormService} from '@ajsf/core';
   template: ``,
 })
 export class MaterialChipListComponent implements OnInit {
+  private jsf = inject(JsonSchemaFormService);
+
   formControl: AbstractControl;
   controlName: string;
   controlValue: any;
@@ -19,8 +21,6 @@ export class MaterialChipListComponent implements OnInit {
   @Input() layoutNode: any;
   @Input() layoutIndex: number[];
   @Input() dataIndex: number[];
-
-  constructor(private jsf: JsonSchemaFormService) {}
 
   ngOnInit() {
     this.options = this.layoutNode.options || {};

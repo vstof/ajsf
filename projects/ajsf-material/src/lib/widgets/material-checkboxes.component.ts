@@ -1,6 +1,6 @@
 import {AbstractControl} from '@angular/forms';
 import {buildTitleMap} from '@ajsf/core';
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import {JsonSchemaFormService, TitleMapItem} from '@ajsf/core';
 
 // TODO: Change this to use a Selection List instead?
@@ -74,6 +74,8 @@ import {JsonSchemaFormService, TitleMapItem} from '@ajsf/core';
   ],
 })
 export class MaterialCheckboxesComponent implements OnInit {
+  private jsf = inject(JsonSchemaFormService);
+
   formControl: AbstractControl;
   controlName: string;
   controlValue: any;
@@ -86,8 +88,6 @@ export class MaterialCheckboxesComponent implements OnInit {
   @Input() layoutNode: any;
   @Input() layoutIndex: number[];
   @Input() dataIndex: number[];
-
-  constructor(private jsf: JsonSchemaFormService) {}
 
   ngOnInit() {
     this.options = this.layoutNode.options || {};

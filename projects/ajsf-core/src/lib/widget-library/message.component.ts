@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import {JsonSchemaFormService} from '../json-schema-form.service';
 import {CommonModule} from '@angular/common';
 
@@ -11,13 +11,13 @@ import {CommonModule} from '@angular/common';
   imports: [CommonModule],
 })
 export class MessageComponent implements OnInit {
+  private jsf = inject(JsonSchemaFormService);
+
   options: any;
   message: string = null;
   @Input() layoutNode: any;
   @Input() layoutIndex: number[];
   @Input() dataIndex: number[];
-
-  constructor(private jsf: JsonSchemaFormService) {}
 
   ngOnInit() {
     this.options = this.layoutNode.options || {};

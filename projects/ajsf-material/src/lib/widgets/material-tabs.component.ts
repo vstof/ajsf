@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import {JsonSchemaFormService} from '@ajsf/core';
 
 @Component({
@@ -40,6 +40,8 @@ import {JsonSchemaFormService} from '@ajsf/core';
   ],
 })
 export class MaterialTabsComponent implements OnInit {
+  private jsf = inject(JsonSchemaFormService);
+
   options: any;
   itemCount: number;
   selectedItem = 0;
@@ -47,8 +49,6 @@ export class MaterialTabsComponent implements OnInit {
   @Input() layoutNode: any;
   @Input() layoutIndex: number[];
   @Input() dataIndex: number[];
-
-  constructor(private jsf: JsonSchemaFormService) {}
 
   ngOnInit() {
     this.options = this.layoutNode.options || {};

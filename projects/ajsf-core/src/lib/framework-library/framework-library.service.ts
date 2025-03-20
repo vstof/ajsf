@@ -1,6 +1,6 @@
 import {Framework} from './framework';
 import {hasOwn} from '../shared/utility.functions';
-import {Inject, Injectable} from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import {WidgetLibraryService} from '../widget-library/widget-library.service';
 
 // Possible future frameworks:
@@ -15,14 +15,14 @@ import {WidgetLibraryService} from '../widget-library/widget-library.service';
   providedIn: 'root',
 })
 export class FrameworkLibraryService {
+  private frameworks = inject(Framework);
+  private widgetLibrary = inject<WidgetLibraryService>(WidgetLibraryService);
+
   activeFramework: Framework = null;
   defaultFramework: string;
   frameworkLibrary: {[name: string]: Framework} = {};
 
-  constructor(
-    @Inject(Framework) private frameworks: any[],
-    @Inject(WidgetLibraryService) private widgetLibrary: WidgetLibraryService,
-  ) {
+  constructor() {
     this.frameworks.forEach((framework) => (this.frameworkLibrary[framework.name] = framework));
     this.defaultFramework = this.frameworks[0].name;
     this.setFramework(this.defaultFramework);

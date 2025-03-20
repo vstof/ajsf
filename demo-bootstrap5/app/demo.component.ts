@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import {trigger, state, style, animate, transition} from '@angular/animations';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
@@ -22,6 +22,10 @@ import {AceEditorDirective} from './ace-editor.directive';
   ],
 })
 export class DemoComponent implements OnInit {
+  private http = inject(HttpClient);
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+
   examples: any = Examples;
   languageList: any = ['de', 'en', 'es', 'fr', 'it', 'pt', 'zh'];
   languages: any = {
@@ -68,12 +72,6 @@ export class DemoComponent implements OnInit {
     printMargin: false,
     autoScrollEditorIntoView: true,
   };
-
-  constructor(
-    private http: HttpClient,
-    private route: ActivatedRoute,
-    private router: Router,
-  ) {}
 
   ngOnInit() {
     // Subscribe to query string to detect schema to load

@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, inject } from '@angular/core';
 import {JsonSchemaFormService} from '@ajsf/core';
 
 @Component({
@@ -26,12 +26,12 @@ import {JsonSchemaFormService} from '@ajsf/core';
   changeDetection: ChangeDetectionStrategy.Default,
 })
 export class FlexLayoutRootComponent {
+  private jsf = inject(JsonSchemaFormService);
+
   @Input() dataIndex: number[];
   @Input() layoutIndex: number[];
   @Input() layout: any[];
   @Input() isFlexItem = false;
-
-  constructor(private jsf: JsonSchemaFormService) {}
 
   removeItem(item) {
     this.jsf.removeItem(item);

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import {JsonSchemaFormService} from '../json-schema-form.service';
 import {SelectFrameworkComponent} from './select-framework.component';
 import {CommonModule} from '@angular/common';
@@ -62,6 +62,8 @@ import {CommonModule} from '@angular/common';
   imports: [SelectFrameworkComponent],
 })
 export class TabsComponent implements OnInit {
+  private jsf = inject(JsonSchemaFormService);
+
   options: any;
   itemCount: number;
   selectedItem = 0;
@@ -69,8 +71,6 @@ export class TabsComponent implements OnInit {
   @Input() layoutNode: any;
   @Input() layoutIndex: number[];
   @Input() dataIndex: number[];
-
-  constructor(private jsf: JsonSchemaFormService) {}
 
   ngOnInit() {
     this.options = this.layoutNode.options || {};

@@ -1,5 +1,5 @@
 import {AbstractControl} from '@angular/forms';
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, inject } from '@angular/core';
 import {hasOwn} from '../shared/utility.functions';
 import {JsonSchemaFormService} from '../json-schema-form.service';
 import {Subscription} from 'rxjs';
@@ -24,6 +24,8 @@ import {CommonModule} from '@angular/common';
   </div>`,
 })
 export class SubmitComponent implements OnInit, OnDestroy {
+  private jsf = inject(JsonSchemaFormService);
+
   formControl: AbstractControl;
   controlName: string;
   controlValue: any;
@@ -35,8 +37,6 @@ export class SubmitComponent implements OnInit, OnDestroy {
   @Input() dataIndex: number[];
 
   isValidChangesSubs: Subscription;
-
-  constructor(private jsf: JsonSchemaFormService) {}
 
   ngOnInit() {
     this.options = this.layoutNode.options || {};

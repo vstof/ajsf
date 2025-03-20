@@ -1,21 +1,14 @@
-import {
-  ElementRef,
-  HostListener,
-  Directive,
-  Input,
-  NgZone,
-  OnDestroy,
-  OnChanges,
-  AfterContentChecked,
-  Output,
-  EventEmitter,
-} from '@angular/core';
+import { ElementRef, HostListener, Directive, Input, NgZone, OnDestroy, OnChanges, AfterContentChecked, Output, EventEmitter, inject } from '@angular/core';
 import {WindowRef} from './window-ref.service';
 
 const MAX_LOOKUP_RETRIES = 3;
 
 @Directive({selector: '[textareaAutoresize]'})
 export class TextareaAutoresizeDirective implements OnDestroy, OnChanges, AfterContentChecked {
+  element = inject(ElementRef);
+  private _window = inject(WindowRef);
+  private _zone = inject(NgZone);
+
   @Input()
   set minRows(value) {
     this._minRows = value;
@@ -50,11 +43,7 @@ export class TextareaAutoresizeDirective implements OnDestroy, OnChanges, AfterC
     this.adjust();
   }
 
-  constructor(
-    public element: ElementRef,
-    private _window: WindowRef,
-    private _zone: NgZone,
-  ) {
+  constructor() {
     if (this.element.nativeElement.tagName !== 'TEXTAREA') {
       this._findNestedTextArea();
     } else {

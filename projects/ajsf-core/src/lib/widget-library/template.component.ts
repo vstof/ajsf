@@ -1,13 +1,4 @@
-import {
-  Component,
-  ComponentFactoryResolver,
-  ComponentRef,
-  Input,
-  OnChanges,
-  OnInit,
-  ViewChild,
-  ViewContainerRef,
-} from '@angular/core';
+import { Component, ComponentFactoryResolver, ComponentRef, Input, OnChanges, OnInit, ViewChild, ViewContainerRef, inject } from '@angular/core';
 import {JsonSchemaFormService} from '../json-schema-form.service';
 
 @Component({
@@ -16,17 +7,15 @@ import {JsonSchemaFormService} from '../json-schema-form.service';
   template: `<div #widgetContainer></div>`,
 })
 export class TemplateComponent implements OnInit, OnChanges {
+  private componentFactory = inject(ComponentFactoryResolver);
+  private jsf = inject(JsonSchemaFormService);
+
   newComponent: ComponentRef<any> = null;
   @Input() layoutNode: any;
   @Input() layoutIndex: number[];
   @Input() dataIndex: number[];
   @ViewChild('widgetContainer', {read: ViewContainerRef, static: true})
   widgetContainer: ViewContainerRef;
-
-  constructor(
-    private componentFactory: ComponentFactoryResolver,
-    private jsf: JsonSchemaFormService,
-  ) {}
 
   ngOnInit() {
     this.updateComponent();

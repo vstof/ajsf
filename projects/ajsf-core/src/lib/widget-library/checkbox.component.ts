@@ -1,5 +1,5 @@
 import {AbstractControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import {JsonSchemaFormService} from '../json-schema-form.service';
 import {CommonModule} from '@angular/common';
 
@@ -50,6 +50,8 @@ import {CommonModule} from '@angular/common';
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
 })
 export class CheckboxComponent implements OnInit {
+  private jsf = inject(JsonSchemaFormService);
+
   formControl: AbstractControl;
   controlName: string;
   controlValue: any;
@@ -61,8 +63,6 @@ export class CheckboxComponent implements OnInit {
   @Input() layoutNode: any;
   @Input() layoutIndex: number[];
   @Input() dataIndex: number[];
-
-  constructor(private jsf: JsonSchemaFormService) {}
 
   ngOnInit() {
     this.options = this.layoutNode.options || {};

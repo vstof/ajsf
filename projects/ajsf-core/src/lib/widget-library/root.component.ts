@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import {JsonSchemaFormService} from '../json-schema-form.service';
 import {OrderableDirective} from './orderable.directive';
 import {SelectFrameworkComponent} from './select-framework.component';
@@ -62,14 +62,14 @@ import {CommonModule} from '@angular/common';
   imports: [CommonModule, OrderableDirective, SelectFrameworkComponent],
 })
 export class RootComponent {
+  private jsf = inject(JsonSchemaFormService);
+
   options: any;
   @Input() dataIndex: number[];
   @Input() layoutIndex: number[];
   @Input() layout: any[];
   @Input() isOrderable: boolean;
   @Input() isFlexItem = false;
-
-  constructor(private jsf: JsonSchemaFormService) {}
 
   isDraggable(node: any): boolean {
     return (

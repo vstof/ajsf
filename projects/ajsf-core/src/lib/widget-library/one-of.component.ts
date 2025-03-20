@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import {AbstractControl} from '@angular/forms';
 
 import {JsonSchemaFormService} from '../json-schema-form.service';
@@ -11,6 +11,8 @@ import {JsonSchemaFormService} from '../json-schema-form.service';
   template: ``,
 })
 export class OneOfComponent implements OnInit {
+  private jsf = inject(JsonSchemaFormService);
+
   formControl: AbstractControl;
   controlName: string;
   controlValue: any;
@@ -20,8 +22,6 @@ export class OneOfComponent implements OnInit {
   @Input() layoutNode: any;
   @Input() layoutIndex: number[];
   @Input() dataIndex: number[];
-
-  constructor(private jsf: JsonSchemaFormService) {}
 
   ngOnInit() {
     this.options = this.layoutNode.options || {};

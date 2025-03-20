@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import {JsonSchemaFormService} from '../json-schema-form.service';
 import {RootComponent} from './root.component';
 import {CommonModule} from '@angular/common';
@@ -107,14 +107,14 @@ import {CommonModule} from '@angular/common';
   imports: [CommonModule, RootComponent],
 })
 export class SectionComponent implements OnInit {
+  private jsf = inject(JsonSchemaFormService);
+
   options: any;
   expanded = true;
   containerType: string;
   @Input() layoutNode: any;
   @Input() layoutIndex: number[];
   @Input() dataIndex: number[];
-
-  constructor(private jsf: JsonSchemaFormService) {}
 
   get sectionTitle() {
     return this.options.notitle ? null : this.jsf.setItemTitle(this);

@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import {MatLegacyMenuTrigger as MatMenuTrigger} from '@angular/material/legacy-menu';
 import {trigger, state, style, animate, transition} from '@angular/animations';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -20,6 +20,10 @@ import {JsonPointer} from '@ajsf/core';
   ],
 })
 export class DemoComponent implements OnInit {
+  private http = inject(HttpClient);
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+
   examples: any = Examples;
   languageList: any = ['de', 'en', 'es', 'fr', 'it', 'pt', 'zh'];
   languages: any = {
@@ -82,12 +86,6 @@ export class DemoComponent implements OnInit {
     autoScrollEditorIntoView: true,
   };
   @ViewChild(MatMenuTrigger, {static: true}) menuTrigger: MatMenuTrigger;
-
-  constructor(
-    private http: HttpClient,
-    private route: ActivatedRoute,
-    private router: Router,
-  ) {}
 
   ngOnInit() {
     // Subscribe to query string to detect schema to load

@@ -1,4 +1,4 @@
-import {Directive, ElementRef, Input, NgZone, OnInit} from '@angular/core';
+import { Directive, ElementRef, Input, NgZone, OnInit, inject } from '@angular/core';
 import {JsonSchemaFormService} from '../json-schema-form.service';
 
 /**
@@ -27,6 +27,10 @@ import {JsonSchemaFormService} from '../json-schema-form.service';
   selector: '[orderable]',
 })
 export class OrderableDirective implements OnInit {
+  private elementRef = inject(ElementRef);
+  private jsf = inject(JsonSchemaFormService);
+  private ngZone = inject(NgZone);
+
   arrayLayoutIndex: string;
   element: any;
   overParentElement = false;
@@ -35,12 +39,6 @@ export class OrderableDirective implements OnInit {
   @Input() layoutNode: any;
   @Input() layoutIndex: number[];
   @Input() dataIndex: number[];
-
-  constructor(
-    private elementRef: ElementRef,
-    private jsf: JsonSchemaFormService,
-    private ngZone: NgZone,
-  ) {}
 
   ngOnInit() {
     if (this.orderable && this.layoutNode && this.layoutIndex && this.dataIndex) {
