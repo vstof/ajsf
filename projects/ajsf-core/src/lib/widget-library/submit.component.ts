@@ -1,5 +1,5 @@
 import {AbstractControl} from '@angular/forms';
-import { Component, Input, OnDestroy, OnInit, inject } from '@angular/core';
+import {Component, Input, OnDestroy, OnInit, inject} from '@angular/core';
 import {hasOwn} from '../shared/utility.functions';
 import {JsonSchemaFormService} from '../json-schema-form.service';
 import {Subscription} from 'rxjs';

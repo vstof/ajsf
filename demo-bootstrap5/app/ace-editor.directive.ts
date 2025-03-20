@@ -1,4 +1,4 @@
-import { Directive, ElementRef, EventEmitter, Input, Output, inject } from '@angular/core';
+import {Directive, ElementRef, EventEmitter, Input, Output, inject} from '@angular/core';
 import ace from 'brace';
 import 'brace/mode/json';
 import 'brace/theme/sqlserver';

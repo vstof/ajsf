@@ -1,5 +1,5 @@
 import {AbstractControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { Component, Input, OnInit, inject } from '@angular/core';
+import {Component, Input, OnInit, inject} from '@angular/core';
 import {JsonSchemaFormService} from '../json-schema-form.service';
 import {CommonModule} from '@angular/common';
 

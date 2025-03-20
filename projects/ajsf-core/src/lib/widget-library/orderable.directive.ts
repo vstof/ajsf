@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, NgZone, OnInit, inject } from '@angular/core';
+import {Directive, ElementRef, Input, NgZone, OnInit, inject} from '@angular/core';
 import {JsonSchemaFormService} from '../json-schema-form.service';
 
 /**

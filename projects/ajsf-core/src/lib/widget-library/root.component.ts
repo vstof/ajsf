@@ -1,4 +1,4 @@
-import { Component, Input, inject } from '@angular/core';
+import {Component, Input, inject} from '@angular/core';
 import {JsonSchemaFormService} from '../json-schema-form.service';
 import {OrderableDirective} from './orderable.directive';
 import {SelectFrameworkComponent} from './select-framework.component';

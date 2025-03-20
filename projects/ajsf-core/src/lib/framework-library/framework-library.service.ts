@@ -1,6 +1,6 @@
 import {Framework} from './framework';
 import {hasOwn} from '../shared/utility.functions';
-import { Injectable, inject } from '@angular/core';
+import {Injectable, inject} from '@angular/core';
 import {WidgetLibraryService} from '../widget-library/widget-library.service';
 
 // Possible future frameworks:

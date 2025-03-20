@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, inject } from '@angular/core';
+import {Component, OnInit, ViewChild, inject} from '@angular/core';
 import {trigger, state, style, animate, transition} from '@angular/animations';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';

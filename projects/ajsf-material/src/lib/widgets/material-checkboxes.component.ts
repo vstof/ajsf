@@ -1,6 +1,6 @@
 import {AbstractControl} from '@angular/forms';
 import {buildTitleMap} from '@ajsf/core';
-import { Component, Input, OnInit, inject } from '@angular/core';
+import {Component, Input, OnInit, inject} from '@angular/core';
 import {JsonSchemaFormService, TitleMapItem} from '@ajsf/core';
 
 // TODO: Change this to use a Selection List instead?

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, inject } from '@angular/core';
+import {Component, Input, OnInit, inject} from '@angular/core';
 import {AbstractControl} from '@angular/forms';
 import {JsonSchemaFormService} from '@ajsf/core';
 

@@ -1,4 +1,16 @@
-import { ElementRef, HostListener, Directive, Input, NgZone, OnDestroy, OnChanges, AfterContentChecked, Output, EventEmitter, inject } from '@angular/core';
+import {
+  ElementRef,
+  HostListener,
+  Directive,
+  Input,
+  NgZone,
+  OnDestroy,
+  OnChanges,
+  AfterContentChecked,
+  Output,
+  EventEmitter,
+  inject,
+} from '@angular/core';
 import {WindowRef} from './window-ref.service';
 
 const MAX_LOOKUP_RETRIES = 3;

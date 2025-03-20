@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit, inject } from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnInit, inject} from '@angular/core';
 import {JsonSchemaFormService} from '@ajsf/core';
 
 @Component({
