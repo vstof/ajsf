@@ -78,7 +78,7 @@ export const ANGULAR_MATERIAL_MODULES = [
   providers: [
     JsonSchemaFormService,
     WidgetLibraryService,
-    {provide: Framework, useClass: MaterialDesignFramework, multi: true},
+    {provide: Framework, useClass: MaterialDesignFramework, multi: false},
   ],
 })
 export class MaterialDesignFrameworkModule {

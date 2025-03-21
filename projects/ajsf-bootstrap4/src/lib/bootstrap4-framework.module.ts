@@ -17,7 +17,7 @@ import {Bootstrap4FrameworkComponent} from './bootstrap4-framework.component';
   providers: [
     JsonSchemaFormService,
     WidgetLibraryService,
-    {provide: Framework, useClass: Bootstrap4Framework, multi: true},
+    {provide: Framework, useClass: Bootstrap4Framework, multi: false},
   ],
 })
 export class Bootstrap4FrameworkModule {}

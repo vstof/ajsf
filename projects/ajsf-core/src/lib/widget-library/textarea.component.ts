@@ -1,8 +1,7 @@
 import {AbstractControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {Component, Input, OnInit} from '@angular/core';
-import {JsonSchemaFormService} from '../json-schema-form.service';
 import {AbstractComponent} from './abstract.component';
-import {TextareaAutoresizeDirective} from '../../../../../../auto-size/textarea-autoresize.directive';
+import {TextareaAutoresizeDirective} from './textarea-autoresize.directive';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -18,7 +17,7 @@ import {TextareaAutoresizeDirective} from '../../../../../../auto-size/textarea-
     }
     @if (boundControl) {
       <textarea
-        [appTextareaAutoresize]="true"
+        [textareaAutoresize]="true"
         spellcheck="true"
         [formControl]="formControl"
         [attr.aria-describedby]="'control' + layoutNode?._id + 'Status'"

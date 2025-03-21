@@ -10,6 +10,6 @@ import {WidgetLibraryModule} from '../widget-library/widget-library.module';
 @NgModule({
   imports: [CommonModule, WidgetLibraryModule, NoFrameworkComponent],
   exports: [NoFrameworkComponent],
-  providers: [WidgetLibraryModule, {provide: Framework, useClass: NoFramework, multi: true}],
+  providers: [WidgetLibraryModule, {provide: Framework, useClass: NoFramework, multi: false}],
 })
 export class NoFrameworkModule {}

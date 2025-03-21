@@ -7,7 +7,7 @@ import {Framework} from '@ajsf/core';
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'root-widget',
-  template: ` @for (layoutItem of layout; track layoutItem; let i = $index) {
+  template: `@for (layoutItem of layout; track layoutItem; let i = $index) {
     <div
       [class.form-flex-item]="isFlexItem"
       [style.align-self]="(layoutItem.options || {})['align-self']"

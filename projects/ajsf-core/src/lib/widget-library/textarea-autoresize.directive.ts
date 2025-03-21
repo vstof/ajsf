@@ -28,7 +28,7 @@ export class TextareaAutoresizeDirective implements OnDestroy, OnChanges, AfterC
       this.textAreaEl.rows = value;
     }
   }
-  @Input('appTextareaAutoresize')
+  @Input('textareaAutoresize')
   set _autosize(autosize: boolean) {
     this.autosize = typeof autosize === 'boolean' ? autosize : true;
   }

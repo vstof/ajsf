@@ -16,7 +16,7 @@ import {Bootstrap5FrameworkComponent} from './bootstrap5-framework.component';
   providers: [
     JsonSchemaFormService,
     WidgetLibraryService,
-    {provide: Framework, useClass: Bootstrap5Framework, multi: true},
+    {provide: Framework, useClass: Bootstrap5Framework, multi: false},
   ],
 })
 export class Bootstrap5FrameworkModule {}

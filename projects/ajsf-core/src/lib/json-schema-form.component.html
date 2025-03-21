@@ -5,9 +5,9 @@
 >
   <root-widget [layout]="jsf?.layout"></root-widget>
 </form>
-@if (debug() || jsf?.formOptions?.debug) {
-  <div>
-    Debug output:
-    <pre>{{ debugOutput }}</pre>
-  </div>
+@if (debug || jsf?.formOptions?.debug) {
+<div>
+  Debug output:
+  <pre>{{ debugOutput }}</pre>
+</div>
 }

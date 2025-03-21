@@ -17,7 +17,7 @@ import {Bootstrap3FrameworkComponent} from './bootstrap3-framework.component';
   providers: [
     JsonSchemaFormService,
     WidgetLibraryService,
-    {provide: Framework, useClass: Bootstrap3Framework, multi: true},
+    {provide: Framework, useClass: Bootstrap3Framework, multi: false},
   ],
 })
 export class Bootstrap3FrameworkModule {}
