@@ -27,7 +27,7 @@ export interface Example {
 }
 
 export const Examples: {[key: string]: ExampleSet} = {
-  'ng-jsf': {
+  '1-ng-jsf': {
     name: 'Angular JSON Schema Form examples',
     schemas: [
       {name: 'Flexbox layout', file: 'ng-jsf-flex-layout'},
@@ -45,7 +45,7 @@ export const Examples: {[key: string]: ExampleSet} = {
       // { name: 'JSON Meta-Schema - Draft 1',    file: 'json-schema-draft01', },
     ],
   },
-  asf: {
+  '2-asf': {
     name: 'Angular Schema Form (AngularJS) examples',
     url: 'http://schemaform.io/examples/bootstrap-example.html',
     schemas: [
@@ -60,7 +60,7 @@ export const Examples: {[key: string]: ExampleSet} = {
       {name: 'Hack: Conditional Required', file: 'asf-hack-conditional-required'},
     ],
   },
-  rjsf: {
+  '3-rjsf': {
     name: 'React JSON Schema Form examples',
     url: 'https://mozilla-services.github.io/react-jsonschema-form/',
     schemas: [
@@ -82,7 +82,7 @@ export const Examples: {[key: string]: ExampleSet} = {
       {name: 'Alternatives', file: 'rjsf-alternatives'},
     ],
   },
-  jsf: {
+  '4-jsf': {
     name: 'JSONForm (jQuery) examples',
     url: 'http://ulion.github.io/jsonform/playground/',
     schemas: [

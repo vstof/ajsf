@@ -30,7 +30,7 @@
         "title": "Tiers (required—max 3)",
         "type": "array",
         "maxItems": 3,
-        "items": {"$ref": "#/definitions/tiers_obj", "extendRefs": true}
+        "items": {"$ref": "#/definitions/tiers_obj"}
       }
     },
     "required": ["tiers"]
