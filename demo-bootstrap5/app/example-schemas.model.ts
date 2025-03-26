@@ -15,8 +15,18 @@
  * JSONForm (jQuery) examples ('jsf-...') are from
  *   http://ulion.github.io/jsonform/playground/
  */
+export interface ExampleSet {
+  name: string;
+  url?: string;
+  schemas: Example[];
+}
+export interface Example {
+  name: string;
+  file: string;
+  urlParameters?: string;
+}
 
-export const Examples: any = {
+export const Examples: {[key: string]: ExampleSet} = {
   'ng-jsf': {
     name: 'Angular JSON Schema Form examples',
     schemas: [

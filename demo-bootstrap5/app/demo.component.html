@@ -1,66 +1,69 @@
-<div class="demo-page-header">
-  <h1>Angular JSON Schema Form — Demonstration Playground</h1>
-  <div class="header-content">
-    An Angular <a href="http://json-schema.org/">JSON Schema</a> Form builder for Angular, similar
-    to, and mostly API compatible with,
-    <span class="avoidwrap">
-      <!-- JSON Schema Form's Angular Schema Form -->
-      <!-- https://github.com/json-schema-form -->
-      <!-- http://schemaform.io -->
-      <a href="http://schemaform.io/examples/bootstrap-example.html">Angular Schema Form</a>,
-      <!-- Mozilla's React JSON Schema Form -->
-      <!-- https://github.com/mozilla-services/react-jsonschema-form -->
-      <a href="https://mozilla-services.github.io/react-jsonschema-form/">React JSON Schema Form</a
-      >, and
-      <!-- Joshfire's JSON Form -->
-      <!-- http://factory.joshfire.com/ -->
-      <!-- http://github.com/joshfire/jsonform/wiki -->
-      <a href="http://ulion.github.io/jsonform/playground/">JSON Form</a>. </span
-    ><br />
-    Choose an example, or create your own, and check out the generated form.<br /><br />
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h1>Angular JSON Schema Form — Demonstration Playground</h1>
+      <div class="header-content">
+        An Angular <a href="http://json-schema.org/">JSON Schema</a> Form builder for Angular,
+        similar to, and mostly API compatible with,
+        <span class="avoidwrap">
+          <!-- JSON Schema Form's Angular Schema Form -->
+          <!-- https://github.com/json-schema-form -->
+          <!-- http://schemaform.io -->
+          <a href="http://schemaform.io/examples/bootstrap-example.html">Angular Schema Form</a>,
+          <!-- Mozilla's React JSON Schema Form -->
+          <!-- https://github.com/mozilla-services/react-jsonschema-form -->
+          <a href="https://mozilla-services.github.io/react-jsonschema-form/"
+            >React JSON Schema Form</a
+          >, and
+          <!-- Joshfire's JSON Form -->
+          <!-- http://factory.joshfire.com/ -->
+          <!-- http://github.com/joshfire/jsonform/wiki -->
+          <a href="http://ulion.github.io/jsonform/playground/">JSON Form</a>. </span
+        ><br />
+        Choose an example, or create your own, and check out the generated form.<br /><br />
 
-    <div>
-      <label for="procevent_category_code" class="form-label required">Current example:</label>
-      <!--
-      <select
-        class="form-select"
-        [(ngModel)]=""
-        required
-        id="procevent_category_code"
-        (change)="loadSelectedExample(example.key, '', example.value.file, example.value.name)"
-           
-      >
-        @for (example_type of examples; track example_type) {
-        <optgroup [label]="example_type.name">
-          @for (example of example_type.schemas | keyvalue; track example) {
-          <option
-            [value]="example.value.file"
+        <div>
+          <label for="selectedExample" class="form-label required">Current example:</label>
+          <select
+            class="form-select"
+            [(ngModel)]="selectedExample"
+            required
+            id="selectedExample"
+            (change)="loadSelectedExample()"
           >
-            {{ example.value.name }}
-          </option>
-          }
-        </optgroup>
-        }
-      </select>
-      -->
+            <option value="">Please select an example</option>
+            @for (example of exampleSets | keyvalue; track example ) {
+            <optgroup [label]="example.value.name">
+              @for (schema of example.value.schemas; track schema) {
+              <option [value]="example.key + '|' + schema.file">
+                {{ schema.name }}
+              </option>
+              }
+            </optgroup>
+            }
+          </select>
+        </div>
+      </div>
+      <hr />
     </div>
   </div>
-</div>
-<div>
-  <div>
-    <h4 class="default-cursor" (click)="toggleVisible('options')">
-      {{ visible.options ? "▼" : "▶" }} Selected Framework and Options
-    </h4>
-    @if (visible.options) {
-      <div fxLayout="column" [@expandSection]="true">
+  <div class="row">
+    <div class="col-md-6">
+      <h4 class="default-cursor" (click)="toggleVisible('options')">
+        {{ visible.options ? "▼" : "▶" }} Selected Options
+      </h4>
+      @if (visible.options) {
+      <div>
+        <label for="language" class="form-label required">Language:</label>
         <select
+          class="form-select"
+          id="language"
           [(ngModel)]="selectedLanguage"
-          (onChange)="loadSelectedLanguage()"
           name="language"
           placeholder="Language"
         >
-          @for (language of languageList; track language) {
-            <option [value]="language">{{ languages[language] }}</option>
+          @for (language of languages | keyvalue; track language) {
+          <option [value]="language.key">{{ language.value }}</option>
           }
         </select>
         <div class="form-check">
@@ -108,14 +111,13 @@
           </label>
         </div>
       </div>
-    }
-    <hr />
-    <h4 class="default-cursor" (click)="toggleVisible('schema')">
-      {{ visible.schema ? "▼" : "▶" }} Input JSON Schema and Form Layout
-    </h4>
-    @if (visible.schema) {
+      }
+      <hr />
+      <h4 class="default-cursor" (click)="toggleVisible('schema')">
+        {{ visible.schema ? "▼" : "▶" }} Input JSON Schema and Form Layout
+      </h4>
+      @if (visible.schema) {
       <div
-        [@expandSection]="true"
         ace-editor
         [text]="jsonFormSchema"
         [options]="aceEditorOptions"
@@ -126,56 +128,52 @@
       >
         (loading form specification...)
       </div>
-    }
-  </div>
+      }
+    </div>
 
-  <div>
-    <h4 class="default-cursor" (click)="toggleVisible('form')">
-      {{ visible.form ? "▼" : "▶" }} Generated Form
-    </h4>
-    @if (visible.form) {
-      <div class="json-schema-form" [@expandSection]="true">
+    <div class="col-md-6">
+      <h4 class="default-cursor" (click)="toggleVisible('form')">
+        {{ visible.form ? "▼" : "▶" }} Generated Form
+      </h4>
+      @if (visible.form) {
+      <div class="json-schema-form">
         @if (!formActive) {
-          <div>{{ jsonFormStatusMessage }}</div>
+        <div>{{ jsonFormStatusMessage }}</div>
         }
         <!-- This is the form! -->
         @if (formActive) {
-          <json-schema-form
-            loadExternalAssets="true"
-            [form]="jsonFormObject"
-            [options]="jsonFormOptions"
-            framework="bootstrap-5"
-            [language]="selectedLanguage"
-            (onChanges)="onChanges($event)"
-            (onSubmit)="onSubmit($event)"
-            (isValid)="isValid($event)"
-            (validationErrors)="validationErrors($event)"
-          >
-          </json-schema-form>
+        <json-schema-form
+          loadExternalAssets="true"
+          [form]="jsonFormObject"
+          [options]="jsonFormOptions"
+          framework="bootstrap-5"
+          [language]="selectedLanguage"
+          (onChanges)="onChanges($event)"
+          (onSubmit)="onSubmit($event)"
+          (isValid)="isValid($event)"
+          (validationErrors)="validationErrors($event)"
+        >
+        </json-schema-form>
         }
       </div>
-    }
-    <hr />
-    <h4 class="default-cursor" (click)="toggleVisible('output')">
-      {{ visible.output ? "▼" : "▶" }} Form Output
-    </h4>
-    @if (visible.output) {
-      <div fxLayout="column" [@expandSection]="true">
+      }
+      <hr />
+      <h4 class="default-cursor" (click)="toggleVisible('output')">
+        {{ visible.output ? "▼" : "▶" }} Form Output
+      </h4>
+      @if (visible.output) {
+      <div>
         <div>
-          Valid?:
-          @if (formIsValid || prettyValidationErrors) {
-            <strong [class.text-success]="formIsValid" [class.text-danger]="!formIsValid">
-              {{ formIsValid ? "Yes" : "No" }}
-            </strong>
-          }
-          @if (!formIsValid && !prettyValidationErrors) {
-            <span>n/a</span>
-          }
-          @if (prettyValidationErrors) {
-            <span>— errors from validationErrors():</span>
-          }
-          @if (prettyValidationErrors) {
-            <div class="data-bad" [innerHTML]="prettyValidationErrors"></div>
+          Valid?: @if (formIsValid || prettyValidationErrors) {
+          <strong [class.text-success]="formIsValid" [class.text-danger]="!formIsValid">
+            {{ formIsValid ? "Yes" : "No" }}
+          </strong>
+          } @if (!formIsValid && !prettyValidationErrors) {
+          <span>n/a</span>
+          } @if (prettyValidationErrors) {
+          <span>— errors from validationErrors():</span>
+          } @if (prettyValidationErrors) {
+          <div class="data-bad" [innerHTML]="prettyValidationErrors"></div>
           }
         </div>
         <br />
@@ -196,6 +194,7 @@
           >
         </div>
       </div>
-    }
+      }
+    </div>
   </div>
 </div>
