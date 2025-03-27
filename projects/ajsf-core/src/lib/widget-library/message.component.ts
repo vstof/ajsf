@@ -1,11 +1,10 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {JsonSchemaFormService} from '../json-schema-form.service';
+import {Component, OnInit} from '@angular/core';
 import {AbstractComponent} from './abstract.component';
 
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'message-widget',
-  template: ` @if (message) {
+  template: `@if (message) {
     <span [class]="options?.labelHtmlClass || ''" [innerHTML]="message"></span>
   }`,
 })

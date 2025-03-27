@@ -1,12 +1,11 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {JsonSchemaFormService} from '../json-schema-form.service';
+import {Component, OnInit} from '@angular/core';
 import {AbstractComponent} from './abstract.component';
 import {RootComponent} from './root.component';
 
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'section-widget',
-  template: ` @if (containerType === "div") {
+  template: `@if (containerType === "div") {
       <div
         [class]="options?.htmlClass || ''"
         [class.expandable]="options?.expandable && !expanded"

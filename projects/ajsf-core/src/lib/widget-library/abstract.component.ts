@@ -20,7 +20,6 @@ export class AbstractComponent extends UntypedFormControl {
 
   set layoutNode(layoutNode: any) {
     this._layoutNode = layoutNode;
-    this.options = this.layoutNode.options || {};
   }
 
   @Input()

@@ -1,7 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {AbstractControl} from '@angular/forms';
-
-import {JsonSchemaFormService} from '../json-schema-form.service';
+import {Component, OnInit} from '@angular/core';
 import {AbstractComponent} from './abstract.component';
 
 // TODO: Add this control

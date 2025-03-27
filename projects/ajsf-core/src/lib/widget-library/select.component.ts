@@ -1,14 +1,13 @@
 import {AbstractControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {buildTitleMap, isArray} from '../shared';
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, HostBinding, Input, OnInit} from '@angular/core';
 import {JsonSchemaFormService, TitleMapItem} from '../json-schema-form.service';
 import {AbstractComponent} from './abstract.component';
 
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'select-widget',
-  template: `<div [class]="options?.htmlClass || ''">
-    @if (options?.title) {
+  template: `@if (options?.title) {
       <label
         [attr.for]="'control' + layoutNode?._id"
         [class]="options?.labelHtmlClass || ''"
@@ -73,15 +72,17 @@ import {AbstractComponent} from './abstract.component';
           }
         }
       </select>
-    }
-  </div>`,
+    }`,
   imports: [FormsModule, ReactiveFormsModule],
 })
 export class SelectComponent extends AbstractComponent implements OnInit {
+  @HostBinding('class') public htmlClass = '';
+
   selectList: TitleMapItem[] = [];
   isArray = isArray;
 
   ngOnInit() {
+    this.htmlClass = this.options.htmlClass || '';
     this.selectList = buildTitleMap(
       this.options.titleMap || this.options.enumNames,
       this.options.enum,
