@@ -82,7 +82,6 @@ export class SelectComponent extends AbstractComponent implements OnInit {
   isArray = isArray;
 
   ngOnInit() {
-    this.options = this.layoutNode.options || {};
     this.selectList = buildTitleMap(
       this.options.titleMap || this.options.enumNames,
       this.options.enum,

@@ -1,5 +1,5 @@
-import {AbstractControl, FormControl, UntypedFormControl} from '@angular/forms';
-import {Component, inject, Inject, OnInit, input, Input} from '@angular/core';
+import {AbstractControl, UntypedFormControl} from '@angular/forms';
+import {Component, inject, Input} from '@angular/core';
 import {JsonSchemaFormService} from '../json-schema-form.service';
 
 @Component({template: ''})
@@ -11,8 +11,18 @@ export class AbstractComponent extends UntypedFormControl {
   boundControl = false;
   options: any;
 
+  private _layoutNode: any;
+
   @Input()
-  layoutNode: any;
+  get layoutNode() {
+    return this._layoutNode;
+  }
+
+  set layoutNode(layoutNode: any) {
+    this.layoutNode = layoutNode;
+    this.options = this.layoutNode.options || {};
+  }
+
   @Input()
   layoutIndex: number[];
   @Input()

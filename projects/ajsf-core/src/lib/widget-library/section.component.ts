@@ -116,7 +116,6 @@ export class SectionComponent extends AbstractComponent implements OnInit {
 
   ngOnInit() {
     this.jsf.initializeControl(this);
-    this.options = this.layoutNode.options || {};
     this.expanded =
       typeof this.options.expanded === 'boolean' ? this.options.expanded : !this.options.expandable;
     switch (this.layoutNode.type) {

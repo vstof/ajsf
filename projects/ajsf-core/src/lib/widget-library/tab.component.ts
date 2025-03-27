@@ -13,7 +13,5 @@ import {RootComponent} from './root.component';
   imports: [RootComponent],
 })
 export class TabComponent extends AbstractComponent implements OnInit {
-  ngOnInit() {
-    this.options = this.layoutNode.options || {};
-  }
+  ngOnInit() {}
 }
