@@ -9,7 +9,7 @@ export class AbstractComponent extends UntypedFormControl {
   controlValue: any;
   controlDisabled = false;
   boundControl = false;
-  options: any;
+  options: any = {};
 
   private _layoutNode: any;
 
