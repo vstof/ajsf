@@ -135,6 +135,7 @@ export class JsonSchemaFormService {
       validationMessages: {}, // set by setLanguage()
     },
   };
+  defaultValidationMessages: any;
 
   constructor() {
     this.setLanguage(this.language);
@@ -164,9 +165,7 @@ export class JsonSchemaFormService {
     };
     const languageCode = language.slice(0, 2);
 
-    const validationMessages = languageValidationMessages[languageCode];
-
-    this.defaultFormOptions.defaultWidgetOptions.validationMessages = cloneDeep(validationMessages);
+    this.defaultValidationMessages = languageValidationMessages[languageCode];
   }
 
   getData() {
@@ -586,6 +585,23 @@ export class JsonSchemaFormService {
                       errors[errorKey][errorProperty],
                     ),
                   validationMessages[errorKey],
+                )
+            : // If custom error message is a function, return function result
+            typeof this.defaultValidationMessages[errorKey] === 'function'
+            ? this.defaultValidationMessages[errorKey](errors[errorKey])
+            : // If custom error message is a string, replace placeholders and return
+            typeof this.defaultValidationMessages[errorKey] === 'string'
+            ? // Does error message have any {{property}} placeholders?
+              !/{{.+?}}/.test(this.defaultValidationMessages[errorKey])
+              ? this.defaultValidationMessages[errorKey]
+              : // Replace {{property}} placeholders with values
+                Object.keys(errors[errorKey]).reduce(
+                  (errorMessage, errorProperty) =>
+                    errorMessage.replace(
+                      new RegExp('{{' + errorProperty + '}}', 'g'),
+                      errors[errorKey][errorProperty],
+                    ),
+                  this.defaultValidationMessages[errorKey],
                 )
             : // If no custom error message, return formatted error data instead
               addSpaces(errorKey) + ' Error: ' + formatError(errors[errorKey]),

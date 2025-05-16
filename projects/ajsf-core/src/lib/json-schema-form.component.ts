@@ -13,6 +13,7 @@ import {
   inject,
   output,
   input,
+  effect,
 } from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR, FormsModule} from '@angular/forms';
 import {Subject} from 'rxjs';
@@ -101,10 +102,10 @@ export class JsonSchemaFormComponent implements ControlValueAccessor, OnChanges,
     // framework: any | string;
     // widgets: any;
     form: any;
-    model: any;
-    JSONSchema: any;
-    UISchema: any;
-    formData: any;
+    // model: any;
+    // JSONSchema: any;
+    // UISchema: any;
+    // formData: any;
     debug: boolean;
   } = {
     schema: null,
@@ -114,10 +115,10 @@ export class JsonSchemaFormComponent implements ControlValueAccessor, OnChanges,
     //framework: null,
     //widgets: null,
     form: null,
-    model: null,
-    JSONSchema: null,
-    UISchema: null,
-    formData: null,
+    //model: null,
+    //JSONSchema: null,
+    //UISchema: null,
+    //formData: null,
     debug: null,
   };
 
@@ -141,24 +142,27 @@ export class JsonSchemaFormComponent implements ControlValueAccessor, OnChanges,
   form: any; // For testing, and JSON Schema Form API compatibility
 
   // Angular Schema Form API compatibility input
-  @Input()
-  model: any; // Alternate input for form data
+  //@Input()
+  //model: any; // Alternate input for form data
 
   // React JSON Schema Form API compatibility inputs
-  @Input()
-  JSONSchema: any; // Alternate input for JSON Schema
+  //@Input()
+  //JSONSchema: any; // Alternate input for JSON Schema
 
-  @Input()
-  UISchema: any; // UI schema - alternate form layout format
+  //@Input()
+  //UISchema: any; // UI schema - alternate form layout format
 
-  @Input()
-  formData: any; // Alternate input for form data
+  //@Input()
+  //formData: any; // Alternate input for form data
 
-  @Input()
-  ngModel: any; // Alternate input for Angular forms
+  //@Input()
+  //ngModel: any; // Alternate input for Angular forms
 
-  @Input()
-  language: string; // Language
+  readonly language = input<string>(); // Language
+
+  private readonly languageEffect = effect(() => {
+    this.jsf.setLanguage(this.language());
+  });
 
   // Development inputs, for testing and debugging
   @Input()
@@ -185,9 +189,9 @@ export class JsonSchemaFormComponent implements ControlValueAccessor, OnChanges,
   // If there is no inital data, input '{}' to activate 2-way data binding.
   // There is no 2-way binding if inital data is combined inside the 'form' input.
   readonly dataChange = output<any>();
-  readonly modelChange = output<any>();
-  readonly formDataChange = output<any>();
-  readonly ngModelChange = output<any>();
+  // readonly modelChange = output<any>();
+  // readonly formDataChange = output<any>();
+  // readonly ngModelChange = output<any>();
 
   onChange: Function;
   onTouched: Function;
@@ -226,17 +230,19 @@ export class JsonSchemaFormComponent implements ControlValueAccessor, OnChanges,
   }
 
   updateForm() {
-    const language = this.language;
+    // const language = this.language;
     if (
       !this.formInitialized ||
-      !this.formValuesInput ||
-      (language && language !== this.jsf.language)
+      !this.formValuesInput
+      // || (language && language !== this.jsf.language)
     ) {
       this.initializeForm();
     } else {
+      /*
       if (language && language !== this.jsf.language) {
         this.jsf.setLanguage(language);
       }
+        */
 
       // Get names of changed inputs
       let changedInput = Object.keys(this.previousInputs).filter(
@@ -336,11 +342,11 @@ export class JsonSchemaFormComponent implements ControlValueAccessor, OnChanges,
       this.layout ||
       this.data ||
       this.form ||
-      this.model ||
-      this.JSONSchema ||
-      this.UISchema ||
-      this.formData ||
-      this.ngModel ||
+      // this.model ||
+      // this.JSONSchema ||
+      // this.UISchema ||
+      // this.formData ||
+      // this.ngModel ||
       this.jsf.data
     ) {
       this.jsf.resetAllValues(); // Reset all form values to defaults
@@ -404,9 +410,11 @@ export class JsonSchemaFormComponent implements ControlValueAccessor, OnChanges,
    */
   private initializeOptions() {
     const language = this.language;
+    /*
     if (language && language !== this.jsf.language) {
       this.jsf.setLanguage(language);
     }
+      */
     this.jsf.setOptions({debug: !!this.debug});
     /*
     let framework: string | Framework = this.framework() || 'default';
@@ -460,13 +468,13 @@ export class JsonSchemaFormComponent implements ControlValueAccessor, OnChanges,
 
     const form = this.form;
     const schema = this.schema;
-    const JSONSchema = this.JSONSchema;
+    // const JSONSchema = this.JSONSchema;
     if (isObject(schema)) {
       this.jsf.schema = cloneDeep(schema);
     } else if (hasOwn(form, 'schema') && isObject(form.schema)) {
       this.jsf.schema = cloneDeep(form.schema);
-    } else if (isObject(JSONSchema)) {
-      this.jsf.schema = cloneDeep(JSONSchema);
+      // } else if (isObject(JSONSchema)) {
+      //   this.jsf.schema = cloneDeep(JSONSchema);
     } else if (hasOwn(form, 'JSONSchema') && isObject(form.JSONSchema)) {
       this.jsf.schema = cloneDeep(form.JSONSchema);
     } else if (hasOwn(form, 'properties') && isObject(form.properties)) {
@@ -552,25 +560,25 @@ export class JsonSchemaFormComponent implements ControlValueAccessor, OnChanges,
   private initializeData() {
     const form = this.form;
     const data = this.data;
-    const model = this.model;
-    const ngModel = this.ngModel;
+    // const model = this.model;
+    // const ngModel = this.ngModel;
     if (hasValue(data)) {
       this.jsf.formValues = cloneDeep(data);
       this.formValuesInput = 'data';
-    } else if (hasValue(model)) {
-      this.jsf.formValues = cloneDeep(model);
-      this.formValuesInput = 'model';
-    } else if (hasValue(ngModel)) {
-      this.jsf.formValues = cloneDeep(ngModel);
-      this.formValuesInput = 'ngModel';
+      // } else if (hasValue(model)) {
+      //   this.jsf.formValues = cloneDeep(model);
+      //   this.formValuesInput = 'model';
+      // } else if (hasValue(ngModel)) {
+      //   this.jsf.formValues = cloneDeep(ngModel);
+      //   this.formValuesInput = 'ngModel';
     } else if (isObject(form) && hasValue(form.value)) {
       this.jsf.formValues = cloneDeep(form.value);
       this.formValuesInput = 'form.value';
     } else if (isObject(form) && hasValue(form.data)) {
       this.jsf.formValues = cloneDeep(form.data);
       this.formValuesInput = 'form.data';
-    } else if (hasValue(this.formData())) {
-      this.formValuesInput = 'formData';
+      // } else if (hasValue(this.formData())) {
+      //   this.formValuesInput = 'formData';
     } else if (hasOwn(form, 'formData') && hasValue(form.formData)) {
       this.jsf.formValues = cloneDeep(form.formData);
       this.formValuesInput = 'form.formData';
@@ -637,10 +645,11 @@ export class JsonSchemaFormComponent implements ControlValueAccessor, OnChanges,
     // Check for alternate layout inputs
     let alternateLayout: any = null;
     const formValue = this.form;
-    const UISchema = this.UISchema;
-    if (isObject(UISchema)) {
-      alternateLayout = cloneDeep(UISchema);
-    } else if (hasOwn(formValue, 'UISchema')) {
+    // const UISchema = this.UISchema;
+    // if (isObject(UISchema)) {
+    //   alternateLayout = cloneDeep(UISchema);
+    // } else
+    if (hasOwn(formValue, 'UISchema')) {
       alternateLayout = cloneDeep(formValue.UISchema);
     } else if (hasOwn(formValue, 'uiSchema')) {
       alternateLayout = cloneDeep(formValue.uiSchema);

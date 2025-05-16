@@ -3,7 +3,7 @@ import {trigger, state, style, animate, transition} from '@angular/animations';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 
-import {Examples} from './example-schemas.model';
+import {Examples, ExampleSet} from './example-schemas.model';
 import {JsonPointer, JsonSchemaFormComponent} from '@ajsf/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
@@ -26,9 +26,8 @@ export class DemoComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
 
-  examples: any = Examples;
-  languageList: any = ['de', 'en', 'es', 'fr', 'it', 'pt', 'zh'];
-  languages: any = {
+  exampleSets: {[key: string]: ExampleSet} = Examples;
+  languages: {[key: string]: string} = {
     de: 'German',
     en: 'English',
     es: 'Spanish',
@@ -37,10 +36,7 @@ export class DemoComponent implements OnInit {
     pt: 'Portuguese',
     zh: 'Chinese',
   };
-  selectedSet = 'ng-jsf';
-  selectedSetName = '';
-  selectedExample = 'ng-jsf-flex-layout';
-  selectedExampleName = 'Flexbox layout';
+  selectedExample = '';
   selectedLanguage = 'en';
   visible = {
     options: true,
@@ -76,25 +72,27 @@ export class DemoComponent implements OnInit {
   ngOnInit() {
     // Subscribe to query string to detect schema to load
     this.route.queryParams.subscribe((params) => {
-      if (params['set']) {
-        this.selectedSet = params['set'];
-        this.selectedSetName = {
-          'ng-jsf': '',
-          asf: 'Angular Schema Form:',
-          rsf: 'React Schema Form:',
-          jsf: 'JSONForm:',
-        }[this.selectedSet];
-      }
       if (params['example']) {
         this.selectedExample = params['example'];
-        this.selectedExampleName = this.examples[this.selectedSet].schemas.find(
-          (schema) => schema.file === this.selectedExample,
-        ).name;
       }
       if (params['language']) {
         this.selectedLanguage = params['language'];
       }
-      this.loadSelectedExample();
+      if (this.selectedExample) {
+        const p = this.selectedExample.split('|');
+        console.log(p);
+        const exampleURL = 'assets/example-schemas/' + p[1] + '.json';
+        this.liveFormData = {};
+        this.formActive = false;
+        this.submittedFormData = null;
+        this.formIsValid = null;
+        this.formValidationErrors = null;
+
+        this.http.get(exampleURL, {responseType: 'text'}).subscribe((schema) => {
+          this.jsonFormSchema = schema;
+          this.generateForm(this.jsonFormSchema);
+        });
+      }
     });
   }
 
@@ -130,7 +128,7 @@ export class DemoComponent implements OnInit {
     for (const error of this.formValidationErrors) {
       const message = error.message;
       const dataPathArray = JsonPointer.parse(error.dataPath);
-      if (dataPathArray.length) {
+      if (dataPathArray && dataPathArray.length) {
         let field = dataPathArray[0];
         for (let i = 1; i < dataPathArray.length; i++) {
           const key = dataPathArray[i];
@@ -144,40 +142,11 @@ export class DemoComponent implements OnInit {
     return errorArray.join('<br>');
   }
 
-  loadSelectedExample(
-    selectedSet: string = this.selectedSet,
-    selectedSetName: string = this.selectedSetName,
-    selectedExample: string = this.selectedExample,
-    selectedExampleName: string = this.selectedExampleName,
-  ) {
-    if (selectedExample !== this.selectedExample) {
-      this.formActive = false;
-      this.selectedSet = selectedSet;
-      this.selectedSetName = selectedSetName;
-      this.selectedExample = selectedExample;
-      this.selectedExampleName = selectedExampleName;
-      this.router.navigateByUrl(
-        '/?set=' +
-          selectedSet +
-          '&example=' +
-          selectedExample +
-          '&language=' +
-          this.selectedLanguage,
-      );
-      this.liveFormData = {};
-      this.submittedFormData = null;
-      this.formIsValid = null;
-      this.formValidationErrors = null;
-    }
-    const exampleURL = `assets/example-schemas/${this.selectedExample}.json`;
-    this.http.get(exampleURL, {responseType: 'text'}).subscribe((schema) => {
-      this.jsonFormSchema = schema;
-      this.generateForm(this.jsonFormSchema);
-    });
-  }
-
-  loadSelectedLanguage() {
-    window.location.href = `${window.location.pathname}?set=${this.selectedSet}&example=${this.selectedExample}&language=${this.selectedLanguage}`;
+  loadSelectedExample() {
+    console.log(this.selectedExample);
+    this.router.navigateByUrl(
+      '/?example=' + this.selectedExample + '&language=' + this.selectedLanguage,
+    );
   }
 
   // Display the form entered by the user

@@ -1,7 +1,5 @@
-import {Component, HostBinding, Input, OnInit} from '@angular/core';
-import {AbstractControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
-
-import {JsonSchemaFormService} from '../json-schema-form.service';
+import {Component, HostBinding, OnInit} from '@angular/core';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AbstractComponent} from './abstract.component';
 
 @Component({
@@ -65,7 +63,6 @@ export class NumberComponent extends AbstractComponent implements OnInit {
   allowDecimal = true;
   lastValidNumber = '';
   ngOnInit() {
-    this.options = this.layoutNode.options || {};
     this.htmlClass = this.options.htmlClass || '';
     this.jsf.initializeControl(this);
     if (this.layoutNode.dataType === 'integer') {

@@ -1,8 +1,7 @@
-import {AbstractControl} from '@angular/forms';
 import {buildTitleMap} from '../shared';
-import {Component, Input, OnInit} from '@angular/core';
-import {JsonSchemaFormService} from '../json-schema-form.service';
+import {Component, OnInit} from '@angular/core';
 import {AbstractComponent} from './abstract.component';
+import {TitleMapItem} from '../json-schema-form.service';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -40,15 +39,9 @@ import {AbstractComponent} from './abstract.component';
     }`,
 })
 export class RadiosComponent extends AbstractComponent implements OnInit {
-  layoutOrientation = 'vertical';
-  radiosList: any[] = [];
+  radiosList: TitleMapItem[] = [];
 
   ngOnInit() {
-    this.options = this.layoutNode.options || {};
-    const layoutNode = this.layoutNode;
-    if (layoutNode.type === 'radios-inline' || layoutNode.type === 'radiobuttons') {
-      this.layoutOrientation = 'horizontal';
-    }
     this.radiosList = buildTitleMap(
       this.options.titleMap || this.options.enumNames,
       this.options.enum,

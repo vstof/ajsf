@@ -15,9 +15,19 @@
  * JSONForm (jQuery) examples ('jsf-...') are from
  *   http://ulion.github.io/jsonform/playground/
  */
+export interface ExampleSet {
+  name: string;
+  url?: string;
+  schemas: Example[];
+}
+export interface Example {
+  name: string;
+  file: string;
+  urlParameters?: string;
+}
 
-export const Examples: any = {
-  'ng-jsf': {
+export const Examples: {[key: string]: ExampleSet} = {
+  '1-ng-jsf': {
     name: 'Angular JSON Schema Form examples',
     schemas: [
       {name: 'Flexbox layout', file: 'ng-jsf-flex-layout'},
@@ -35,7 +45,7 @@ export const Examples: any = {
       // { name: 'JSON Meta-Schema - Draft 1',    file: 'json-schema-draft01', },
     ],
   },
-  asf: {
+  '2-asf': {
     name: 'Angular Schema Form (AngularJS) examples',
     url: 'http://schemaform.io/examples/bootstrap-example.html',
     schemas: [
@@ -50,7 +60,7 @@ export const Examples: any = {
       {name: 'Hack: Conditional Required', file: 'asf-hack-conditional-required'},
     ],
   },
-  rjsf: {
+  '3-rjsf': {
     name: 'React JSON Schema Form examples',
     url: 'https://mozilla-services.github.io/react-jsonschema-form/',
     schemas: [
@@ -72,7 +82,7 @@ export const Examples: any = {
       {name: 'Alternatives', file: 'rjsf-alternatives'},
     ],
   },
-  jsf: {
+  '4-jsf': {
     name: 'JSONForm (jQuery) examples',
     url: 'http://ulion.github.io/jsonform/playground/',
     schemas: [
