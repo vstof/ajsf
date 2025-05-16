@@ -63,8 +63,8 @@ export class NumberComponent extends AbstractComponent implements OnInit {
   allowDecimal = true;
   lastValidNumber = '';
   ngOnInit() {
-    this.htmlClass = this.options.htmlClass || '';
     this.jsf.initializeControl(this);
+    this.htmlClass = this.options.htmlClass || '';
     if (this.layoutNode.dataType === 'integer') {
       this.allowDecimal = false;
     }

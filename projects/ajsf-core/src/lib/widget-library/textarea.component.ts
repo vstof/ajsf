@@ -56,8 +56,8 @@ export class TextareaComponent extends AbstractComponent implements OnInit {
   @HostBinding('class') public htmlClass = '';
 
   ngOnInit() {
-    this.htmlClass = this.options.htmlClass || '';
     this.jsf.initializeControl(this);
+    this.htmlClass = this.options.htmlClass || '';
   }
 
   updateValue(event) {

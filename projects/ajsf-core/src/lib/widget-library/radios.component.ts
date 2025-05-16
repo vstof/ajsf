@@ -42,12 +42,12 @@ export class RadiosComponent extends AbstractComponent implements OnInit {
   radiosList: TitleMapItem[] = [];
 
   ngOnInit() {
+    this.jsf.initializeControl(this);
     this.radiosList = buildTitleMap(
       this.options.titleMap || this.options.enumNames,
       this.options.enum,
       true,
     );
-    this.jsf.initializeControl(this);
   }
 
   updateValue(event) {

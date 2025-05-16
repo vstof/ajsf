@@ -82,6 +82,7 @@ export class SelectComponent extends AbstractComponent implements OnInit {
   isArray = isArray;
 
   ngOnInit() {
+    this.jsf.initializeControl(this);
     this.htmlClass = this.options.htmlClass || '';
     this.selectList = buildTitleMap(
       this.options.titleMap || this.options.enumNames,
@@ -89,7 +90,6 @@ export class SelectComponent extends AbstractComponent implements OnInit {
       !!this.options.required,
       !!this.options.flatList,
     );
-    this.jsf.initializeControl(this);
   }
 
   updateValue(event) {
