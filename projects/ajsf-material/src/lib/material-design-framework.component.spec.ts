@@ -9,10 +9,9 @@ describe('MaterialDesignFrameworkComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [JsonSchemaFormModule, CommonModule, WidgetLibraryModule],
-      declarations: [MaterialDesignFrameworkComponent],
-      providers: [JsonSchemaFormService],
-    }).compileComponents();
+    imports: [JsonSchemaFormModule, CommonModule, WidgetLibraryModule, MaterialDesignFrameworkComponent],
+    providers: [JsonSchemaFormService],
+}).compileComponents();
   }));
 
   beforeEach(() => {
