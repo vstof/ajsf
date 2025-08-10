@@ -1,4 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {AbstractControl} from '@angular/forms';
+
+import {JsonSchemaFormService} from '../json-schema-form.service';
 import {AbstractComponent} from './abstract.component';
 
 // TODO: Add this control
@@ -10,6 +13,7 @@ import {AbstractComponent} from './abstract.component';
 })
 export class OneOfComponent extends AbstractComponent implements OnInit {
   ngOnInit() {
+    this.options = this.layoutNode.options || {};
     this.jsf.initializeControl(this);
   }
 

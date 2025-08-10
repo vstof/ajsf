@@ -1,37 +1,29 @@
 import {ChangeDetectionStrategy, Component, Input, inject} from '@angular/core';
-import {JsonSchemaFormService} from '@ajsf/core';
+import {NgComponentOutlet} from '@angular/common';
+import {JsonSchemaFormService, Framework} from '@ajsf/core';
 
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'flex-layout-root-widget',
-  template: ` @for (layoutNode of layout; track layoutNode; let i = $index) {
-    <div
-      [class.form-flex-item]="isFlexItem"
-      [style.flex-grow]="getFlexAttribute(layoutNode, 'flex-grow')"
-      [style.flex-shrink]="getFlexAttribute(layoutNode, 'flex-shrink')"
-      [style.flex-basis]="getFlexAttribute(layoutNode, 'flex-basis')"
-      [style.align-self]="(layoutNode?.options || {})['align-self']"
-      [style.order]="layoutNode?.options?.order"
-    >
-      @if (showWidget(layoutNode)) {
-        <select-framework-widget
-          [dataIndex]="layoutNode?.arrayItem ? (dataIndex || []).concat(i) : dataIndex || []"
-          [layoutIndex]="(layoutIndex || []).concat(i)"
-          [layoutNode]="layoutNode"
-        ></select-framework-widget>
-      }
-      <div></div>
-    </div>
-  }`,
+  templateUrl: './flex-layout-root.component.html',
   changeDetection: ChangeDetectionStrategy.Default,
+  imports: [NgComponentOutlet],
 })
 export class FlexLayoutRootComponent {
   private jsf = inject(JsonSchemaFormService);
+  framework = inject(Framework);
+  options: any;
 
-  @Input() dataIndex: number[];
-  @Input() layoutIndex: number[];
-  @Input() layout: any[];
-  @Input() isFlexItem = false;
+  @Input()
+  layoutIndex: number[];
+  @Input()
+  dataIndex: number[];
+  @Input()
+  layout: any[];
+  @Input()
+  isOrderable: boolean;
+  @Input()
+  isFlexItem: boolean;
 
   removeItem(item) {
     this.jsf.removeItem(item);

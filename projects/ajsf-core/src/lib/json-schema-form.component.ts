@@ -28,12 +28,6 @@ import {WidgetLibraryService} from './widget-library/widget-library.service';
 import {RootComponent} from './widget-library/root.component';
 import {Framework} from '@ajsf/core';
 
-export const JSON_SCHEMA_FORM_VALUE_ACCESSOR: any = {
-  provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => JsonSchemaFormComponent),
-  multi: false,
-};
-
 /**
  * @module 'JsonSchemaFormComponent' - Angular JSON Schema Form
  *
@@ -75,7 +69,14 @@ export const JSON_SCHEMA_FORM_VALUE_ACCESSOR: any = {
   changeDetection: ChangeDetectionStrategy.OnPush,
   // Adding 'JsonSchemaFormService' here, instead of in the module,
   // creates a separate instance of the service for each component
-  providers: [JsonSchemaFormService, JSON_SCHEMA_FORM_VALUE_ACCESSOR],
+  providers: [
+    JsonSchemaFormService,
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => JsonSchemaFormComponent),
+      multi: true,
+    },
+  ],
   imports: [FormsModule, RootComponent],
 })
 export class JsonSchemaFormComponent implements ControlValueAccessor, OnChanges, OnInit {
@@ -200,7 +201,7 @@ export class JsonSchemaFormComponent implements ControlValueAccessor, OnChanges,
     this.widgetLibrary.registerFrameworkWidgets(this.framework.widgets);
   }
   ngOnInit() {
-    this.updateForm();
+    //  this.updateForm();
   }
 
   ngOnChanges(changes: SimpleChanges) {

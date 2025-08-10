@@ -1,6 +1,7 @@
 import {AbstractControl} from '@angular/forms';
 import {Component, Input, OnInit, inject} from '@angular/core';
 import {JsonSchemaFormService} from '@ajsf/core';
+import {FlexLayoutRootComponent} from './flex-layout-root.component';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -173,6 +174,7 @@ import {JsonSchemaFormService} from '@ajsf/core';
       }
     `,
   ],
+  imports: [FlexLayoutRootComponent],
 })
 export class FlexLayoutSectionComponent implements OnInit {
   private jsf = inject(JsonSchemaFormService);

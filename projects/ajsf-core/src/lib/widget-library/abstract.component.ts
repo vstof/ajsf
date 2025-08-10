@@ -9,19 +9,10 @@ export class AbstractComponent extends UntypedFormControl {
   controlValue: any;
   controlDisabled = false;
   boundControl = false;
-  options: any = {};
-
-  private _layoutNode: any;
+  options: any;
 
   @Input()
-  get layoutNode() {
-    return this._layoutNode;
-  }
-
-  set layoutNode(layoutNode: any) {
-    this._layoutNode = layoutNode;
-  }
-
+  layoutNode: any;
   @Input()
   layoutIndex: number[];
   @Input()

@@ -1,22 +1,22 @@
-export const frValidationMessages: any = {
+export const nlValidationMessages: any = {
   // French error messages
-  required: 'Ce champ est obligatoire',
+  required: 'Dit is een verplicht veld',
   minLength:
-    'Ce champ doit avoir minimum {{minimumLength}} caractères (actuellement: {{currentLength}})',
+    'Dit veld moet minimum {{minimumLength}} karakters bevatten (huidig aantal karkaters: {{currentLength}})',
   maxLength:
-    'Ce champ doit avoir maximum {{maximumLength}} caractères (actuellement: {{currentLength}})',
-  pattern: 'Ce champ ne respecte pas le format',
-  mustBeChecked: 'Ce champ doit être coché',
+    'Dit veld mag maximum {{maximumLength}} karakters bevatten (huidig aantal karkaters: {{currentLength}})',
+  pattern: 'Dit veld voldoet niet aan de correcte format',
+  mustBeChecked: 'Dit veld moet aangekruisd zijn',
   format: function (error) {
     switch (error.requiredFormat) {
       case 'date':
-        return 'Ce champ doit être une date valable';
+        return 'Dit veld moet een geldige datum zijn';
       case 'time':
-        return 'Doit être une heure, tel que "16:20" ou "03:14:15.9265"';
+        return '[nl]Doit être une heure, tel que "16:20" ou "03:14:15.9265"';
       case 'date-time':
         return 'Doit être une date et une heure, tel que "2000-03-14T01:59" ou "2000-03-14T01:59:26.535Z"';
       case 'email':
-        return 'Ce champ doit être une adresse e-mail valable, tel que "name@example.com"';
+        return 'Dit veld moet een geldig e-mailadres bevatten zoals "name@example.com"';
       case 'hostname':
         return 'Doit être un nom de domaine, tel que "example.com"';
       case 'ipv4':
@@ -41,9 +41,9 @@ export const frValidationMessages: any = {
         return 'Doit être avoir le format correct: ' + error.requiredFormat;
     }
   },
-  minimum: 'Ce champ doit être supérieur à {{minimumValue}}',
+  minimum: 'De waarde moet groter zijn dan {{minimumValue}}',
   exclusiveMinimum: 'Ce champ doit avoir minimum {{exclusiveMinimumValue}} charactères',
-  maximum: 'Ce champ doit être inférieur à {{maximumValue}}',
+  maximum: 'De waarde moet kleiner zijn dan {{maximumValue}',
   exclusiveMaximum: 'Ce champ doit avoir maximum {{exclusiveMaximumValue}} charactères',
   multipleOf: function (error) {
     if ((1 / error.multipleOfValue) % 10 === 0) {
@@ -58,6 +58,6 @@ export const frValidationMessages: any = {
   minItems: 'Ce champ doit comporter au minimum {{minimumItems}} éléments',
   maxItems: 'Ce champ doit comporter au maximum {{minimumItems}} éléments',
   uniqueItems: 'Tous les éléments doivent être uniques',
-  enum: 'Ce champ ne contient pas une valeur valable',
+  enum: 'Dit veld bevat geen geldige waarde',
   // Note: No default error messages for 'type', 'const', 'enum', or 'dependencies'
 };

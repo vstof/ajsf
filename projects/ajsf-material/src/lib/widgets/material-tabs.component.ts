@@ -16,18 +16,16 @@ import {JsonSchemaFormService} from '@ajsf/core';
     @for (layoutItem of layoutNode?.items; track layoutItem; let i = $index) {
       <div [class]="options?.htmlClass || ''">
         @if (selectedItem === i) {
-          <select-framework-widget
-            [class]="
-              (options?.fieldHtmlClass || '') +
-              ' ' +
-              (options?.activeClass || '') +
-              ' ' +
-              (options?.style?.selected || '')
-            "
-            [dataIndex]="layoutNode?.dataType === 'array' ? (dataIndex || []).concat(i) : dataIndex"
-            [layoutIndex]="(layoutIndex || []).concat(i)"
-            [layoutNode]="layoutItem"
-          ></select-framework-widget>
+          
+          <ng-container
+            [ngComponentOutlet]="framework.frameworkComponent"
+            [ngComponentOutletInputs]="{
+                      layoutNode: layoutItem, 
+                      layoutIndex: (layoutIndex || []).concat(i), 
+                      dataIndex: layoutItem?.arrayItem ? (dataIndex || []).concat(i) : dataIndex || []
+                    }"
+          />
+        
         }
       </div>
     }`,

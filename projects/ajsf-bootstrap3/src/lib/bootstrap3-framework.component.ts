@@ -1,7 +1,7 @@
 import {ChangeDetectorRef, Component, Input, OnChanges, OnInit} from '@angular/core';
 import cloneDeep from 'lodash-es/cloneDeep';
 import map from 'lodash-es/map';
-import {addClasses, inArray} from '@ajsf/core';
+import {JsonSchemaFormService, addClasses, inArray} from '@ajsf/core';
 import {NoFrameworkComponent} from '@ajsf/core/framework-library/no-framework.component';
 
 /**

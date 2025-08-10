@@ -41,10 +41,17 @@ import {AbstractComponent} from './abstract.component';
   `,
 })
 export class CheckboxesComponent extends AbstractComponent implements OnInit {
+  layoutOrientation: string;
   formArray: AbstractControl;
   checkboxList: TitleMapItem[] = [];
 
   ngOnInit() {
+    this.options = this.layoutNode.options || {};
+    const layoutNode = this.layoutNode;
+    this.layoutOrientation =
+      layoutNode.type === 'checkboxes-inline' || layoutNode.type === 'checkboxbuttons'
+        ? 'horizontal'
+        : 'vertical';
     this.jsf.initializeControl(this);
     this.checkboxList = buildTitleMap(
       this.options.titleMap || this.options.enumNames,

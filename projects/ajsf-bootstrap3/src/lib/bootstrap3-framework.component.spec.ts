@@ -9,9 +9,10 @@ describe('Bootstrap3FrameworkComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [JsonSchemaFormModule, CommonModule, WidgetLibraryModule, Bootstrap3FrameworkComponent],
-    providers: [JsonSchemaFormService],
-}).compileComponents();
+      imports: [JsonSchemaFormModule, CommonModule, WidgetLibraryModule],
+      declarations: [Bootstrap3FrameworkComponent],
+      providers: [JsonSchemaFormService],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

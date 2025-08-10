@@ -1,12 +1,13 @@
 import {AbstractControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {Component, HostBinding, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {AbstractComponent} from './abstract.component';
 import {TextareaAutoresizeDirective} from './textarea-autoresize.directive';
 
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'textarea-widget',
-  template: `@if (options?.title) {
+  template: `<div [class]="options?.htmlClass || ''">
+    @if (options?.title) {
       <label
         [attr.for]="'control' + layoutNode?._id"
         [class]="options?.labelHtmlClass || ''"
@@ -49,15 +50,14 @@ import {TextareaAutoresizeDirective} from './textarea-autoresize.directive';
         (input)="updateValue($event)"
         >{{ controlValue }}</textarea
       >
-    }`,
+    }
+  </div>`,
   imports: [FormsModule, TextareaAutoresizeDirective, ReactiveFormsModule],
 })
 export class TextareaComponent extends AbstractComponent implements OnInit {
-  @HostBinding('class') public htmlClass = '';
-
   ngOnInit() {
+    this.options = this.layoutNode.options || {};
     this.jsf.initializeControl(this);
-    this.htmlClass = this.options.htmlClass || '';
   }
 
   updateValue(event) {

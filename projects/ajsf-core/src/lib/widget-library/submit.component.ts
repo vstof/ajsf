@@ -27,6 +27,7 @@ export class SubmitComponent extends AbstractComponent implements OnInit, OnDest
   isValidChangesSubs: Subscription;
 
   ngOnInit() {
+    this.options = this.layoutNode.options || {};
     this.jsf.initializeControl(this);
     if (hasOwn(this.options, 'disabled')) {
       this.controlDisabled = this.options.disabled;

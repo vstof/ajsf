@@ -1,8 +1,10 @@
 export const enValidationMessages: any = {
   // Default English error messages
   required: 'This field is required.',
+  const: 'This field does not contain a valid value.',
   minLength: 'Must be {{minimumLength}} characters or longer (current length: {{currentLength}})',
   maxLength: 'Must be {{maximumLength}} characters or shorter (current length: {{currentLength}})',
+  mustBeChecked: 'Must be checked',
   pattern: 'Must match pattern: {{requiredPattern}}',
   format: function (error) {
     switch (error.requiredFormat) {
@@ -57,5 +59,6 @@ export const enValidationMessages: any = {
   minItems: 'Must have {{minimumItems}} or more items (current items: {{currentItems}})',
   maxItems: 'Must have {{maximumItems}} or fewer items (current items: {{currentItems}})',
   uniqueItems: 'All items must be unique',
+  enum: 'This field does not contain a valid value',
   // Note: No default error messages for 'type', 'const', 'enum', or 'dependencies'
 };

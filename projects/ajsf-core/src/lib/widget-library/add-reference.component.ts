@@ -22,7 +22,9 @@ export class AddReferenceComponent extends AbstractComponent implements OnInit {
   previousLayoutIndex: number[];
   previousDataIndex: number[];
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.options = this.layoutNode.options || {};
+  }
 
   get showAddButton(): boolean {
     return (

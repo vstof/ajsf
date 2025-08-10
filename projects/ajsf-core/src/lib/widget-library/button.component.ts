@@ -25,6 +25,7 @@ import {AbstractComponent} from './abstract.component';
 })
 export class ButtonComponent extends AbstractComponent implements OnInit {
   ngOnInit() {
+    this.options = this.layoutNode.options || {};
     this.jsf.initializeControl(this);
   }
 

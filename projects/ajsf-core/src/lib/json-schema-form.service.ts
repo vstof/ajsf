@@ -1,4 +1,4 @@
-import {inject, Injectable} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {AbstractControl, UntypedFormArray, UntypedFormGroup} from '@angular/forms';
 import {Subject} from 'rxjs';
 import cloneDeep from 'lodash-es/cloneDeep';
@@ -21,21 +21,12 @@ import {
   buildSchemaFromLayout,
   removeRecursiveReferences,
   hasValue,
-  isArray,
   isDefined,
   isEmpty,
   isObject,
   JsonPointer,
 } from './shared';
-import {
-  deValidationMessages,
-  enValidationMessages,
-  esValidationMessages,
-  frValidationMessages,
-  itValidationMessages,
-  ptValidationMessages,
-  zhValidationMessages,
-} from './locale';
+import {enValidationMessages, frValidationMessages, nlValidationMessages} from './locale';
 import {AbstractComponent} from './widget-library/abstract.component';
 
 export interface TitleMapItem {
@@ -135,14 +126,14 @@ export class JsonSchemaFormService {
       validationMessages: {}, // set by setLanguage()
     },
   };
-  defaultValidationMessages: any;
+  defaultValidationMessages: {[key: string]: any} = {};
 
   constructor() {
     this.setLanguage(this.language);
     this.ajv = new Ajv({
       allErrors: true,
-      jsPropertySyntax: true,
       /*
+      jsPropertySyntax: true,
       jsonPointers: true,
       unknownFormats: 'ignore'
       */
@@ -154,18 +145,23 @@ export class JsonSchemaFormService {
 
   setLanguage(language: string = 'en-US') {
     this.language = language;
-    const languageValidationMessages = {
-      de: deValidationMessages,
-      en: enValidationMessages,
-      es: esValidationMessages,
-      fr: frValidationMessages,
-      it: itValidationMessages,
-      pt: ptValidationMessages,
-      zh: zhValidationMessages,
-    };
     const languageCode = language.slice(0, 2);
 
-    this.defaultValidationMessages = languageValidationMessages[languageCode];
+    switch (languageCode) {
+      case 'fr':
+        this.defaultValidationMessages = frValidationMessages;
+        break;
+      case 'nl':
+        this.defaultValidationMessages = nlValidationMessages;
+        break;
+      case 'en':
+        this.defaultValidationMessages = enValidationMessages;
+        break;
+      default:
+        console.log('Missing translation of error message');
+
+        this.defaultValidationMessages = enValidationMessages;
+    }
   }
 
   getData() {
@@ -381,12 +377,12 @@ export class JsonSchemaFormService {
       return pointer[0] === 'value' && JsonPointer.has(value, pointer.slice(1))
         ? JsonPointer.get(value, pointer.slice(1))
         : pointer[0] === 'values' && JsonPointer.has(values, pointer.slice(1))
-        ? JsonPointer.get(values, pointer.slice(1))
-        : pointer[0] === 'tpldata' && JsonPointer.has(tpldata, pointer.slice(1))
-        ? JsonPointer.get(tpldata, pointer.slice(1))
-        : JsonPointer.has(values, pointer)
-        ? JsonPointer.get(values, pointer)
-        : '';
+          ? JsonPointer.get(values, pointer.slice(1))
+          : pointer[0] === 'tpldata' && JsonPointer.has(tpldata, pointer.slice(1))
+            ? JsonPointer.get(tpldata, pointer.slice(1))
+            : JsonPointer.has(values, pointer)
+              ? JsonPointer.get(values, pointer)
+              : '';
     }
     if (expression.indexOf('[idx]') > -1) {
       expression = expression.replace(/\[idx\]/g, <string>index);
@@ -555,8 +551,8 @@ export class JsonSchemaFormService {
               error[key] === true
                 ? addSpaces(key)
                 : error[key] === false
-                ? 'Not ' + addSpaces(key)
-                : addSpaces(key) + ': ' + formatError(error[key]),
+                  ? 'Not ' + addSpaces(key)
+                  : addSpaces(key) + ': ' + formatError(error[key]),
             )
             .join(', ')
         : addSpaces(error.toString());
@@ -570,41 +566,41 @@ export class JsonSchemaFormService {
           typeof validationMessages === 'string'
             ? validationMessages
             : // If custom error message is a function, return function result
-            typeof validationMessages[errorKey] === 'function'
-            ? validationMessages[errorKey](errors[errorKey])
-            : // If custom error message is a string, replace placeholders and return
-            typeof validationMessages[errorKey] === 'string'
-            ? // Does error message have any {{property}} placeholders?
-              !/{{.+?}}/.test(validationMessages[errorKey])
-              ? validationMessages[errorKey]
-              : // Replace {{property}} placeholders with values
-                Object.keys(errors[errorKey]).reduce(
-                  (errorMessage, errorProperty) =>
-                    errorMessage.replace(
-                      new RegExp('{{' + errorProperty + '}}', 'g'),
-                      errors[errorKey][errorProperty],
-                    ),
-                  validationMessages[errorKey],
-                )
-            : // If custom error message is a function, return function result
-            typeof this.defaultValidationMessages[errorKey] === 'function'
-            ? this.defaultValidationMessages[errorKey](errors[errorKey])
-            : // If custom error message is a string, replace placeholders and return
-            typeof this.defaultValidationMessages[errorKey] === 'string'
-            ? // Does error message have any {{property}} placeholders?
-              !/{{.+?}}/.test(this.defaultValidationMessages[errorKey])
-              ? this.defaultValidationMessages[errorKey]
-              : // Replace {{property}} placeholders with values
-                Object.keys(errors[errorKey]).reduce(
-                  (errorMessage, errorProperty) =>
-                    errorMessage.replace(
-                      new RegExp('{{' + errorProperty + '}}', 'g'),
-                      errors[errorKey][errorProperty],
-                    ),
-                  this.defaultValidationMessages[errorKey],
-                )
-            : // If no custom error message, return formatted error data instead
-              addSpaces(errorKey) + ' Error: ' + formatError(errors[errorKey]),
+              typeof validationMessages[errorKey] === 'function'
+              ? validationMessages[errorKey](errors[errorKey])
+              : // If custom error message is a string, replace placeholders and return
+                typeof validationMessages[errorKey] === 'string'
+                ? // Does error message have any {{property}} placeholders?
+                  !/{{.+?}}/.test(validationMessages[errorKey])
+                  ? validationMessages[errorKey]
+                  : // Replace {{property}} placeholders with values
+                    Object.keys(errors[errorKey]).reduce(
+                      (errorMessage, errorProperty) =>
+                        errorMessage.replace(
+                          new RegExp('{{' + errorProperty + '}}', 'g'),
+                          errors[errorKey][errorProperty],
+                        ),
+                      validationMessages[errorKey],
+                    )
+                : // If custom error message is a function, return function result
+                  typeof this.defaultValidationMessages[errorKey] === 'function'
+                  ? this.defaultValidationMessages[errorKey](errors[errorKey])
+                  : // If custom error message is a string, replace placeholders and return
+                    typeof this.defaultValidationMessages[errorKey] === 'string'
+                    ? // Does error message have any {{property}} placeholders?
+                      !/{{.+?}}/.test(this.defaultValidationMessages[errorKey])
+                      ? this.defaultValidationMessages[errorKey]
+                      : // Replace {{property}} placeholders with values
+                        Object.keys(errors[errorKey]).reduce(
+                          (errorMessage, errorProperty) =>
+                            errorMessage.replace(
+                              new RegExp('{{' + errorProperty + '}}', 'g'),
+                              errors[errorKey][errorProperty],
+                            ),
+                          this.defaultValidationMessages[errorKey],
+                        )
+                    : // If no custom error message, return formatted error data instead
+                      addSpaces(errorKey) + ' Error: ' + formatError(errors[errorKey]),
         )
         .join('<br>')
     );

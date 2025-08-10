@@ -66,8 +66,9 @@ export class InputComponent extends AbstractComponent implements OnInit {
   @HostBinding('class') public htmlClass = '';
 
   ngOnInit() {
-    this.jsf.initializeControl(this);
+    this.options = this.layoutNode.options || {};
     this.htmlClass = this.options.htmlClass || '';
+    this.jsf.initializeControl(this);
   }
 
   updateValue(event) {

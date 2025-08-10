@@ -1,4 +1,5 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, Input, OnInit} from '@angular/core';
+import {JsonSchemaFormService} from '../json-schema-form.service';
 import {AbstractComponent} from './abstract.component';
 import {NgComponentOutlet} from '@angular/common';
 import {Framework} from '@ajsf/core';
@@ -6,7 +7,7 @@ import {Framework} from '@ajsf/core';
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'tabs-widget',
-  template: `<ul [class]="options?.labelHtmlClass || ''">
+  template: ` <ul [class]="options?.labelHtmlClass || ''">
       @for (item of layoutNode?.items; track item; let i = $index) {
         <li
           [class]="
@@ -73,6 +74,7 @@ export class TabsComponent extends AbstractComponent implements OnInit {
   showAddTab = true;
 
   ngOnInit() {
+    this.options = this.layoutNode.options || {};
     this.itemCount = this.layoutNode.items.length - 1;
     this.updateControl();
   }

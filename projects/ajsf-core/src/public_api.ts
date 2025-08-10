@@ -2,7 +2,6 @@
  * Public API Surface of json-schema-form
  */
 
-export {JsonSchemaFormModule} from './lib/json-schema-form.module';
 export {TitleMapItem, ErrorMessages, JsonSchemaFormService} from './lib/json-schema-form.service';
 export {JsonSchemaFormComponent} from './lib/json-schema-form.component';
 export {Framework} from './lib/framework-library/framework';

@@ -52,6 +52,7 @@ export class CheckboxComponent extends AbstractComponent implements OnInit {
   trueValue: any = true;
   falseValue: any = false;
   ngOnInit() {
+    this.options = this.layoutNode.options || {};
     this.jsf.initializeControl(this);
     if (this.controlValue === null || this.controlValue === undefined) {
       this.controlValue = this.options.title;

@@ -1,17 +1,21 @@
-<div
-  *ngFor="let layoutNode of layout; let i = index"
-  [class.form-flex-item]="isFlexItem"
-  [style.flex-grow]="getFlexAttribute(layoutNode, 'flex-grow')"
-  [style.flex-shrink]="getFlexAttribute(layoutNode, 'flex-shrink')"
-  [style.flex-basis]="getFlexAttribute(layoutNode, 'flex-basis')"
-  [style.align-self]="(layoutNode?.options || {})['align-self']"
-  [style.order]="layoutNode?.options?.order"
->
-  <select-framework-widget
-    *ngIf="showWidget(layoutNode)"
-    [dataIndex]="layoutNode?.arrayItem ? (dataIndex || []).concat(i) : dataIndex || []"
-    [layoutIndex]="(layoutIndex || []).concat(i)"
-    [layoutNode]="layoutNode"
-  ></select-framework-widget>
-  <div></div>
-</div>
+@for (layoutItem of layout; track layoutItem; let i = $index) {
+  <div
+    [class.form-flex-item]="isFlexItem"
+    [style.flex-grow]="getFlexAttribute(layoutItem, 'flex-grow')"
+    [style.flex-shrink]="getFlexAttribute(layoutItem, 'flex-shrink')"
+    [style.flex-basis]="getFlexAttribute(layoutItem, 'flex-basis')"
+    [style.align-self]="(layoutItem?.options || {})['align-self']"
+    [style.order]="layoutItem?.options?.order"
+  >
+    @if (showWidget(layoutItem)) {
+      <ng-container
+        [ngComponentOutlet]="framework.frameworkComponent"
+        [ngComponentOutletInputs]="{
+                layoutNode: layoutItem, 
+                layoutIndex: (layoutIndex || []).concat(i), 
+                dataIndex: layoutItem?.arrayItem ? (dataIndex || []).concat(i) : dataIndex || []
+              }"
+      />
+    }
+  </div>
+}
