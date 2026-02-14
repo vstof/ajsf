@@ -1,6 +1,5 @@
 import {
   ElementRef,
-  HostListener,
   Directive,
   Input,
   NgZone,
@@ -15,7 +14,7 @@ import {WindowRef} from './window-ref.service';
 
 const MAX_LOOKUP_RETRIES = 3;
 
-@Directive({selector: '[textareaAutoresize]'})
+@Directive({selector: '[textareaAutoresize]', host: {'(input)': 'onInput()'}})
 export class TextareaAutoresizeDirective implements OnDestroy, OnChanges, AfterContentChecked {
   element = inject(ElementRef);
   private _window = inject(WindowRef);
@@ -50,8 +49,7 @@ export class TextareaAutoresizeDirective implements OnDestroy, OnChanges, AfterC
   private _windowResizeHandler;
   private _destroyed = false;
 
-  @HostListener('input', ['$event.target'])
-  onInput(textArea: HTMLTextAreaElement): void {
+  onInput(): void {
     this.adjust();
   }
 
@@ -111,13 +109,6 @@ export class TextareaAutoresizeDirective implements OnDestroy, OnChanges, AfterC
   }
 
   _addWindowResizeHandler() {
-    const _this = this;
-    // this._windowResizeHandler = Debounce(() => {
-    //   this._zone.run(() => {
-    //     _this.adjust();
-    //   });
-    // }, 200);
-
     this._zone.runOutsideAngular(() => {
       this._window.nativeWindow.addEventListener('resize', this._windowResizeHandler, false);
     });
@@ -208,23 +199,3 @@ export class TextareaAutoresizeDirective implements OnDestroy, OnChanges, AfterC
     return lineHeight;
   }
 }
-
-// function Debounce(func, wait, immediate = false) {
-//   let timeout;
-//   return function () {
-//     const context = this;
-//     const args = arguments;
-//     const later = function () {
-//       timeout = null;
-//       if (!immediate) {
-//         func.apply(context, args);
-//       }
-//     };
-//     const callNow = immediate && !timeout;
-//     clearTimeout(timeout);
-//     timeout = setTimeout(later, wait);
-//     if (callNow) {
-//       func.apply(context, args);
-//     }
-//   };
-// }
